@@ -1,0 +1,8 @@
+.container{
+    display: flex;
+}
+
+.container > .login-panel{
+    justify-content: center;
+    align-self: center;
+}

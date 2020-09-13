@@ -1,0 +1,42 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
+
+
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './header/header.component';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+import { AuthenticationService } from './services/authentication.service';
+import { AuthGuardService } from './services/auth-guard.service';
+import { TokenStorageService } from './services/token-storage.service';
+import { RegisterService } from './services/register.service';
+const routes: Routes = [
+  { path: '', component: AppComponent,canActivate: [AuthGuardService], data: {roles: 'USER'} },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuardService], data: {roles: 'USER'}}
+];
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    HeaderComponent,
+    RegisterComponent,
+    HomeComponent
+  ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
+  providers: [AuthenticationService, TokenStorageService, RegisterService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

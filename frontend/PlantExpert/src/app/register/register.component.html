@@ -1,0 +1,77 @@
+<!-- <div class="container">
+
+    <form method="post">
+      
+        <div class="container">
+          <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="uname" required>
+      
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+ 
+          <label for="uname"><b>First Name</b></label>
+          <input type="text" placeholder="Enter Username" name="uname" required>
+      
+          <label for="psw"><b>Last Name</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+
+          <button type="submit">Login</button>
+
+        </div>
+      
+      </form>
+
+</div> -->
+
+<div class="top-image"></div>
+
+<div class="row d-flex justify-content-center" style="margin-top: 5%;">
+
+  <div class="col-lg-5 d-flex justify-content-center bg-dark">
+    <form [formGroup]="registerForm" method="post" style=" width: 90%; padding: 5%;">
+      <div class="text-center mb-2">
+
+     <h1 style="color: white;">Sign Up To Our Community</h1>
+     </div>     
+       <div class="form-group mt-5">
+        <div class="input-group">
+          <div class="input-group-prepend">
+           <span class="input-group-text" id="uname"><b>E-mail</b></span>
+          </div>
+          <input formControlName="email" class="rounded-right text-center form-control form-control-lg" type="text" placeholder="Enter E-mail" aria-describedby="uname" name="uname" required>                  
+        </div>
+     
+        <div class="input-group mt-2">
+           <div class="input-group-prepend">
+            <span class="input-group-text" for="psw" id="pass"><b>Password</b></span>
+           </div>
+            <input formControlName="password" class="rounded-right text-center form-control form-control-lg"  type="password" placeholder="Enter Password" name="psw" aria-describedby="pass" required>              
+        </div>
+
+        <div class="input-group mt-2">
+          <div class="input-group-prepend">
+           <span class="input-group-text" for="psw" id="pass"><b>First Name</b></span>
+          </div>
+           <input formControlName="firstName" class="rounded-right text-center form-control form-control-lg"  type="text" placeholder="Enter First" name="psw" aria-describedby="pass" required>              
+        </div>
+
+        <div class="input-group mt-2">
+          <div class="input-group-prepend">
+           <span class="input-group-text" for="psw" id="pass"><b>Last Name</b></span>
+          </div>
+           <input formControlName="lastName" class="rounded-right text-center form-control form-control-lg"  type="text" placeholder="Enter Last Name" name="psw" aria-describedby="pass" required>              
+        </div>
+      
+    
+       </div>
+
+       <div class="text-center">
+        <button class="btn btn-success btn-block btn-lg" type="submit" (click) = "register()">Register</button>
+       <button class= "btn btn-primary mt-2 mb-2 btn-lg" [routerLink]="['/login']" routerLinkActive="router-link-active"  >Back To Login Page</button>         
+       </div>
+
+   
+     </form> 
+  </div>
+
+</div>
