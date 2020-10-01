@@ -22,4 +22,8 @@ public class Symptom {
     @Column(name = "slot_name")
     private String slotName;
 
+    @Column(name = "plant_type")
+    @Enumerated(EnumType.STRING)
+    private PlantType plantType;
+
 }

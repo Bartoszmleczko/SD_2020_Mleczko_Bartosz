@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,6 +27,17 @@ public class Disease {
     private String name;
 
     private String templateName;
+
+
+    @Column(name = "precaution", columnDefinition = "LONGTEXT")
+    private String precautionDiagnose;
+
+    @Column(name = "intervention", columnDefinition = "LONGTEXT")
+    private String interventionDiagnose;
+
+    @Column(name = "plant_type")
+    @Enumerated(EnumType.STRING)
+    private PlantType plantType;
 
     @NonNull
     @ManyToMany

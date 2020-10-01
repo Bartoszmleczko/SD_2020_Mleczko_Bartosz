@@ -1,0 +1,6 @@
+( deftemplate risk_factors
+    (slot wad_plodozmian)
+    (slot wilg_jesien)
+    (slot ciepla_zima)
+    (slot pszenica)
+)

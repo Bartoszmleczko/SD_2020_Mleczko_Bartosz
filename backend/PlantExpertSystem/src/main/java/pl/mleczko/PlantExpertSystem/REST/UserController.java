@@ -65,12 +65,6 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping(value = "/test", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<String> jess(@RequestBody PlantSicknessRequest request) throws JessException {
-
-        return plantExpertEvalService.provideFact(request);
-    }
-
 }
 
 

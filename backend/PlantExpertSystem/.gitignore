@@ -30,3 +30,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/java/pl/mleczko/PlantExpertSystem/jess.jar

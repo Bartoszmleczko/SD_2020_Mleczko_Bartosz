@@ -4,4 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import pl.mleczko.PlantExpertSystem.Entity.Disease;
 
 public interface DiseaseRepository extends JpaRepository<Disease, Integer> {
+
+    public Disease findByTemplateName(String templateName);
+
 }

@@ -10,7 +10,7 @@ import java.util.*;
 @Component
 public class PlantExpertEvalService {
 
-    private final Rete ruleEngine;
+    private Rete ruleEngine;
 
 
     public PlantExpertEvalService(Rete ruleEngine) {
@@ -19,7 +19,10 @@ public class PlantExpertEvalService {
 
 
     public void batchJessFile() throws JessException {
-        ruleEngine.batch("plants.clp");
+        ruleEngine.reset();
+        ruleEngine.clear();
+        ruleEngine.batch("templates/plants.clp");
+
     }
 
     public Rete getEngine() throws JessException {
@@ -44,11 +47,13 @@ public class PlantExpertEvalService {
 
         Fact riskFactorFact = new Fact("risk_factors", ruleEngine);
         Fact symptomFact = new Fact("symptoms", ruleEngine);
-        if(riskFactors != null)
+        if(riskFactors != null )
+            if(!riskFactors.isEmpty())
         for(RequestSlotDto slot : riskFactors){
             riskFactorFact.setSlotValue(slot.getSlotName(), new Value(1, RU.INTEGER));
         }
-        if(symptoms != null)
+        if(symptoms != null )
+            if(!symptoms.isEmpty())
         for(RequestSlotDto slot: symptoms){
             symptomFact.setSlotValue(slot.getSlotName(), new Value(1, RU.INTEGER));
         }
@@ -75,7 +80,7 @@ public class PlantExpertEvalService {
         ruleEngine.getGlobalContext().getVariableNames().forEachRemaining(j -> varNames.add(j.toString()));
         List<String> messages = getEngineReturnMessages(varNames);
         ruleEngine.reset();
-
+        ruleEngine.clear();
         return messages;
     }
 
