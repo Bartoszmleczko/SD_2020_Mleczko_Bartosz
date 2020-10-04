@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.mleczko.PlantExpertSystem.Entity.*;
 import pl.mleczko.PlantExpertSystem.ExpertSystem.PlantExpertEvalService;
 import pl.mleczko.PlantExpertSystem.Model.DiagnoseFormDto;
+import pl.mleczko.PlantExpertSystem.Model.DiseaseDto;
 import pl.mleczko.PlantExpertSystem.Model.PlantSicknessRequest;
 import pl.mleczko.PlantExpertSystem.Repository.DiseaseRepository;
 import pl.mleczko.PlantExpertSystem.Repository.RiskFactorRepository;

@@ -1,4 +1,4 @@
-package pl.mleczko.PlantExpertSystem.Service;
+package pl.mleczko.PlantExpertSystem.Model;
 
 import lombok.*;
 

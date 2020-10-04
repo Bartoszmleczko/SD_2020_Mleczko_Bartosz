@@ -14,8 +14,7 @@ public class Plant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "plant_id")
-    private Integer plantId;
+    @Column Long plantId;
 
     @Column(name = "name")
     private String name;

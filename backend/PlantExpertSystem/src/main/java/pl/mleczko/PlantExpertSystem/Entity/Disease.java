@@ -20,7 +20,7 @@ public class Disease {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "disease_id")
-    private Integer diseaseId;
+    private Long diseaseId;
 
     @NonNull
     @Column(name = "name")

@@ -8,9 +8,8 @@ import pl.mleczko.PlantExpertSystem.ExpertSystem.DiseaseCreatingService;
 import pl.mleczko.PlantExpertSystem.Model.DiagnoseFormDto;
 import pl.mleczko.PlantExpertSystem.Model.NewDiseaseForm;
 import pl.mleczko.PlantExpertSystem.Model.PlantSicknessRequest;
-import pl.mleczko.PlantExpertSystem.Model.SimpleTemplateForm;
 import pl.mleczko.PlantExpertSystem.Service.DiagnoseService;
-import pl.mleczko.PlantExpertSystem.Service.DiseaseDto;
+import pl.mleczko.PlantExpertSystem.Model.DiseaseDto;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -38,7 +37,7 @@ private final DiseaseCreatingService diseaseCreatingService;
 
     @PostMapping("/diseases")
     public String addNewDisease(NewDiseaseForm form) throws IOException {
-        diseaseCreatingService.createNewDisease(form);
+       return  diseaseCreatingService.createNewDisease(form);
     }
 
 }

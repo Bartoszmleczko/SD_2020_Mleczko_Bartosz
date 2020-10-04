@@ -8,6 +8,7 @@ import pl.mleczko.PlantExpertSystem.Model.NewDiseaseForm;
 import pl.mleczko.PlantExpertSystem.Model.SimpleTemplateForm;
 
 import java.io.*;
+import java.util.Set;
 
 @Service
 public class DiseaseCreatingService {
@@ -20,28 +21,17 @@ public class DiseaseCreatingService {
         this.fileService = fileService;
     }
 
-    public String writeRiskFactor(SimpleTemplateForm form) throws IOException {
-
-
+    public void writeRiskFactor(SimpleTemplateForm form) throws IOException {
         File file = fileService.getFile("templates/risk_factors.clp");
         File file2 = new ClassPathResource("templates/try.txt").getFile();
-
         String factor = replaceSlotTemplate(form.getTemplateName());
-
         writeRawTemplateData(file2, factor);
-
-        return "success";
     }
 
-    public String writeSymptom(SimpleTemplateForm form) throws IOException {
+    public void writeSymptom(SimpleTemplateForm form) throws IOException {
         File file = fileService.getFile("templates/symptoms.clp");
-
-
         String factor = replaceSlotTemplate(form.getTemplateName());
-
         writeRawTemplateData(file, factor);
-
-        return "success";
     }
 
     public void writeRawTemplateData(File file, String slot) throws IOException {
@@ -64,6 +54,16 @@ public class DiseaseCreatingService {
          return new String(" \n     (slot {template_name}) \n");
     }
 
-    public void createNewDisease(NewDiseaseForm form) {
+    public String createNewDisease(NewDiseaseForm form) {
+
+        Set<SimpleTemplateForm> factors = form.getRiskFactors();
+        Set<SimpleTemplateForm> symptoms = form.getSymptoms();
+
+        String templateName = form.getDiseaseTemplateName();
+
+        //TODO: end the mechanism
+
+
+        return null;
     }
 }

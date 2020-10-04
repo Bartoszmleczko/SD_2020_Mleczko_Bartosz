@@ -15,7 +15,7 @@ public class RiskFactor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "risk_id")
-    private Integer riskId;
+    private Long riskId;
 
     @Column(name = "name")
     private String name;
