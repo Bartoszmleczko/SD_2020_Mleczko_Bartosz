@@ -1,0 +1,15 @@
+.size {
+  width: 100%;
+}
+
+.layout {
+  justify-content: center;
+}
+
+button {
+  margin-left: 80px;
+  width: 120px;
+  height: 60px;
+  background-color: #3e5063;
+  color: white;
+}

@@ -35,6 +35,12 @@ public class Disease {
     @Column(name = "intervention", columnDefinition = "LONGTEXT")
     private String interventionDiagnose;
 
+    @Column(name ="image_name")
+    private String imageName;
+
+    @Column(name = "disease_description")
+    private String diseaseDescription;
+
     @Column(name = "plant_type")
     @Enumerated(EnumType.STRING)
     private PlantType plantType;

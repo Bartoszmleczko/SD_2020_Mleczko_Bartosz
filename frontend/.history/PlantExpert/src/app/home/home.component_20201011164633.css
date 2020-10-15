@@ -1,0 +1,17 @@
+.sidebar-border{
+    border: 2px solid black;
+    width: 20%;
+}
+
+.content{
+    width: 80%;
+}
+
+.main-header{
+    height: 7vh;
+    background-color: linen;
+}
+
+h1{
+    margin-top: auto;
+}

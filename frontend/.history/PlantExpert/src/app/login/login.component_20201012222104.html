@@ -1,0 +1,67 @@
+
+<div class="row top-image d-flex justify-content-center">
+
+
+</div>
+
+<div class="row d-flex justify-content-center login-back" style="margin-top: 5%; ">
+    <div class="col-lg-5">
+      <div class="text-center" >
+        <h2 >Plant Expert</h2> 
+        <h5 class="text-muted">Perfect solutions for Your crops</h5> 
+      </div>
+
+      <p style="font-size: 17px; width: 95%; margin-left: auto; margin-right: auto; margin-top: 2%;">
+      <i>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et tempor purus, ut malesuada ex. Integer bibendum augue et porta mollis. Etiam placerat odio rhoncus, imperdiet nisl ut, interdum lacus. Phasellus sit amet varius mi. Donec eget pretium ex. Morbi interdum sapien id risus posuere gravida. Morbi pulvinar eros in magna iaculis tempus. Duis eu enim lacinia, porttitor ligula nec, dignissim sem. Phasellus ante risus, tempus vel lacinia non, interdum id massa. Aliquam diam diam, sodales in mi vel, luctus tincidunt sapien. Etiam a varius sem, non interdum tellus. Phasellus placerat erat id magna mollis ultricies. Quisque lacinia aliquet massa, ac pharetra elit tempor id. Fusce vitae pharetra lectus.
+
+        Sed dolor quam, commodo ac tortor in, mattis pretium massa. Curabitur ut sapien nisl. Pellentesque lobortis eros lacus, nec faucibus leo sodales eu. Pellentesque iaculis luctus consectetur. Pellentesque risus nulla, accumsan a dui quis, tincidunt volutpat nibh. Quisque odio neque, rutrum quis augue et, luctus tincidunt diam. Sed vel consequat enim. Vivamus quis orci non leo tempus malesuada ac non justo. Pellentesque venenatis augue sed dignissim hendrerit. Curabitur finibus elementum elit quis ullamcorper. Maecenas consequat rhoncus bibendum.
+        
+        Maecenas non dictum lacus, at consequat dolor. Etiam maximus dignissim tellus, finibus commodo ipsum vestibulum sit amet. Curabitur at ligula vel neque varius aliquam quis sit amet ligula. Nam tempor cursus dui quis pharetra. Suspendisse nisi sem, rutrum in dui eu, rhoncus finibus erat. Curabitur mollis sem eget mauris convallis faucibus. Pellentesque convallis mi orci, ut molestie neque tincidunt nec. Suspendisse ac tortor sed lectus tempus tempus. Mauris condimentum odio tortor, a rutrum magna congue eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus posuere lacinia leo, sed ultricies est posuere sed. Curabitur ac sagittis nunc.
+      </i>      
+      
+      </p>
+
+    </div>
+
+    <div class="col-lg-6 d-flex justify-content-center">
+
+
+
+      <form [formGroup]="loginForm" method="post" (ngSubmit) = "login()">
+       <div class="text-center mb-2">
+
+      <h1>Login</h1>
+      </div>     
+        <div class="form-group mt-5">
+          <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="uname"><b>Username</b></span>
+          </div>
+        
+          <input formControlName="username" class="rounded-right text-center form-control form-control-lg" type="text" placeholder="Enter Username" aria-describedby="uname" name="uname" required>                  
+          </div>
+      
+          <div class="input-group mt-2">
+            <div class="input-group-prepend">
+          <span class="input-group-text" for="psw" id="pass"><b>Password</b></span>
+            </div>
+           <input formControlName="password" class="rounded-right text-center form-control form-control-lg"  type="password" placeholder="Enter Password" name="psw" aria-describedby="pass" required>              
+          </div>
+     
+        </div>
+
+        <div class="text-center">
+         <button class="btn btn-success btn-block btn-lg" type="submit">Login</button>
+        <button class= "btn btn-primary mt-2 mb-2 btn-lg" [routerLink]="['/register']" routerLinkActive="router-link-active" >Register</button>         
+        </div>
+
+    
+      </form> 
+    </div>
+
+
+  </div>
+
+
+

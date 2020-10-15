@@ -1,0 +1,14 @@
+<mat-horizontal-stepper #stepper >
+    <mat-step [stepControl]="symptomGroup">
+      <form [formGroup]="symptomGroup">
+        <ng-template matStepLabel>Fill out your name</ng-template>
+        <mat-form-field *ngFor="let symptom of formData.symptoms; let i = index;" >
+          <input matInput placeholder="{{symptom[i].name}}" type="checkbox" formControlName ="i" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    
+  </mat-horizontal-stepper>

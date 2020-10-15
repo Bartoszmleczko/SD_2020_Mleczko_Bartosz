@@ -25,7 +25,7 @@ public class RiskFactorService {
     @Transactional
     public RiskFactor findById(Long id){
 
-       RiskFactor factor = riskFactorRepository.findById(id).orElseThrow(( ) -> new NotFoundException(RiskFactor.class.getSimpleName(), id));
+       RiskFactor factor = riskFactorRepository.findById(id).orElseThrow(( ) -> new NotFoundException(RiskFactor.class.getSimpleName()));
         return factor;
     }
 

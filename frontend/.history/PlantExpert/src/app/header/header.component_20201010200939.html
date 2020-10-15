@@ -1,0 +1,65 @@
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="color: white;">
+    <a class="navbar-brand titlenav" [routerLink]="['/home']" routerLinkActive="router-link-active" >Plant Expert </a>
+    <div class="nav nav-pills">
+        
+        <a class="nav-item nav-link" [routerLink]="['/home/diagnose']" routerLinkActive="router-link-active" >Diagnozy</a>
+        <a class="nav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active" >Link2</a>
+        <a class="nav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active" >Link3</a>
+        <a class="nav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active" >Link4</a>
+        <a (click)="logout()"  class="nav-item nav-link" style="cursor: pointer; color: white; margin-left:auto;" >Logout</a>
+      
+    </div>
+  
+
+    </nav> -->
+
+
+<nav >
+
+    <div class="justify-content-center">
+        <h3 class="text-center">Plant Expert</h3>
+    </div>
+
+    <ul class="list-unstyled components ">
+        <p>Mój panel</p>
+        <li class="active">
+            <a class="nav-item nav-link" [routerLink]="['/home/diagnose']" routerLinkActive="router-link-active" >Diagnozy</a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+                <li>
+                    <a href="#">Home 1</a>
+                </li>
+                <li>
+                    <a href="#">Home 2</a>
+                </li>
+                <li>
+                    <a href="#">Home 3</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">About</a>
+        </li>
+        <li>
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+            <ul class="collapse list-unstyled" id="pageSubmenu">
+                <li>
+                    <a href="#">Page 1</a>
+                </li>
+                <li>
+                    <a href="#">Page 2</a>
+                </li>
+                <li>
+                    <a href="#">Page 3</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">Portfolio</a>
+        </li>
+        <li>
+            <a href="#">Contact</a>
+        </li>
+    </ul>
+
+
+</nav>

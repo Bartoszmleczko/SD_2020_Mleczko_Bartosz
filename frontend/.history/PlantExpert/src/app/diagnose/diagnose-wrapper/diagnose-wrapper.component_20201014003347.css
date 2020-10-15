@@ -1,0 +1,43 @@
+.size {
+  width: 100%;
+}
+
+button {
+  width: 120px;
+  height: 60px;
+  background-color: #3e5063;
+  color: white;
+}
+
+button:disabled {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.stepper {
+  background-color: #222;
+  color: white;
+}
+.step-label {
+  color: white;
+}
+
+ul label {
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+mat-horizontal-stepper button {
+  color: #fff0b3;
+  font-size: 20px;
+  width: 10%;
+}
+
+.checkbox {
+  background-color: #222;
+}
+
+.checkbox-label {
+  color: white;
+}

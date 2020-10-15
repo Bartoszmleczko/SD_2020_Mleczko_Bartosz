@@ -22,8 +22,13 @@ public class SymptomService {
     }
 
     @Transactional
-    public Symptom save (Long id){
-        return symptomRepository.findById(id).orElseThrow(() -> new NotFoundException(Symptom.class.getSimpleName(), id));
+    public Symptom findById(Long id){
+        return symptomRepository.findById(id).orElseThrow(() -> new NotFoundException(Symptom.class.getSimpleName()));
+    }
+
+    @Transactional
+    public  Symptom findBySlotName(String slotName){
+        return symptomRepository.findBySlotName(slotName);
     }
 
 }

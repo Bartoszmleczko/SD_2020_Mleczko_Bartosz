@@ -1,0 +1,25 @@
+.sidebar-border {
+  width: 19%;
+  height: 100%;
+  position: sticky;
+  top: 100px;
+  padding: 0;
+  border: 2px solid;
+}
+
+.content {
+  width: 80%;
+}
+
+.main-header {
+  height: 19vh;
+  border-bottom: 2px solid black;
+  background-color: rgb(3, 3, 71);
+  color: white;
+  background: url("../../assets/zdjecie.jpg");
+}
+
+h1 {
+  padding-top: 1%;
+  font-size: 58px;
+}

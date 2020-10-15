@@ -1,0 +1,36 @@
+.sidebar{
+
+     height: 50vh;
+     flex: auto;
+     justify-content: center;
+     background: bisque;
+     margin-left: 0;
+     margin-right: 0;
+}
+
+li{
+    height: 10vh;
+    min-height: 10vh;
+    max-height: 10vh;
+    border: 1px solid;
+    background-color:grey;
+    color: darkslateblue;
+}
+li:hover{
+    background-color:lightgray;
+    color: azure;
+}
+
+
+h3{
+    margin-top: 5%;
+}
+
+a{
+    
+    cursor: pointer;
+}
+
+a:hover{
+    cursor: pointer;
+}

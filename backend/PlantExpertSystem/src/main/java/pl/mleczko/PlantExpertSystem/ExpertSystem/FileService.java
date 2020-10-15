@@ -15,11 +15,13 @@ public class FileService {
     private final List<String> fileNames = new ArrayList<>(Arrays.asList("templates/diseases.clp",
             "templates/risk_factors.clp", "templates/symptoms.clp", "templates/rules.clp"));
 
-    private List<String> addDirectoryPrefix(){
-        List<String> filesWithPrefix = fileNames;
-        filesWithPrefix.forEach(name -> new String("templates/").concat(name));
-        return filesWithPrefix;
-     }
+//    private final String directoryName = new File("src/main/resources/templates").getAbsolutePath();
+//
+//    private List<String> addDirectoryPrefix(){
+//        List<String> filesWithPrefix = fileNames;
+//        filesWithPrefix.forEach(name -> new String("templates/").concat(name));
+//        return filesWithPrefix;
+//     }
      public List<String> getFileNames(){
         return this.fileNames;
      }
@@ -30,9 +32,8 @@ public class FileService {
 
      public Map<String, Resource> getAllResources(){
 
-        List<String> fileNames = addDirectoryPrefix();
         Map<String, Resource> resources = new HashMap<>();
-        fileNames.forEach(name -> {
+        this.fileNames.forEach(name -> {
             resources.put(name, getResourceFile(name));
         });
         return resources;

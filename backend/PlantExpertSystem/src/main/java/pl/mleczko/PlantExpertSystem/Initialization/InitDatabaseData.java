@@ -256,7 +256,7 @@ public class InitDatabaseData {
 
         factor.setRiskId(33L);
         factor.setName("Suchy, ciepły maj");
-        factor.setSlotName("suchy_ciepły_maj");
+            factor.setSlotName("suchy_cieply_maj");
         factor.setFactorType(FactorType.OTHER);
         factor.setPlantType(PlantType.POTATOES);
         riskFactorRepository.save(factor);
@@ -423,9 +423,6 @@ public class InitDatabaseData {
         List<RiskFactor> riskFactors = new ArrayList<>();
         List<Symptom> symptoms = new ArrayList<>();
 
-
-        riskFactors = riskFactorRepository.findAllByRiskIdIsBetween(1,8);
-        symptoms = symptomRepository.findAllBySymptomIdIsBetween(1,3);
         disease.setDiseaseId(1L);
         disease.setName("łamliwość podstawy źdźbła pszenicy");
         disease.setTemplateName("lam_podst_zdzbla_pszen");
@@ -433,6 +430,7 @@ public class InitDatabaseData {
         disease.setInterventionDiagnose("100% symptom łamliwości źdźbła. Wykonać zabieg interwencyjny");
         disease.setFactors(riskFactors);
         disease.setSymptoms(symptoms);
+        disease.setImageName("lam_podst_zdzbla_pszen.jpg");
         disease.setPlantType(PlantType.CEREALS);
         diseaseRepository.save(disease);
 
@@ -444,6 +442,7 @@ public class InitDatabaseData {
         disease.setFactors(riskFactors);
         disease.setSymptoms(symptoms);
         disease.setPlantType(PlantType.CEREALS);
+        disease.setImageName("maczniak_prawdziwy_pszenicy.jpg");
         diseaseRepository.save(disease);
 
 
@@ -454,6 +453,7 @@ public class InitDatabaseData {
         disease.setFactors(riskFactors);
         disease.setSymptoms(symptoms);
         disease.setPlantType(PlantType.CEREALS);
+        disease.setImageName("brunatna_plamistosc_lisci_pszenicy.jpg");
         diseaseRepository.save(disease);
 
 
@@ -464,6 +464,7 @@ public class InitDatabaseData {
         disease.setFactors(riskFactors);
         disease.setSymptoms(symptoms);
         disease.setPlantType(PlantType.CEREALS);
+        disease.setImageName("septorioza_paskowana_lisci.jpg");
         diseaseRepository.save(disease);
 
 
@@ -474,16 +475,18 @@ public class InitDatabaseData {
         disease.setFactors(riskFactors);
         disease.setSymptoms(symptoms);
         disease.setPlantType(PlantType.CEREALS);
+        disease.setImageName("septorioza_plew.jpg");
         diseaseRepository.save(disease);
 
 
         disease.setDiseaseId(6L);
-        disease.setName("Fuzaryjna gorzel źdźbła i korzeni pszenicy");
+        disease.setName("Fuzaryjna zgorzel źdźbła i korzeni pszenicy");
         disease.setTemplateName("fuzaryjna_zgorzel_zdzbla_korzeni");
         disease.setInterventionDiagnose("Zabieg profilaktyczny w fazie BBCh31 wykonać preparatami zawierającymi substancje aktywne typu prochloraz,  tebukonazol, protriokonazol, metokonazol.");
         disease.setFactors(riskFactors);
         disease.setSymptoms(symptoms);
         disease.setPlantType(PlantType.CEREALS);
+        disease.setImageName("fuzaryjna_zgorzel_podstawy_zdzbla_korzeni.jpg");
         diseaseRepository.save(disease);
 
 
@@ -494,6 +497,7 @@ public class InitDatabaseData {
         disease.setFactors(riskFactors);
         disease.setSymptoms(symptoms);
         disease.setPlantType(PlantType.CEREALS);
+        disease.setImageName("fuzarioza_klosow.jpg");
         diseaseRepository.save(disease);
 
 
@@ -504,6 +508,7 @@ public class InitDatabaseData {
         disease.setFactors(riskFactors);
         disease.setSymptoms(symptoms);
         disease.setPlantType(PlantType.CEREALS);
+        disease.setImageName("rdza_brunatna.jpg");
         diseaseRepository.save(disease);
 
 
@@ -515,6 +520,7 @@ public class InitDatabaseData {
         disease.setFactors(riskFactors);
         disease.setSymptoms(symptoms);
         disease.setPlantType(PlantType.CEREALS);
+        disease.setImageName("rdza_zdzblowa.jpg");
         diseaseRepository.save(disease);
 
 
@@ -526,16 +532,18 @@ public class InitDatabaseData {
         disease.setFactors(riskFactors);
         disease.setSymptoms(symptoms);
         disease.setPlantType(PlantType.CEREALS);
+        disease.setImageName("plamistosc_siatkowa_jeczmienia.jpg");
         diseaseRepository.save(disease);
 
 
         disease.setDiseaseId(11L);
-        disease.setName("Zgnilizna tawrdzikowa rzepaku");
+        disease.setName("Zgnilizna twardzikowa rzepaku");
         disease.setTemplateName("zgnilizna_twardzikowa_rzepaku");
         disease.setInterventionDiagnose("Na początku kwitnienia wykonujemy zabiegi preparatami zawierającymi azoksystrobinę i triazol. W pełni kwitnienia wykonujemy zabieg preparatem Propulse.");
         disease.setFactors(riskFactors);
         disease.setSymptoms(symptoms);
         disease.setPlantType(PlantType.COLZA);
+        disease.setImageName("zgnilizna_twardzikowa_rzepaku.jpg");
         diseaseRepository.save(disease);
 
 
@@ -546,6 +554,7 @@ public class InitDatabaseData {
         disease.setFactors(riskFactors);
         disease.setSymptoms(symptoms);
         disease.setPlantType(PlantType.COLZA);
+        disease.setImageName("sucha_zgnilizna_kapustnych.jpg");
         diseaseRepository.save(disease);
 
 
@@ -556,6 +565,7 @@ public class InitDatabaseData {
         disease.setFactors(riskFactors);
         disease.setSymptoms(symptoms);
         disease.setPlantType(PlantType.POTATOES);
+        disease.setImageName("alternarioza_ziemniaka.jpg");
         diseaseRepository.save(disease);
 
 
@@ -566,6 +576,7 @@ public class InitDatabaseData {
         disease.setFactors(riskFactors);
         disease.setSymptoms(symptoms);
         disease.setPlantType(PlantType.POTATOES);
+        disease.setImageName("zaraza_ziemniaka.jpg");
         diseaseRepository.save(disease);
 
 

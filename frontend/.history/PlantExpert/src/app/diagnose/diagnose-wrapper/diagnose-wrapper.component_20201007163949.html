@@ -1,0 +1,37 @@
+<h1 class="text-center">Diagnozy</h1>
+
+
+
+
+
+
+    <div class="row d-flex justify-content-center">
+                <mat-form-field class="" appearance="fill">
+                    <mat-label>Wybierz roślinę</mat-label>
+                    <mat-select  name="plant" #choosedValue (valueChange) ="getDiagnoseFormData(choosedValue.value)">
+                        <mat-option *ngFor="let plant of plants" [value]="plant.templateName">
+                            {{plant.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+    </div>
+
+
+    
+    <mat-horizontal-stepper #stepper *ngIf="formData">
+        <mat-step >
+
+            <ng-template matStepLabel>Fill out your name</ng-template>
+            <ul>
+              <li *ngFor="let symptom of formData.symptoms">
+                <mat-checkbox [(ngModel)]="false">
+                  {{symptom.name}}
+                </mat-checkbox>
+              </li>
+            </ul>  
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        
+      </mat-horizontal-stepper>

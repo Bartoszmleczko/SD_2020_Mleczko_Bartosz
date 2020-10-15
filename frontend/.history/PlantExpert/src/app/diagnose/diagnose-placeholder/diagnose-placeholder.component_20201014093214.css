@@ -1,0 +1,41 @@
+.placeholder-container {
+  width: 75%;
+  background-color: #222;
+  text-align: center;
+  padding: 1rem;
+  box-shadow: 3px 6px 10px 3px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  color: white;
+}
+
+.list li {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  position: relative;
+  width: 100%;
+  margin-bottom: 80px;
+}
+
+.list li:not(:last-of-type)::after {
+  content: "";
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  width: 3px;
+  height: 70px;
+  background-color: rgb(255, 230, 86);
+}
+
+.list li:last-of-type {
+  margin-bottom: 20px;
+}
+
+.list li::marker {
+  font-size: 2rem;
+  position: absolute;
+  left: 0;
+  top: 50px;
+}
+.app-full-bleed-dialog .mat-dialog-container {
+  padding: 0;
+  width: 75%;
+}

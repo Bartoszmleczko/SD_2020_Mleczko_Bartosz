@@ -1,0 +1,74 @@
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="color: white;">
+    <a class="navbar-brand titlenav" [routerLink]="['/home']" routerLinkActive="router-link-active" >Plant Expert </a>
+    <div class="nav nav-pills">
+        
+        <a class="nav-item nav-link" [routerLink]="['/home/diagnose']" routerLinkActive="router-link-active" >Diagnozy</a>
+        <a class="nav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active" >Link2</a>
+        <a class="nav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active" >Link3</a>
+        <a class="nav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active" >Link4</a>
+        <a (click)="logout()"  class="nav-item nav-link" style="cursor: pointer; color: white; margin-left:auto;" >Logout</a>
+      
+    </div>
+  
+
+    </nav> -->
+
+
+<!-- <nav class="sidebar"> -->
+
+    <ul class="list-unstyled  justify-content-right sidebar-menu sidebar">
+        
+        <li>
+            <a class="nav-item nav-link text-center" [routerLink]="['/home']"  [routerLinkActiveOptions]="{exact:
+                true}" routerLinkActive="router-link-active">
+                <h3>
+                    Strona główna 
+                </h3>
+            </a>
+        </li>
+        
+        <li >
+            <a class="nav-item nav-link text-center" [routerLink]="['/home/diagnose']" routerLinkActive="router-link-active">
+                <h3>
+                    Diagnozy
+                </h3>
+            </a>
+        </li>
+        <li>
+            <a class="nav-item nav-link text-center" [routerLink]="['/test1']" routerLinkActive="router-link-active">
+                <h3>
+                    Encyklopedia
+                </h3>
+            </a>           
+        </li>
+
+        <li>
+            <a class="nav-item nav-link text-center" [routerLink]="['/test2']" routerLinkActive="router-link-active">
+                <h3>
+                   Konto
+                </h3>
+            </a>
+        </li>
+        <li>
+            <a class="nav-item nav-link text-center" [routerLink]="['/test3']" routerLinkActive="router-link-active">
+                <h3>
+                   Kontakt
+                </h3>
+            </a>
+        </li>
+        <li (click)="logout()">
+            <a class="nav-item nav-link text-center"  routerLinkActive="router-link-active">
+                <h3>
+                    Wyloguj
+                </h3>
+            </a>
+        </li>
+
+
+
+
+
+    </ul>
+
+
+<!-- </nav> -->

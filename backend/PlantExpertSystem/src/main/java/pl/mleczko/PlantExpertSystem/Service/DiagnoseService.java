@@ -7,6 +7,7 @@ import pl.mleczko.PlantExpertSystem.ExpertSystem.PlantExpertEvalService;
 import pl.mleczko.PlantExpertSystem.Model.DiagnoseFormDto;
 import pl.mleczko.PlantExpertSystem.Model.DiseaseDto;
 import pl.mleczko.PlantExpertSystem.Model.PlantSicknessRequest;
+import pl.mleczko.PlantExpertSystem.Model.WikipediaApiResponse;
 import pl.mleczko.PlantExpertSystem.Repository.DiseaseRepository;
 import pl.mleczko.PlantExpertSystem.Repository.RiskFactorRepository;
 import pl.mleczko.PlantExpertSystem.Repository.SymptomRepository;
@@ -23,12 +24,14 @@ public class DiagnoseService {
     private final SymptomRepository symptomRepository;
     private final PlantExpertEvalService plantExpertEvalService;
     private final DiseaseRepository diseaseRepository;
+    private final WikipediaApiService wikipediaApiService;
 
-    public DiagnoseService(RiskFactorRepository riskFactorRepository, SymptomRepository symptomRepository, PlantExpertEvalService plantExpertEvalService, DiseaseRepository diseaseRepository) {
+    public DiagnoseService(RiskFactorRepository riskFactorRepository, SymptomRepository symptomRepository, PlantExpertEvalService plantExpertEvalService, DiseaseRepository diseaseRepository, WikipediaApiService wikipediaApiService) {
         this.riskFactorRepository = riskFactorRepository;
         this.symptomRepository = symptomRepository;
         this.plantExpertEvalService = plantExpertEvalService;
         this.diseaseRepository = diseaseRepository;
+        this.wikipediaApiService = wikipediaApiService;
     }
 
     @Transactional
@@ -77,7 +80,8 @@ public class DiagnoseService {
             Disease disease  = findDiseaseByTemplateName(diseaseTemplateName);
 
             String diagnose = pickDiagnose(disease, diagnoseType);
-            DiseaseDto dto = new DiseaseDto(disease.getName(), diagnose);
+            WikipediaApiResponse response = wikipediaApiService.getData(disease.getWikipediaQueryParam());
+            DiseaseDto dto = new DiseaseDto(disease.getName(), diagnose,response);
             finalResult.add(dto);
         }
         return finalResult;
@@ -89,6 +93,7 @@ public class DiagnoseService {
             return disease.getInterventionDiagnose();
         else return disease.getPrecautionDiagnose();
     }
+
 
 
 

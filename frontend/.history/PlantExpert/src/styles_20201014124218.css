@@ -1,0 +1,21 @@
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  padding: 0;
+  /* background-color: rgba(248, 244, 10, 0.2); */
+  background-color: #fff0b3;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+.app-full-bleed-dialog .mat-dialog-container {
+  padding: 0;
+  border-radius: 8px;
+  width: 100%;
+}

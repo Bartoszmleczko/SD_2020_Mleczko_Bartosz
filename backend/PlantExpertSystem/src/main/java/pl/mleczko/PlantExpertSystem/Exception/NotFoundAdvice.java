@@ -18,4 +18,11 @@ public class NotFoundAdvice {
     }
 
 
+    @ResponseBody
+    @ExceptionHandler(ObjectAlreadyExists.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public String alreadyExistsException(ObjectAlreadyExists ex){
+        return ex.getMessage();
+    }
+
 }

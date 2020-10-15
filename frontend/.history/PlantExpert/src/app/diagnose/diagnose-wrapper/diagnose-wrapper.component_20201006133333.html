@@ -1,0 +1,25 @@
+<h1>Diagnozy</h1>
+
+
+
+<div class="container">
+
+    <div class="row" >
+
+        <ng-select [items]="plants"
+        bindLabel="name"
+        autofocus
+        bindValue="templateName">
+        </ng-select>
+    </div>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Wybierz roślinę</mat-label>
+        <mat-select [(ngModel)]="selected" name="plant">
+            <mat-option *ngFor="let plant of plants" [value]="plant.templateName">
+              {{plant.name}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+</div>
+

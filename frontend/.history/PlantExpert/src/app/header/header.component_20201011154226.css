@@ -1,0 +1,9 @@
+.sidebar{
+
+     min-height: calc(100vh);
+     flex: auto;
+     justify-content: center;
+     background: bisque;
+     margin-left: 0;
+     margin-right: 0;
+}

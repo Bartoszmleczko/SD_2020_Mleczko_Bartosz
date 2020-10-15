@@ -1,0 +1,26 @@
+.sidebar{
+
+     min-height: calc(100vh - 60px);
+     flex: auto;
+     justify-content: center;
+     background: bisque;
+     margin-left: 0;
+     margin-right: 0;
+}
+
+li{
+    height: 10vh;
+    min-height: 10vh;
+    max-height: 10vh;
+    border: 1px solid;
+}
+
+h3{
+    margin-top: 5%;
+    margin-left: 30%;
+}
+
+a{
+    color: white;
+    cursor: pointer;
+}

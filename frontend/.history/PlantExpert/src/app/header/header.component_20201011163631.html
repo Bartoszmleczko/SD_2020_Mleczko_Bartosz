@@ -1,0 +1,49 @@
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="color: white;">
+    <a class="navbar-brand titlenav" [routerLink]="['/home']" routerLinkActive="router-link-active" >Plant Expert </a>
+    <div class="nav nav-pills">
+        
+        <a class="nav-item nav-link" [routerLink]="['/home/diagnose']" routerLinkActive="router-link-active" >Diagnozy</a>
+        <a class="nav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active" >Link2</a>
+        <a class="nav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active" >Link3</a>
+        <a class="nav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active" >Link4</a>
+        <a (click)="logout()"  class="nav-item nav-link" style="cursor: pointer; color: white; margin-left:auto;" >Logout</a>
+      
+    </div>
+  
+
+    </nav> -->
+
+
+<nav class="sidebar">
+
+    <ul class="list-unstyled  justify-content-right">
+        
+        <li>
+            <h2 class="textnav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active"> Strona główna </h2>
+        </li>
+        
+        <li >
+            <h3>
+                <a class="nav-item nav-link " [routerLink]="['/home/diagnose']" routerLinkActive="router-link-active">Diagnozy</a>
+            </h3>
+        </li>
+        <li>
+            <h3>
+                <a class="nav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active">Encyklopedia</a>
+            </h3>            
+        </li>
+
+        <li>
+            <h3>
+                <a class="nav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active">Konto</a>
+            </h3>
+        </li>
+        <li>
+            <h3>
+                <a (click)="logout()"  class="nav-item nav-link"  >Logout</a>
+            </h3>
+        </li>
+    </ul>
+
+
+</nav>

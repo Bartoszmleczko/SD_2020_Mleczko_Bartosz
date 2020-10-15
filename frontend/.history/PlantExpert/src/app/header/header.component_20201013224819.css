@@ -1,0 +1,33 @@
+.sidebar {
+  background-color: #dbc7a8;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+li {
+  height: 13vh;
+  border: 1px solid;
+  color: midnightblue;
+  cursor: pointer;
+  transition: 0.4s;
+}
+li:hover {
+  background-color: rgb(117, 117, 121);
+  color: azure;
+  cursor: pointer;
+}
+
+h3 {
+  padding: 12%;
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+}
+.sidebar-menu {
+  padding: 0;
+  margin: 0;
+}

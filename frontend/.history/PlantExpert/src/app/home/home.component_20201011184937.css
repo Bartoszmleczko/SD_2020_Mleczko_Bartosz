@@ -1,0 +1,22 @@
+.sidebar-border{
+    border: 2px solid black;
+    width: 19%;
+    height: 50%;
+    background:grey;
+}
+
+.content{
+    width: 80%;
+}
+
+.main-header{
+    height: 7vh;
+    border-bottom: 2px solid;
+    background-color: rgb(3, 3, 71) ;
+    color: white;
+}
+
+h1{
+    margin-top: auto;
+
+}

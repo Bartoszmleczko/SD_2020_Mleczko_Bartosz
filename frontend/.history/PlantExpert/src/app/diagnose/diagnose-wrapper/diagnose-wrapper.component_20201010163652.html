@@ -1,0 +1,58 @@
+<h1 class="text-center">Diagnozy</h1>
+
+
+
+
+
+
+    <div class="row d-flex justify-content-center">
+                <mat-form-field class="" appearance="fill">
+                    <mat-label>Wybierz roślinę</mat-label>
+                    <mat-select  name="plant" #choosedValue (valueChange) ="getDiagnoseFormData(choosedValue.value)">
+                        <mat-option *ngFor="let plant of plants" [value]="plant.templateName">
+                            {{plant.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+    </div>
+
+
+    
+    <mat-horizontal-stepper #stepper *ngIf="formData">
+
+
+        <mat-step [stepControl] = "symptomGroup" optional="false" [completed] = "symptomsCompleted">
+          <form [formGroup] = "symptomGroup"> 
+            <ng-template matStepLabel>Fill out your name</ng-template>
+            <ul >
+              <li   *ngFor="let control of symptomArr.controls; let i = index">
+
+                  <input id="checkbox{{i}}" [formControl] ="control" type="checkbox" >
+                  <label for="checkbox{{i}}">{{formData.symptoms[i].name}}</label>
+              </li>
+            </ul>  
+            <div>
+              <button mat-button matStepperNext (click) ="submitSymptoms()">Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+
+        <mat-step [stepControl] = "riskFactorGroup">
+          <form [formGroup] = "riskFactorGroup"> 
+            <ng-template matStepLabel>Fill out your name</ng-template>
+            <ul >
+              <li   *ngFor="let control of factorArr.controls; let i = index">
+
+                  <input id="checkbox{{i}}" [formControl] ="control" type="checkbox" >
+                  <label for="checkbox{{i}}">{{flatRiskFactorArr[i].name}}</label>
+              </li>
+            </ul>  
+            <div>
+              <button mat-button matStepperNext type="button" (click) ="submitSymptoms()">Next</button>
+            </div>
+          </form>
+        </mat-step>
+        
+        
+      </mat-horizontal-stepper>

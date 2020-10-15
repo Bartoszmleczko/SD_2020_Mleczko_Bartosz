@@ -1,0 +1,15 @@
+.placeholder-container {
+  width: 75%;
+  height: 75%;
+  background-color: rgba(254, 255, 248, 0.589);
+  text-align: center;
+}
+
+.line {
+}
+
+.list li {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: red;
+}

@@ -1,0 +1,20 @@
+<h1>Diagnozy</h1>
+
+
+
+<div class="container">
+
+    <div class="row" >
+        <p>
+        </p>
+        <ng-select [items]="people$ | async"
+        bindLabel="name"
+        autofocus
+        bindValue="id"
+        [(ngModel)]="selectedPersonId">
+        </ng-select>
+    </div>
+
+
+</div>
+

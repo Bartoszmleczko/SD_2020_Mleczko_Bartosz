@@ -1,0 +1,38 @@
+.placeholder-container {
+  width: 75%;
+  height: 75%;
+  background-color: rgba(254, 255, 248, 0.589);
+  text-align: center;
+  padding: 1rem;
+  border: 2px black solid;
+  box-shadow: 3px 6px 8px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+}
+
+.list li {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  position: relative;
+  width: 100%;
+  margin-bottom: 80px;
+}
+
+.list li:not(:last-of-type)::after {
+  content: "";
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  width: 3px;
+  height: 70px;
+  background-color: black;
+}
+
+.list li:last-of-type {
+  margin-bottom: 20px;
+}
+
+.list li::marker {
+  font-size: 2rem;
+  position: absolute;
+  left: 0;
+  top: 50px;
+}

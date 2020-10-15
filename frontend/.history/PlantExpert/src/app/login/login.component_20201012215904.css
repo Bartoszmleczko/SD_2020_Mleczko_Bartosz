@@ -1,0 +1,10 @@
+.top-image {
+  background: url("../../assets/zdjecie.jpg");
+  width: 100%;
+  min-height: 350px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.login-back {
+}

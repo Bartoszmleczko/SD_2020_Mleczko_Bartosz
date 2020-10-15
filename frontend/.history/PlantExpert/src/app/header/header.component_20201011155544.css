@@ -1,0 +1,14 @@
+.sidebar{
+
+     min-height: calc(100vh - 60px);
+     flex: auto;
+     justify-content: center;
+     background: bisque;
+     margin-left: 0;
+     margin-right: 0;
+}
+
+li{
+    min-height: 10%;
+    border: 1px solid;
+}

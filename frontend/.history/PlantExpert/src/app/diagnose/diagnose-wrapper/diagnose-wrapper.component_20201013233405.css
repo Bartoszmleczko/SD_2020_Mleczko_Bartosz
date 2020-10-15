@@ -1,0 +1,9 @@
+.size {
+  width: 100%;
+}
+
+button {
+  margin-left: 80px;
+  width: 120px;
+  height: 60px;
+}
