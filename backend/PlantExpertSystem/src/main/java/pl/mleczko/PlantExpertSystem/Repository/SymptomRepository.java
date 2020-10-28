@@ -17,4 +17,6 @@ public interface SymptomRepository extends JpaRepository<Symptom, Long> {
 
     public Symptom findBySlotName(String slotName);
 
+    public List<Symptom> findAllBySlotNameInAndPlantType(List<String> slotNames, PlantType plantType);
+
 }

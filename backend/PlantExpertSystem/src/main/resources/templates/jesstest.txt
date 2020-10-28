@@ -1,0 +1,24 @@
+CHOROBA:
+Dwuczęściowa nazwa;
+
+
+SYMPTOMY:
+Symptom,
+Symptom 2;
+
+CZYNNIKI RYZYKA:
+Czynnik,
+Czynnik 2;
+
+KOMUNIKAT ZAPOBIEGAWCZY:
+;
+
+KOMUNIKAT INTERWENCYJNY:
+Komunikat interwencyjny;
+
+REGUŁY WNIOSKUJĄCE:
+S0 + R1 = 0,
+S0 = 1;
+
+OPIS CHOROBY:
+0. Opis ;

@@ -1,20 +1,24 @@
 package pl.mleczko.PlantExpertSystem.ExpertSystem;
 
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import pl.mleczko.PlantExpertSystem.Entity.Disease;
-import pl.mleczko.PlantExpertSystem.Entity.RiskFactor;
-import pl.mleczko.PlantExpertSystem.Entity.Symptom;
+import org.springframework.util.CollectionUtils;
+import pl.mleczko.PlantExpertSystem.Entity.*;
+import pl.mleczko.PlantExpertSystem.Exception.FileValidationException;
 import pl.mleczko.PlantExpertSystem.Exception.ObjectAlreadyExists;
 import pl.mleczko.PlantExpertSystem.Model.NewDiseaseForm;
+import pl.mleczko.PlantExpertSystem.Model.RuleForm;
 import pl.mleczko.PlantExpertSystem.Model.SimpleTemplateForm;
 import pl.mleczko.PlantExpertSystem.Service.DiseaseService;
+import pl.mleczko.PlantExpertSystem.Service.PlantTypeService;
 import pl.mleczko.PlantExpertSystem.Service.RiskFactorService;
 import pl.mleczko.PlantExpertSystem.Service.SymptomService;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class DiseaseCreatingService {
@@ -23,14 +27,20 @@ public class DiseaseCreatingService {
     private final DiseaseService diseaseService;
     private final RiskFactorService riskFactorService;
     private final SymptomService symptomService;
+    private final PlantTypeService plantTypeService;
 
 
-    public DiseaseCreatingService(FileService fileService, DiseaseService diseaseService, RiskFactorService riskFactorService, SymptomService symptomService) {
+    public DiseaseCreatingService(FileService fileService, DiseaseService diseaseService, RiskFactorService riskFactorService, SymptomService symptomService, PlantTypeService plantTypeService) {
         this.fileService = fileService;
         this.diseaseService = diseaseService;
         this.riskFactorService = riskFactorService;
         this.symptomService = symptomService;
+        this.plantTypeService = plantTypeService;
     }
+
+
+
+
 
     public void writeRiskFactor(SimpleTemplateForm form) throws IOException {
         form.setTemplateName("choroba");
@@ -76,32 +86,75 @@ public class DiseaseCreatingService {
          return new String(" \n     (slot {template_name}) \n");
     }
 
-    public HttpStatus createNewDisease(NewDiseaseForm form) {
+    public void createNewDisease(TemporaryDisease temporaryDisease) throws IOException {
 
-        String templateName = form.getDiseaseTemplateName();
-        Disease disease = diseaseService.findByTemplateName(templateName);
+        Disease tempdisease = diseaseService.findByNameOrTemplateNameAndPlantType(temporaryDisease.getDiseaseName(),
+                temporaryDisease.getDiseaseTemplateName(),temporaryDisease.getPlantType());
 
-        if(disease == null){
-            Set<SimpleTemplateForm> factors = form.getRiskFactors();
-            Set<SimpleTemplateForm> symptoms = form.getSymptoms();
+        if(tempdisease == null ){
 
-            factors.forEach(factor -> {
-                try {
-                    writeRiskFactor(factor);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+            Disease disease = new Disease(temporaryDisease.getDiseaseName(),temporaryDisease.getDiseaseTemplateName(),
+                    tempdisease.getPrecautionDiagnose(), tempdisease.getInterventionDiagnose(),temporaryDisease.getDescription());
 
-            symptoms.forEach(symptom -> {
-                try {
-                    writeSymptom(symptom);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+            Set<TempSymptom> symptoms = temporaryDisease.getSymptoms();
+            Set<TempRiskFactor> riskFactors = temporaryDisease.getRiskFactors();
 
-            return HttpStatus.CREATED;
-        } else throw new ObjectAlreadyExists(Disease.class.getSimpleName());
+            List<Symptom> dbSymptoms = getExistingSymptomsFromDatabase(symptoms, temporaryDisease.getPlantType());
+            List<RiskFactor> dbRiskFactors = getExistingRiskFactorsFromDatabase(riskFactors, temporaryDisease.getPlantType());
+
+            List<TempSymptom> notExistingSymptoms = getListOfNonExistingSymptoms(symptoms, dbSymptoms);
+            List<TempRiskFactor> notExistingRiskFactors = getListOfNonExistingRiskFactors(riskFactors, dbRiskFactors);
+
+
+
+
+        } else throw new FileValidationException("Choroba już istnieje");
+
     }
+
+
+    public List<Symptom> getExistingSymptomsFromDatabase(Set<TempSymptom> symptoms, PlantType type){
+        List<String> symptomSlotNames = symptoms.stream().map(s -> s.getTemplateName()).collect(Collectors.toList());
+
+        List<Symptom> dbSymptoms = symptomService.findAllByNameInOrSlotNameInAndPlantType(symptomSlotNames, type);
+        return dbSymptoms;
+    }
+
+    public List<RiskFactor> getExistingRiskFactorsFromDatabase(Set<TempRiskFactor> riskFactors, PlantType type){
+        List<String> rfSlotNames = riskFactors.stream().map(r -> r.getTemplateName()).collect(Collectors.toList());
+
+        List<RiskFactor> dbFactors = riskFactorService.findAllByNameInOrSlotNameInAndPlantType( rfSlotNames, type);
+        return dbFactors;
+    }
+
+    public List<TempSymptom> getListOfNonExistingSymptoms(Set<TempSymptom> rawSymptoms, List<Symptom> dbSymptoms ){
+        if(dbSymptoms != null){
+            List<TempSymptom> result = new ArrayList<>();
+            for(TempSymptom f: rawSymptoms){
+                dbSymptoms.forEach(dbs -> {
+                    if(f.getTemplateName() == dbs.getSlotName() && f.getName() == dbs.getName()){
+                        return;
+                    }
+                    result.add(f);
+                });
+            }
+            return result;
+        } else return rawSymptoms.stream().collect(Collectors.toList());
+
+    }
+
+    public List<TempRiskFactor> getListOfNonExistingRiskFactors(Set<TempRiskFactor> rawRiskFactors, List<RiskFactor> dbFactors){
+
+        if(dbFactors != null){
+            List<TempRiskFactor> result = new ArrayList<>();
+            List<String> dbSlotNames = dbFactors.stream().map(f -> f.getSlotName()).collect(Collectors.toList());
+            List<String> rawSlotNames = rawRiskFactors.stream().map(f -> f.getTemplateName()).collect(Collectors.toList());
+
+            rawSlotNames.removeAll(dbSlotNames);
+
+            return result;
+        }
+    }
+
+
 }

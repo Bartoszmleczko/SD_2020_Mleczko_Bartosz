@@ -1,0 +1,29 @@
+img {
+  width: 300px;
+  padding: 2px;
+}
+
+.table-box {
+  width: 100%;
+}
+
+.table-header {
+  font-size: 20px;
+}
+
+.disease-name-col {
+  text-align: center;
+  font-size: 14px;
+}
+.disease-name-col h2 {
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+table {
+  background-color: #3e5063;
+}
+td,
+th {
+  color: #fff0b3;
+}

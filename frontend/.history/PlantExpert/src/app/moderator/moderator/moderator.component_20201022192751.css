@@ -1,0 +1,14 @@
+.content {
+  display: flex;
+  justify-content: center;
+}
+
+.plantForm {
+  width: 60%;
+  background-color: white;
+  text-align: center;
+}
+
+button {
+  width: 10%;
+}

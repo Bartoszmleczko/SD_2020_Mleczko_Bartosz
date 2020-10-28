@@ -1,0 +1,10 @@
+.content {
+  width: 50%;
+
+  display: flex;
+  justify-self: center;
+}
+
+.card {
+  background-color: #fff;
+}

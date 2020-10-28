@@ -1,0 +1,9 @@
+.content {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+}
+
+.content div {
+  background-color: white;
+}

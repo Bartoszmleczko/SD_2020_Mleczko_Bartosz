@@ -22,8 +22,7 @@ public class Symptom {
     @Column(name = "slot_name")
     private String slotName;
 
-    @Column(name = "plant_type")
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
     private PlantType plantType;
 
 }

@@ -25,4 +25,11 @@ public class NotFoundAdvice {
         return ex.getMessage();
     }
 
+    @ResponseBody
+    @ExceptionHandler(FileNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String fileNotFoundException(FileNotFoundException ex){
+        return ex.getMessage();
+    }
+
 }

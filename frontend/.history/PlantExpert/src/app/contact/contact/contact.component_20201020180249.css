@@ -1,0 +1,10 @@
+.contact {
+  width: 50%;
+  display: flex;
+  justify-self: center;
+
+  background-color: #fff;
+}
+
+.card {
+}

@@ -1,0 +1,11 @@
+.contact {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-self: center;
+}
+
+.card {
+  width: 50%;
+  background-color: #fff;
+}

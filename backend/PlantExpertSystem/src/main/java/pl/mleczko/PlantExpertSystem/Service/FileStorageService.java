@@ -1,5 +1,7 @@
 package pl.mleczko.PlantExpertSystem.Service;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.aspectj.util.FileUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +29,23 @@ public class FileStorageService {
         } catch (IOException e) {
             throw new RuntimeException("Could not initialize storage", e);
         }
+    }
+
+    public String getDescriptionTxtFile(String name) throws IOException {
+
+        String description = new String(Files.readAllBytes(Paths.get("src/main/resources/descriptions/" + name)));
+        return description;
+    }
+
+    public byte[] getImageFile(String name) {
+        File image = new File("src/main/resources/images/" + name);
+        byte[] array = null;
+        try {
+            array = FileUtil.readAsByteArray(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return array;
     }
 
 

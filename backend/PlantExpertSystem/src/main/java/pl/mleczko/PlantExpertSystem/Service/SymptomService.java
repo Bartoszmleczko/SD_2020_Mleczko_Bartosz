@@ -1,11 +1,13 @@
 package pl.mleczko.PlantExpertSystem.Service;
 
 import org.springframework.stereotype.Service;
+import pl.mleczko.PlantExpertSystem.Entity.PlantType;
 import pl.mleczko.PlantExpertSystem.Entity.Symptom;
 import pl.mleczko.PlantExpertSystem.Exception.NotFoundException;
 import pl.mleczko.PlantExpertSystem.Repository.SymptomRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class SymptomService {
@@ -29,6 +31,11 @@ public class SymptomService {
     @Transactional
     public  Symptom findBySlotName(String slotName){
         return symptomRepository.findBySlotName(slotName);
+    }
+
+    @Transactional
+    public List<Symptom> findAllByNameInOrSlotNameInAndPlantType(List<String> slotNames, PlantType plantType){
+        return symptomRepository.findAllBySlotNameInAndPlantType(slotNames, plantType);
     }
 
 }

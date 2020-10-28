@@ -1,0 +1,14 @@
+.contact {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+}
+
+.card {
+  width: 50%;
+  background-color: #fff;
+}
+
+.card h1 {
+  text-align: center;
+}

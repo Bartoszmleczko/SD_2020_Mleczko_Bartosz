@@ -1,0 +1,71 @@
+.contact {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 3%;
+}
+
+.card {
+  width: 40%;
+  background-color: #3e5063;
+}
+
+.card h1 {
+  text-align: center;
+  color: #fff0b3;
+}
+
+.gold-line {
+  background-color: gold;
+  height: 5px;
+  width: 100%;
+}
+
+.card label {
+  width: 50%;
+  background-color: white;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 24px;
+  border-radius: 2%;
+  padding: 5px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+label span {
+  font-weight: normal;
+  text-align: center;
+}
+form textarea {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.form-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+form {
+  text-align: center;
+}
+
+form input {
+  width: 75%;
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+button {
+  width: 120px;
+  height: 50px;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.image-mock {
+  height: 200px;
+  width: 100%;
+}

@@ -1,0 +1,24 @@
+.content {
+  display: flex;
+  justify-content: center;
+}
+
+.plantForm {
+  margin-top: 20px;
+  width: 40%;
+  background-color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+button {
+  width: 10%;
+}
+
+.plantForm p {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  text-align: center;
+}

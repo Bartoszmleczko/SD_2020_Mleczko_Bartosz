@@ -26,23 +26,26 @@ public class Disease {
     @Column(name = "name")
     private String name;
 
+    @NonNull
     private String templateName;
 
-
+    @NonNull
     @Column(name = "precaution", columnDefinition = "LONGTEXT")
     private String precautionDiagnose;
 
+    @NonNull
     @Column(name = "intervention", columnDefinition = "LONGTEXT")
     private String interventionDiagnose;
 
     @Column(name ="image_name")
     private String imageName;
 
+    @NonNull
     @Column(name = "disease_description")
     private String diseaseDescription;
 
-    @Column(name = "plant_type")
-    @Enumerated(EnumType.STRING)
+
+    @ManyToOne
     private PlantType plantType;
 
     @NonNull

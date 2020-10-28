@@ -1,0 +1,45 @@
+<div class="contact">
+  <div class="card">
+    <div class="gold-line"></div>
+    <h1>Napisz do nas...</h1>
+
+    <!-- <label for="">
+      Numer kontaktowy:
+      <span> 111222333 </span>
+    </label>
+    <label for="">
+      @ E-mail:
+      <span> plantExpert1@gmail.com </span>
+    </label> -->
+
+    <div class="form-box">
+      <form action="" [formGroup]="contactForm">
+        <input type="text" placeholder="Tytuł" formControlName="title" />
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          placeholder="Treść wiadomości"
+          formControlName="text"
+        ></textarea>
+        <button type="submit">Wyślij</button>
+      </form>
+    </div>
+
+    <h1>... lub zadzwoń</h1>
+
+    <label for=""> 111222333</label>
+  </div>
+
+  <div class="card">
+    <h1>Trochę o nas</h1>
+    <div class="image-mock"></div>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam in quis
+      voluptatum quo tenetur quasi expedita rem necessitatibus, ea ipsam
+      doloremque repellat aliquid quaerat sint. Pariatur at explicabo ipsam
+      facilis.
+    </p>
+  </div>
+</div>

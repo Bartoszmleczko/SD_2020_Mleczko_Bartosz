@@ -1,0 +1,27 @@
+<!-- <p>encyclopedy works!</p>
+
+<img *ngIf="image" [src]="image" alt="" /> -->
+
+<div>
+  <table class="mat-table">
+    <thead>
+      <tr class="mat-header-row">
+        <th class="mat-header-cell">Id</th>
+        <th class="mat-header-cell">Task</th>
+        <th class="mat-header-cell">Done</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="mat-row" *ngFor="let disease of encyclopedyData">
+        <td class="mat-cell">{{ disease.diseaseName }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[10, 25, 100]"
+    [pageSize]="10"
+    [length]="totalElements"
+    (page)="nextPage($event)"
+  >
+  </mat-paginator>
+</div>

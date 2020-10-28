@@ -1,0 +1,60 @@
+img {
+  width: 300px;
+}
+
+.table-box {
+  margin-left: 50px;
+  width: 100%;
+}
+
+.table-header {
+  font-size: 20px;
+}
+
+.disease-name-col {
+  font-size: 14px;
+}
+.disease-name-col h2 {
+  text-align: center;
+  text-shadow: 2px;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+table {
+  background-color: #3e5063;
+}
+td,
+th {
+  color: #fff0b3;
+}
+
+tr {
+  border-bottom: 1px solid;
+}
+
+tr:hover {
+  background-color: #485c70;
+}
+
+mat-paginator {
+  border-top: 2px;
+  background-color: #3e5063;
+}
+
+::ng-deep .mat-paginator-page-size {
+  color: #fff0b3;
+}
+
+::ng-deep .mat-select-value {
+  color: #fff0b3;
+}
+
+::ng-deep .mat-paginator-range-label {
+  color: #fff0b3;
+}
+
+::ng-deep .mat-paginator-icon {
+  color: #fff0b3;
+}

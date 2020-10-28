@@ -1,0 +1,20 @@
+.contact {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+}
+
+.card {
+  width: 50%;
+  background-color: #3e5063;
+}
+
+.card h1 {
+  text-align: center;
+}
+
+.gold-line {
+  background-color: gold;
+  height: 5px;
+  width: 100%;
+}

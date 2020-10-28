@@ -26,7 +26,7 @@ public class RiskFactor {
     @Enumerated(EnumType.STRING)
     private FactorType factorType;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
     private PlantType plantType;
 
 }

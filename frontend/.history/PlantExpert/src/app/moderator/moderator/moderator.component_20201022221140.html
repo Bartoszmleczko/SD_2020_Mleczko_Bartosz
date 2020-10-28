@@ -1,0 +1,36 @@
+<div class="content">
+  <div class="plantForm">
+    <h2>Dodaj nową roślinę</h2>
+    <form action="" [formGroup]="newPlantForm">
+      <input type="text" formControlName="name" placeholder="Nazwa rośliny" />
+      <button type="submit">Dodaj</button>
+    </form>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam eos, vitae
+      assumenda, sapiente numquam cum labore quos iusto architecto doloremque
+      vel quas fugiat velit dolores dolore perferendis beatae. Assumenda, fuga?
+    </p>
+  </div>
+</div>
+
+<div class="content margin">
+  <mat-form-field appearance="fill" class="align-self-center checkbox">
+    <mat-label>Wybierz roślinę</mat-label>
+
+    <mat-select
+      name="plant"
+      #choosedValue
+      (valueChange)="getDiagnoseFormData(choosedValue.value)"
+    >
+      <mat-option value="none">Brak (Zamknij formularz)</mat-option>
+      <mat-option *ngFor="let plant of plants" [value]="plant.name">
+        <span>
+          {{ plant.name }}
+        </span>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<app-new-disease-placeholder> </app-new-disease-placeholder>
+
+<div class="content"></div>

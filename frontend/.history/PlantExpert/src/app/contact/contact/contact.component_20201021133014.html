@@ -1,0 +1,32 @@
+<div class="contact">
+  <div class="card">
+    <div class="gold-line"></div>
+    <h1>Kontakt</h1>
+
+    <!-- <label for="">
+      Numer kontaktowy:
+      <span> 111222333 </span>
+    </label>
+    <label for="">
+      @ E-mail:
+      <span> plantExpert1@gmail.com </span>
+    </label> -->
+
+    <div class="form-box">
+      <form action="" [formGroup]="contactForm">
+        <input type="text" placeholder="Tytuł" formControlName="title" />
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          placeholder="Treść wiadomości"
+          formControlName="text"
+        ></textarea>
+        <button type="submit">Wyślij</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card"></div>
+</div>

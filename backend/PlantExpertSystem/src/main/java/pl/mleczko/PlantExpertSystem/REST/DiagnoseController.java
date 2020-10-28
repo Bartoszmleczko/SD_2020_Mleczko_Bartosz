@@ -1,9 +1,6 @@
 package pl.mleczko.PlantExpertSystem.REST;
 
 import jess.JessException;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
-import org.aspectj.util.FileUtil;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +10,13 @@ import pl.mleczko.PlantExpertSystem.Entity.PlantType;
 import pl.mleczko.PlantExpertSystem.ExpertSystem.DiseaseCreatingService;
 import pl.mleczko.PlantExpertSystem.Model.*;
 import pl.mleczko.PlantExpertSystem.Service.DiagnoseService;
+import pl.mleczko.PlantExpertSystem.Service.DiseaseService;
 import pl.mleczko.PlantExpertSystem.Service.FileStorageService;
+import pl.mleczko.PlantExpertSystem.Service.PlantTypeService;
 
-import javax.annotation.Resource;
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashSet;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -28,27 +25,36 @@ public class DiagnoseController {
 private final DiagnoseService diagnoseService;
 private final DiseaseCreatingService diseaseCreatingService;
 private final FileStorageService fileStorageService;
+private final PlantTypeService plantTypeService;
+private final DiseaseService diseaseService;
 
-    public DiagnoseController(DiagnoseService diagnoseService, DiseaseCreatingService diseaseCreatingService, FileStorageService fileStorageService) {
+    public DiagnoseController(DiagnoseService diagnoseService, DiseaseCreatingService diseaseCreatingService,
+                              FileStorageService fileStorageService, PlantTypeService plantTypeService, DiseaseService diseaseService) {
         this.diagnoseService = diagnoseService;
         this.diseaseCreatingService = diseaseCreatingService;
         this.fileStorageService = fileStorageService;
+        this.plantTypeService = plantTypeService;
+        this.diseaseService = diseaseService;
+    }
+
+    @GetMapping("/plantTypes")
+    public List<PlantType> findAll(){
+        return plantTypeService.findAll();
     }
 
     @GetMapping("/factors")
-    public DiagnoseFormDto getRiskFactorsByPlantType(@RequestParam PlantType plantType){
+    public DiagnoseFormDto getRiskFactorsByPlantType(@RequestParam String plantType){
         return diagnoseService.aggregateRiskFactorsAndSymptomsForForm(plantType);
     }
 
     @PostMapping(value = "/factors", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HashSet<DiseaseDto> provideFactsForEvaluation(@RequestBody PlantSicknessRequest request) throws JessException {
+    public HashSet<DiseaseDto> provideFactsForEvaluation(@RequestBody PlantSicknessRequest request) throws JessException, IOException {
         return diagnoseService.diagnose(request);
     }
 
-    @PostMapping("/diseases")
-    public ResponseEntity<HttpStatus> addNewDisease(NewDiseaseForm form) throws IOException {
-//       return  ResponseEntity.ok(diseaseCreatingService.createNewDisease(form));
-        diseaseCreatingService.writeRiskFactor(new SimpleTemplateForm());
+    @GetMapping("/disease")
+    public ResponseEntity<HttpStatus> addNewDisease() throws IOException {
+        diseaseService.parseTxtFileForNewDisease();
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
@@ -59,9 +65,8 @@ private final FileStorageService fileStorageService;
     }
 
     @GetMapping("/images")
-    public byte[] getImageUrl() throws IOException {
-        File file = new File("src/main/resources/images/cereal-1866559.jpg");
-        return FileUtil.readAsByteArray(file);
+    public byte[] getImageUrl(@RequestParam("name") String name) throws IOException {
+        return diagnoseService.getImage(name);
     }
 
 }

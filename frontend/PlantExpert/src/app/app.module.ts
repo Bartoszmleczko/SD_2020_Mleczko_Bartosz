@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule, Routes } from "@angular/router";
 import { HttpClientModule } from "@angular/common/http";
-
+import { MatPaginatorModule } from "@angular/material/paginator";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./login/login.component";
 import { HeaderComponent } from "./header/header.component";
@@ -23,6 +23,11 @@ import { DiagnosePlaceholderComponent } from "./diagnose/diagnose-placeholder/di
 import { MatDialogModule } from "@angular/material/dialog";
 import { EncyclopedyComponent } from "./encyclopedy/encyclopedy/encyclopedy.component";
 import { EncyclopedyService } from "./encyclopedy/encyclopedy.service";
+import { ContactComponent } from "./contact/contact/contact.component";
+import { ModeratorComponent } from "./moderator/moderator/moderator.component";
+import { ContactService } from "./contact/contact.service";
+import { ModeratorService } from "./moderator/moderator.service";
+import { NewDiseasePlaceholderComponent } from './moderator/new-disease-placeholder/new-disease-placeholder.component';
 
 const routes: Routes = [
   {
@@ -51,6 +56,18 @@ const routes: Routes = [
         canActivate: [AuthGuardService],
         data: { roles: "USER" },
       },
+      {
+        path: "contact",
+        component: ContactComponent,
+        canActivate: [AuthGuardService],
+        data: { roles: "USER" },
+      },
+      {
+        path: "moderator",
+        component: ModeratorComponent,
+        canActivate: [AuthGuardService],
+        data: { roles: "USER" },
+      },
     ],
   },
 ];
@@ -65,6 +82,9 @@ const routes: Routes = [
     DiagnoseWrapperComponent,
     DiagnosePlaceholderComponent,
     EncyclopedyComponent,
+    ContactComponent,
+    ModeratorComponent,
+    NewDiseasePlaceholderComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +97,7 @@ const routes: Routes = [
     MatStepperModule,
     MatCheckboxModule,
     MatDialogModule,
+    MatPaginatorModule,
   ],
   providers: [
     AuthenticationService,
@@ -84,6 +105,8 @@ const routes: Routes = [
     RegisterService,
     DiagnoseService,
     EncyclopedyService,
+    ContactService,
+    ModeratorService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [DiagnosePlaceholderComponent],

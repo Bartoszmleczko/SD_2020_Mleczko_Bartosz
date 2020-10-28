@@ -9,7 +9,6 @@ public class DiseaseDto {
 
     private String diseaseName;
     private String diagnose;
-    private WikipediaApiResponse apiResponse;
-
+    private String diseaseDescription;
 
 }
