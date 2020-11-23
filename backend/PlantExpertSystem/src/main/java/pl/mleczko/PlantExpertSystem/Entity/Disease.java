@@ -41,7 +41,7 @@ public class Disease {
     private String imageName;
 
     @NonNull
-    @Column(name = "disease_description")
+    @Column(name = "disease_description" , columnDefinition = "LONGTEXT")
     private String diseaseDescription;
 
 

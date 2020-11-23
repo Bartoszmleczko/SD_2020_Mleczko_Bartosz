@@ -61,4 +61,7 @@ public class TemporaryDisease {
     @Column
     private LocalDateTime requestDate;
 
+    @Column
+    private String imageUrl;
+
 }

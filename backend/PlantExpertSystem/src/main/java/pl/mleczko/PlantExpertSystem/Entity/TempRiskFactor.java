@@ -26,13 +26,18 @@ public class TempRiskFactor {
     @Column
     private String templateName;
 
+    @Enumerated(EnumType.STRING)
+    private FactorType factorType;
+
 
     @Override
     public int hashCode() {
         int result = 17;
         result = 31 * result + name.hashCode();
+        if(id != null)
         result = 31 * result + id;
         result = 31 * result + templateName.hashCode();
+        result = 31 * result + factorType.hashCode();
         return result;
     }
 
@@ -47,6 +52,6 @@ public class TempRiskFactor {
         }
         TempRiskFactor f = (TempRiskFactor) obj;
 
-        return name.equals(f.getName()) && templateName.equals(f.getTemplateName()) && id == f.getId();
+        return name.equals(f.getName()) && templateName.equals(f.getTemplateName()) && id == f.getId() && factorType == f.getFactorType();
     }
 }

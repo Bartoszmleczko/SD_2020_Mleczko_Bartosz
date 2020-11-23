@@ -1,5 +1,7 @@
 package pl.mleczko.PlantExpertSystem.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -7,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -41,5 +44,16 @@ public class User {
     @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
     private Set<Role> roles = new HashSet<>();
+
+
+    @JsonIgnore
+    @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<MailMessage> sentMessages;
+
+    @JsonIgnore
+    @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Diagnose> diagnoses;
 
 }
