@@ -13,7 +13,12 @@
 
     <div class="form-box">
       <form action="" [formGroup]="contactForm">
-        <input type="text" placeholder="Nagłówek" formControlName="title" />
+        <input
+          type="text"
+          placeholder="Nagłówek"
+          formControlName="title"
+          class="input-header"
+        />
         <textarea
           name=""
           id=""
@@ -27,7 +32,9 @@
     </div>
 
     <h1>... lub zadzwoń</h1>
-
-    <label for=""> 111222333</label>
+    <div class="phonecall-box">
+      <i class="fas fa-phone-alt"></i>
+      <label for=""> 111222333</label>
+    </div>
   </div>
 </div>

@@ -12,9 +12,11 @@ import java.util.List;
 public class TemporaryDiseaseService {
 
     private final TemporaryDiseaseRepository temporaryDiseaseRepository;
+    private final FileStorageService fileStorageService;
 
-    public TemporaryDiseaseService(TemporaryDiseaseRepository temporaryDiseaseRepository) {
+    public TemporaryDiseaseService(TemporaryDiseaseRepository temporaryDiseaseRepository, FileStorageService fileStorageService) {
         this.temporaryDiseaseRepository = temporaryDiseaseRepository;
+        this.fileStorageService = fileStorageService;
     }
 
     @Transactional
@@ -23,7 +25,7 @@ public class TemporaryDiseaseService {
     }
 
     @Transactional
-    public TemporaryDisease findById(Integer id){
+    public TemporaryDisease findById(Long id){
         return temporaryDiseaseRepository.findById(id).orElseThrow(() -> new NotFoundException(TemporaryDisease.class.getSimpleName()));
     }
 
@@ -32,5 +34,15 @@ public class TemporaryDiseaseService {
         return temporaryDiseaseRepository.findAll();
     }
 
+
+    @Transactional
+    public void deleteById(Long id){
+        temporaryDiseaseRepository.deleteById(id);
+    }
+
+    @Transactional
+    public TemporaryDisease findByTemplateName(String templateName){
+        return temporaryDiseaseRepository.findByDiseaseTemplateName(templateName);
+    }
 
 }

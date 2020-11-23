@@ -1,28 +1,22 @@
 package pl.mleczko.PlantExpertSystem.REST;
 
-import org.apache.commons.io.FileUtils;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pl.mleczko.PlantExpertSystem.Entity.Disease;
 import pl.mleczko.PlantExpertSystem.Entity.TemporaryDisease;
+import pl.mleczko.PlantExpertSystem.ExpertSystem.DiseaseCreatingService;
 import pl.mleczko.PlantExpertSystem.Model.DiseaseDto;
+import pl.mleczko.PlantExpertSystem.Model.TemporaryDiseaseTemplateForm;
 import pl.mleczko.PlantExpertSystem.Service.DiagnoseService;
 import pl.mleczko.PlantExpertSystem.Service.DiseaseService;
+import pl.mleczko.PlantExpertSystem.Service.FileStorageService;
+import pl.mleczko.PlantExpertSystem.Service.TemporaryDiseaseService;
 
-import javax.annotation.Resource;
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.file.Path;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,10 +25,16 @@ public class DiseaseController {
 
     private final DiseaseService diseaseService;
     private final DiagnoseService diagnoseService;
+    private final DiseaseCreatingService diseaseCreatingService;
+    private final TemporaryDiseaseService temporaryDiseaseService;
+    private final FileStorageService fileStorageService;
 
-    public DiseaseController(DiseaseService diseaseService, DiagnoseService diagnoseService) {
+    public DiseaseController(DiseaseService diseaseService, DiagnoseService diagnoseService, DiseaseCreatingService diseaseCreatingService, TemporaryDiseaseService temporaryDiseaseService, FileStorageService fileStorageService) {
         this.diseaseService = diseaseService;
         this.diagnoseService = diagnoseService;
+        this.diseaseCreatingService = diseaseCreatingService;
+        this.temporaryDiseaseService = temporaryDiseaseService;
+        this.fileStorageService = fileStorageService;
     }
 
 
@@ -43,17 +43,47 @@ public class DiseaseController {
         return diseaseService.findAll(PageRequest.of(page,size));
     }
 
+    @GetMapping("/diseases/fromDtos")
+    public ResponseEntity<List<Disease>> getDiseases(@RequestParam List<String> diseaseNames){
+        return ResponseEntity.ok(diseaseService.findAllByName(diseaseNames));
+    }
+
     @GetMapping("/diseases/images")
     public List<byte[]> getImages(@RequestParam("names") List<String> names){
         return names.stream().map(name -> diagnoseService.getImage(name)).collect(Collectors.toList());
     }
 
-    @PostMapping("/diseases")
-    public TemporaryDisease addNewDisease(@RequestParam("file") MultipartFile file, @RequestParam("type") String plantType) throws IOException {
+    @PostMapping(path = "/diseases", consumes = {"multipart/form-data"})
+    public ResponseEntity<TemporaryDisease> addNewDisease(@ModelAttribute TemporaryDiseaseTemplateForm form) throws IOException {
 
-        return diseaseService.addNewDisease(file, plantType);
-
+        return ResponseEntity.ok(diseaseService.addNewDisease(form));
     }
+
+    @PostMapping("/diseases/accept")
+    public Disease disease(@RequestBody TemporaryDisease temporaryDisease) throws IOException {
+        return diseaseCreatingService.createNewDisease(temporaryDisease );
+    }
+
+    @GetMapping("/tempDiseases")
+    public ResponseEntity<List<TemporaryDisease>> findAll(){
+        return ResponseEntity.ok(temporaryDiseaseService.findAll());
+    }
+
+    @DeleteMapping("/diseases/discard")
+    public ResponseEntity<String> deleteTemporaryDisease(Long id){
+        temporaryDiseaseService.deleteById(id);
+        TemporaryDisease disease=temporaryDiseaseService.findById(id);
+        if(disease != null){
+            fileStorageService.deleteImage(disease.getImageUrl());
+        }
+        return ResponseEntity.ok("Pomyślnie usunięto");
+    }
+
+    @GetMapping("/diseases/top")
+    public ResponseEntity<List<DiseaseDto>> getTop5Diseases(){
+        return ResponseEntity.ok(diagnoseService.find5TopDiseases());
+    }
+
 
 //    @GetMapping("/diseases/images")
 //    public String getUrl() throws IOException {
@@ -62,5 +92,8 @@ public class DiseaseController {
 //        System.out.println(url);
 //        return url;
 //    }
+
+
+    //chwościk buraka, czekoladowa plamistość liści na bobiku (burak), zgnilizna twardzikowa soi, rizoktonioza ziemniaka, czerń krzyżowych rzepaku, szara pleśń rzepaku
 
 }

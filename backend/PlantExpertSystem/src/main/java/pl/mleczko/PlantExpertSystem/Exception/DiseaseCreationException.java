@@ -1,4 +1,8 @@
 package pl.mleczko.PlantExpertSystem.Exception;
 
-public class DiseaseCreationException {
+public class DiseaseCreationException extends RuntimeException {
+
+    public DiseaseCreationException(String message) {
+        super(message);
+    }
 }

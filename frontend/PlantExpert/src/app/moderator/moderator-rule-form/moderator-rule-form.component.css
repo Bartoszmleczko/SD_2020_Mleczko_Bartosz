@@ -1,0 +1,33 @@
+.rule-box {
+  width: 100%;
+  background-color: #3e5063;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff0b3;
+}
+
+form {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.select-box {
+  width: 100%;
+}
+
+select {
+  width: 80%;
+}
+
+.error-wrapper {
+  height: 30px;
+}
+
+.input-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

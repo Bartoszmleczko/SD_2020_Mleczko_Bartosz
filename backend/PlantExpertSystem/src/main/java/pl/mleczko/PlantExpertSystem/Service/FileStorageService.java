@@ -1,5 +1,6 @@
 package pl.mleczko.PlantExpertSystem.Service;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.aspectj.util.FileUtil;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,7 @@ public class FileStorageService {
     }
 
 
-    public void store (MultipartFile file){
+    public void store (MultipartFile file, String name){
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
 
         if(file.isEmpty() )
@@ -62,12 +63,20 @@ public class FileStorageService {
 
             Path path2 = Paths.get(this.path);
 
-            Files.copy(inputStream,path2.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(inputStream,path2.resolve(name + "." + FilenameUtils.getExtension(file.getOriginalFilename())), StandardCopyOption.REPLACE_EXISTING);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+
+    public void deleteImage(String imagePath){
+
+        Path path = Paths.get(this.path);
+        File file = new File(path.resolve(imagePath).toString());
+        file.delete();
     }
 
     public Path getUploadPath() {

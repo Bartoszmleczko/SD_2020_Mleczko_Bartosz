@@ -1,0 +1,111 @@
+.new-plant {
+  background-color: #3e5063;
+  width: 50%;
+  color: #fff0b3;
+  text-align: center;
+}
+
+.new-plant h3 {
+  margin-top: 15px;
+  padding: 2px;
+}
+
+table {
+  width: 90%;
+}
+
+.table-box {
+  display: flex;
+  justify-content: center;
+}
+
+.dark-background {
+  background-color: #3e5063;
+  color: #fff0b3;
+}
+.margin-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.new-disease {
+  margin-top: 10px;
+}
+
+.bor-bottom {
+  border-bottom: 1px solid #fff0b3;
+}
+
+.temp-disease-content {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.risk-factor-border {
+  padding: 10px;
+  margin-left: 5px;
+  border: 0.25px solid #fff0b3;
+}
+
+.symptom-box {
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.img-box {
+  min-width: 35%;
+  width: 35%;
+  height: 450px;
+  background-color: grey;
+}
+
+.content-box {
+  width: 100%;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.static-data {
+  text-align: center;
+}
+
+.static-data-block {
+  margin-top: 5px;
+  padding: 5px;
+}
+
+.diagnose-block {
+  padding: 10px;
+  margin-left: 50px;
+  max-width: 50%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.template-block {
+  width: 50%;
+  text-align: center;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 15px;
+}
+
+.button-wrapper button {
+  width: 150px;
+  height: 50px;
+}
+::ng-deep .mat-select-value-text {
+  color: #fff0b3;
+}

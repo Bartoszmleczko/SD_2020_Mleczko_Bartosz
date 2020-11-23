@@ -7,6 +7,7 @@ import {
   RequestSlotDto,
   PlantSicknessRequest,
   DiseaseDto,
+  DiagnoseDto,
 } from "./../../models/models";
 import { Component, OnInit, Output, ViewChild } from "@angular/core";
 import { DiagnoseService } from "../diagnose.service";
@@ -137,7 +138,6 @@ export class DiagnoseWrapperComponent implements OnInit {
       .subscribe((data: DiseaseDto[]) => {
         console.log(data);
         this.diagnose = data;
-
         this.diagnose.forEach((diagnose: DiseaseDto, index) => {
           this.diagnoseService
             .getImage(diagnose.diseaseName)
@@ -184,13 +184,20 @@ export class DiagnoseWrapperComponent implements OnInit {
     this.dialog.open(DiagnosePlaceholderComponent, dialogConfig);
   }
 
-  // getImages(byteArray: Blob) {
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(byteArray);
-  //   reader.onload = (e) => (
-  //     (const bytes = reader.result),
-  //     (this.image = this.sanitizer.bypassSecurityTrustUrl(bytes))
-  //   );
-
-  // }
+  saveDiagnose() {
+    const newDiagnose: DiagnoseDto = {
+      id: null,
+      note: null,
+      diseases: this.diagnose,
+      creationTime: null,
+    };
+    this.diagnoseService.saveDiagnose(newDiagnose).subscribe(
+      (data) => {
+        console.log("Pomyślnie zapisano");
+      },
+      (err) => {
+        console.log("Błąd zapisu");
+      }
+    );
+  }
 }

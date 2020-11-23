@@ -23,4 +23,6 @@ public interface DiseaseRepository extends JpaRepository<Disease, Long> {
 
     public Disease findByNameOrTemplateNameAndPlantType(String name, String templateName, PlantType type);
 
+    public List<Disease> findTop5ByOrderByCountDesc();
+
 }

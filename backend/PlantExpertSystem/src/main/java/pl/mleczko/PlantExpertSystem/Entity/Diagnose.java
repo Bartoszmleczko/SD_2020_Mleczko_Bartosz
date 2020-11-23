@@ -1,5 +1,6 @@
 package pl.mleczko.PlantExpertSystem.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -24,13 +25,12 @@ public class Diagnose {
     @Column(name = "note", columnDefinition = "LONGTEXT")
     private String note;
 
+    @JsonBackReference(value = "userReference")
     @ManyToOne
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private User user;
 
-    @JsonManagedReference
+    @JsonBackReference(value = "diseaseReference")
     @ManyToMany
-    @JoinTable(name = "diagnose_disease", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "diseaseId"))
     private List<Disease> diseases;
 
 }

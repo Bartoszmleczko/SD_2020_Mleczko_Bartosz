@@ -1,5 +1,7 @@
 package pl.mleczko.PlantExpertSystem.REST;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.okhttp.Response;
 import jess.JessException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +15,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import pl.mleczko.PlantExpertSystem.Entity.User;
 import pl.mleczko.PlantExpertSystem.ExpertSystem.PlantExpertEvalService;
-import pl.mleczko.PlantExpertSystem.Model.LoginRequest;
-import pl.mleczko.PlantExpertSystem.Model.LoginResponse;
-import pl.mleczko.PlantExpertSystem.Model.PlantSicknessRequest;
+import pl.mleczko.PlantExpertSystem.Model.*;
 import pl.mleczko.PlantExpertSystem.Security.JwtUtils;
 import pl.mleczko.PlantExpertSystem.Service.UserService;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*")
@@ -44,7 +46,7 @@ public class UserController {
         return "Home";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register" )
     public  String response(@RequestBody User user){
         userService.save(user);
         return "User registered";
@@ -63,6 +65,30 @@ public class UserController {
         String lastName = dbUser.getLastName();
         LoginResponse response = new LoginResponse(username, firstName, lastName, roles, jwt );
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/users")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<List<UserDto>> getUsers(@RequestParam Optional<String> username, Principal principal){
+        return ResponseEntity.ok(userService.findAllByUsername(username, principal.getName()));
+    }
+
+    @PutMapping("/users/grantMod")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<UserDto> grantModeratorRole(@RequestBody UserDto dto){
+        return ResponseEntity.ok(userService.grantModeratorRole(dto));
+    }
+
+    @PutMapping("/users/declineMod")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<UserDto> declineModeratorRole(@RequestBody UserDto dto){
+        return ResponseEntity.ok(userService.declineModeratorRole(dto));
+    }
+
+    @GetMapping("/activate/{token}")
+    public ResponseEntity<ActivationMessage> activateUserAccount(@PathVariable String token){
+
+        return ResponseEntity.ok(new ActivationMessage(userService.activateUserAccount(token)));
     }
 
 }

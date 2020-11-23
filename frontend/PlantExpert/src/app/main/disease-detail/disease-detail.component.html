@@ -1,0 +1,13 @@
+<div class="disease-detail-container">
+  <div class="img-box"><img [src]="disease.url" alt="" /></div>
+
+  <div class="disease-details">
+    <h1>{{ disease.diseaseName }}</h1>
+    <div>
+      <p>
+        {{ disease.diseaseDescription }}
+      </p>
+      <p>Tę chorobę zdiagnozowano {{ disease.count }} razy.</p>
+    </div>
+  </div>
+</div>

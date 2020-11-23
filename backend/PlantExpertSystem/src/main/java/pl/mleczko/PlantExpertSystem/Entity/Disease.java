@@ -60,5 +60,7 @@ public class Disease {
     @JoinColumn(name = "plant_id")
     private Plant plant;
 
+    private Long count;
+
 
 }

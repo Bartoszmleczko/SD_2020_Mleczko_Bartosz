@@ -1,0 +1,29 @@
+<div class="admin-container">
+  <div class="submenu">
+    <div
+      class="submenu-item"
+      [routerLink]="['plant']"
+      routerLinkActive="router-link-active"
+    >
+      Nowe rośliny
+    </div>
+    <div
+      class="submenu-item"
+      [routerLink]="['disease']"
+      routerLinkActive="router-link-active"
+    >
+      Nowe choroby
+    </div>
+    <div
+      class="submenu-item"
+      [routerLink]="['roles']"
+      routerLinkActive="router-link-active"
+    >
+      Zmień uprawnienia
+    </div>
+  </div>
+
+  <div class="outlet-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

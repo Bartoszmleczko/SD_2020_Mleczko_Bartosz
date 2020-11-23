@@ -1,40 +1,111 @@
-<div class="content">
-  <div class="plantForm">
+<!-- <div class="content">
+  <div class="plantForm background">
     <h2>Dodaj nową roślinę</h2>
     <form action="" [formGroup]="newPlantForm">
       <input type="text" formControlName="name" placeholder="Nazwa rośliny" />
-      <button type="submit">Dodaj</button>
+      <span
+        mat-raised-button
+        matTooltip="Podaj nazwę rośliny która powinna zostać dodana. Dodanie nastąpi dopiero
+    po zatwierdzeniu przez administratora."
+        class="ml-2"
+      >
+        <button disabled="true">?</button>
+      </span>
     </form>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam eos, vitae
-      assumenda, sapiente numquam cum labore quos iusto architecto doloremque
-      vel quas fugiat velit dolores dolore perferendis beatae. Assumenda, fuga?
-    </p>
+    <button class="submit-button mt-2">Wyślij</button>
+  </div>
+
+  <div class="background file-form">
+    <div class="center">
+      <h2>Dodaj chorobę</h2>
+      <div class="d-flex justify-content-center">
+        <mat-form-field appearance="fill" class="align-self-center checkbox">
+          <mat-label style="color: #fff0b3">Wybierz roślinę</mat-label>
+
+          <mat-select
+            name="plant"
+            #choosedValue
+            (valueChange)="setPlant(choosedValue.value)"
+          >
+            <mat-option value="none">Brak </mat-option>
+            <mat-option *ngFor="let plant of plants" [value]="plant.name">
+              <span>
+                {{ plant.name }}
+              </span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group button-wrap">
+        <label for="file" class="file-input">
+          <input
+            type="file"
+            id="file"
+            (change)="handleTextFileInput($event)"
+          />Wybierz plik z danymi choroby
+          <br />
+          <span *ngIf="!filename2"> Brak pliku</span>
+          <span> {{ filename2 }}</span>
+        </label>
+        <br />
+        <div class="form-group button-wrap">
+          <label for="file" class="filename-label"
+            >{{ filename }} {{ filename2 }}</label
+          >
+        </div>
+        <label for="file2" class="file-input">
+          <input
+            type="file"
+            id="file2"
+            (change)="handleImageFileInput($event)"
+          />Wybierz plik ze zdjęciem choroby <br />
+          <span *ngIf="!filename2"> Brak pliku</span>
+          <span> {{ filename2 }}</span>
+        </label>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <button
+          [disabled]="!textFileToUpload && !imageFileToUpload && !plant"
+          class="send-button"
+          (click)="uploadFileToActivity()"
+        >
+          Wyślij
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="content margin">
-  <mat-form-field appearance="fill" class="align-self-center checkbox">
-    <mat-label>Wybierz roślinę</mat-label>
-
-    <mat-select
-      name="plant"
-      #choosedValue
-      (valueChange)="getDiagnoseFormData(choosedValue.value)"
-    >
-      <mat-option value="none">Brak (Zamknij formularz)</mat-option>
-      <mat-option *ngFor="let plant of plants" [value]="plant.name">
-        <span>
-          {{ plant.name }}
-        </span>
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
 <app-new-disease-placeholder
   *ngIf="!formData"
-  class="d-flex justify-content-center size"
+  class="d-flex justify-content-center size mt-5"
 >
 </app-new-disease-placeholder>
 
-<div class="content"></div>
+<div class="content"></div> -->
+
+<div class="content">
+  <div class="menu">
+    <div
+      class="mod-menu-elem"
+      [routerLink]="['plant']"
+      routerLinkActive="router-link-active"
+    >
+      Dodaj nową roślinę
+    </div>
+
+    <div
+      class="mod-menu-elem"
+      [routerLink]="['disease']"
+      routerLinkActive="router-link-active"
+    >
+      Dodaj nową chorobę
+    </div>
+  </div>
+
+  <div class="outlet">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -34,4 +34,16 @@ export class DiagnoseService {
   public getPlantTypes() {
     return this.httpClient.get(API_URL + "plantTypes");
   }
+
+  public saveDiagnose(diagnoseDto) {
+    return this.httpClient.post(API_URL + "diagnoses", diagnoseDto);
+  }
+
+  public updateDiagnose(diagnoseDto) {
+    return this.httpClient.put(API_URL + "diagnoses", diagnoseDto);
+  }
+
+  public getUserDiagnoses() {
+    return this.httpClient.get(API_URL + "diagnoses/user");
+  }
 }

@@ -26,4 +26,16 @@ export class EncyclopedyService {
       params: params,
     });
   }
+
+  getDiseasesFromDtos(names: string[]) {
+    let params = new HttpParams();
+    params = params.append("diseaseNames", names.join(","));
+    return this.httpClient.get(API_URL + "diseases/fromDtos", {
+      params: params,
+    });
+  }
+
+  getTop5Diseases() {
+    return this.httpClient.get(API_URL + "diseases/top");
+  }
 }

@@ -1,0 +1,247 @@
+.mod-disease-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  margin-top: 30px;
+}
+
+form {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.disease-form-box {
+  width: 70%;
+  background-color: #3e5063;
+  color: #fff0b3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.disease-name-input {
+  width: 100%;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.disease-name-input input {
+  width: 50%;
+  height: 60px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+input::placeholder {
+  color: white;
+}
+
+input {
+  background-color: #3e5063;
+  color: #fff0b3;
+  border: 1px solid grey;
+}
+
+input:hover {
+  background-color: #495e74;
+}
+
+input:focus {
+  background-color: #495e74;
+  outline: none;
+}
+
+.disease-description-textarea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+}
+
+.disease-description-textarea textarea {
+  resize: none;
+  width: 60%;
+  background-color: #3e5063;
+  color: #fff0b3;
+  border-radius: 10px;
+}
+
+.disease-description-textarea textarea:focus {
+  background-color: #495e74;
+  outline: none;
+}
+.disease-description-textarea textarea:hover {
+  background-color: #495e74;
+  outline: none;
+}
+.disease-description-textarea textarea::placeholder {
+  color: white;
+}
+
+.disease-diagnose-input {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.disease-diagnose-input textarea {
+  width: 80%;
+  height: 150px;
+  background-color: #3e5063;
+  color: #fff0b3;
+  border: 1px solid grey;
+  resize: none;
+  border-radius: 10px;
+}
+
+.input-box {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.disease-diagnose-input textarea:hover {
+  background-color: #495e74;
+}
+
+textarea::placeholder {
+  color: white;
+}
+
+textarea:focus {
+  background-color: #495e74;
+  outline: none;
+}
+
+.file-input-box {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.file-input {
+  display: inline-block;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: rgb(219, 64, 64);
+  font-size: 16px;
+  color: #fff;
+}
+input[type="file"] {
+  position: absolute;
+  z-index: -1;
+  top: 6px;
+  left: 0;
+  font-size: 15px;
+  color: rgb(153, 153, 153);
+}
+
+.disease-templates-inputs {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.input-box {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-with-delete-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.input-with-delete-btn input {
+  width: 60%;
+}
+
+.minus-btn {
+  margin-left: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #485e75;
+  color: #fff0b3;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.minus-btn:hover,
+.plus-btn:hover,
+.submit-btn:hover {
+  background-color: #4c6681;
+}
+
+.disease-rules-inputs {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.plus-btn {
+  width: 250px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #485e75;
+  color: #fff0b3;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 1px solid grey;
+}
+
+.submit-btn {
+  width: 160px;
+  height: 60px;
+  background-color: #485e75;
+  color: #fff0b3;
+  border: 1px solid grey;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  font-size: 22px;
+}
+
+.dynamic-input {
+  width: 100%;
+}
+
+.inner-dynamic-input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-wrapper {
+  height: 30px;
+}
+
+.submit-btn:disabled {
+  background-color: #6283a7;
+  color: white;
+}
+
+.plus-btn:disabled {
+  background-color: #7998b9;
+}

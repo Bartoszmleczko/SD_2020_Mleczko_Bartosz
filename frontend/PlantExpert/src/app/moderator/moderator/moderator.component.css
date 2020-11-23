@@ -1,22 +1,130 @@
 .content {
+  width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.outlet {
+  width: 100%;
+}
+
+.mod-menu-elem {
+  width: 48%;
+  height: 50px;
+  background-color: #3e5063;
+  color: #fff0b3;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.router-link-active {
+  box-shadow: 4px 2px 2px 4px rgb(0, 0, 0, 0.4);
+
+  background-color: #6686a8;
+}
+
+.mod-menu-elem:hover {
+  background-color: #6686a8;
+}
+
+.mod-menu-elem:focus {
+  outline: none;
+}
+
+.file-form {
+  padding: 10px;
+  width: 40%;
+  background-color: #3e5063;
+}
+
+.background {
+  border-radius: 5px;
+  box-shadow: 3px 6px 10px 3px rgba(0, 0, 0, 0.4);
 }
 
 .margin {
   margin-top: 20px;
 }
 
+input {
+  height: 60px;
+  width: 300px;
+  border-radius: 10px;
+  color: #fff0b3;
+  background-color: #3e5063;
+  border-radius: 15px;
+}
+
+input::placeholder {
+  color: #dad3b7;
+  padding-left: 10px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #3e3455;
+}
+
+.center {
+  display: inline;
+  margin: 0 auto;
+}
+
 .plantForm {
+  background-color: #3e5063;
   margin-top: 20px;
-  width: 40%;
-  background-color: white;
+  width: 30%;
   text-align: center;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 button {
-  width: 10%;
+  width: 100px;
+  background-color: #3e5063;
+  color: #fff0b3;
+}
+
+.send-button button:disabled {
+  background-color: #617b97;
+}
+
+form button:disabled {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #485e75;
+  color: white;
+  margin-left: 2px;
+}
+
+.submit-button {
+  height: 50px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+::ng-deep .mat-select-value-text {
+  color: #fff0b3;
+}
+
+.submit-button button:hover {
+  background-color: white;
 }
 
 .plantForm p {
@@ -25,4 +133,54 @@ button {
   margin-right: auto;
   width: 60%;
   text-align: center;
+}
+
+.send-button {
+  width: 130px;
+  height: 50px;
+  font-size: 20px;
+  background-color: #3e5063;
+  color: #fff0b3;
+  margin-bottom: 5px;
+}
+
+button:hover {
+  background-color: #43576d;
+}
+
+.file-input {
+  display: inline-block;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: rgb(219, 64, 64);
+  font-size: 16px;
+  color: #fff;
+}
+
+input[type="file"] {
+  position: absolute;
+  z-index: -1;
+  top: 6px;
+  left: 0;
+  font-size: 15px;
+  color: rgb(153, 153, 153);
+}
+
+h2 {
+  text-align: center;
+  color: #fff0b3;
+  text-shadow: 2px 1px black;
+}
+
+.filename-label {
+  width: 60%;
+}
+
+.form-group {
+  text-align: center;
+}
+
+p {
+  font-size: 20px;
 }

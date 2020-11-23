@@ -3,6 +3,9 @@ package pl.mleczko.PlantExpertSystem.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import pl.mleczko.PlantExpertSystem.Entity.User;
+import pl.mleczko.PlantExpertSystem.Entity.VerificationToken;
+
+import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -13,5 +16,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
             + "WHERE user.email = ?#{ authentication?.name }")
     User findUserProfileIdByCurrentUser();
 
+
+    @Query("select u from User u where email like %?1%")
+    public List<User> findAllByUsername(String email);
+
+    public User findByVerificationToken(VerificationToken token);
 
 }

@@ -1,0 +1,66 @@
+<div class="diagnose-modal-container">
+  <div class="modal-scroll-wrapper">
+    <div class="diseases-box">
+      <div class="single-disease-box">
+        <div class="note-box">
+          <form
+            action="
+          "
+            [formGroup]="noteForm"
+          >
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              formControlName="note"
+              placeholder="Dodaj notatkę"
+            ></textarea>
+            <div class="error-box">
+              <label for="" *ngIf="f.note.errors"
+                >Notatka musi zawierać 30-100 znaków</label
+              >
+            </div>
+          </form>
+          <button [disabled]="!noteForm.valid" (click)="addNote()">
+            Zapisz
+          </button>
+        </div>
+
+        <div class="note-box">
+          <h1>Notatka</h1>
+          <p *ngIf="diagnose.note">{{ diagnose.note }}</p>
+          <p *ngIf="!diagnose.note">
+            Do tej diagnozy nie dodano jeszcze notatki.
+          </p>
+        </div>
+      </div>
+      <div class="single-disease-box" *ngFor="let disease of diseases">
+        <div><img [src]="disease.url" alt="" class="img-box" /></div>
+        <div class="disease-content-box">
+          <h1>{{ disease.name }}</h1>
+          <div class="description-box">
+            <p>{{ disease.diseaseDescription }}</p>
+          </div>
+          <div class="diagnoses-box">
+            <div class="diagnose-box">
+              <h3>Diagnoza zapobiegawcza</h3>
+              <p>
+                {{ disease.precautionDiagnose }}
+              </p>
+              <p *ngIf="!diagnose.precautionDiagnose">
+                Ta choroba nie posiada diagnozy zapobiegawczej.
+              </p>
+            </div>
+            <div class="diagnose-box">
+              <h3>Diagnoza interwencyjna</h3>
+              <p>
+                {{ disease.interventionDiagnose }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

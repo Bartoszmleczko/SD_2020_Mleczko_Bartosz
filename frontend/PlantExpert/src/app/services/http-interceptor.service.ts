@@ -1,25 +1,29 @@
-import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
-import { TokenStorageService } from './token-storage.service';
+import { Injectable } from "@angular/core";
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+} from "@angular/common/http";
+import { TokenStorageService } from "./token-storage.service";
 
-const TOKEN_HEADER_KEY = 'Authorization';
-const InterceptorSkipHeader = ''
+const TOKEN_HEADER_KEY = "Authorization";
+const InterceptorSkipHeader = "";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
-export class HttpInterceptorService implements HttpInterceptor{
+export class HttpInterceptorService implements HttpInterceptor {
+  constructor(private tokenStorage: TokenStorageService) {}
 
-  constructor(private tokenStorage: TokenStorageService) { }
-
-  intercept(req: HttpRequest<any>, next: HttpHandler){
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
     let authReq = req;
-    const token  = sessionStorage.getItem('auth-token');
+    const token = this.tokenStorage.getJwtToken();
     if (token != null) {
-      authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+      authReq = req.clone({
+        headers: req.headers.set(TOKEN_HEADER_KEY, "Bearer " + token),
+      });
     }
 
     return next.handle(authReq);
   }
-
 }

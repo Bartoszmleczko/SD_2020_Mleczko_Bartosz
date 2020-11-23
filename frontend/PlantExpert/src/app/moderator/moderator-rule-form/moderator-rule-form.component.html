@@ -1,0 +1,23 @@
+<div class="rule-box">
+  <h1>Stwórz nową regułę</h1>
+  <form action="" [formGroup]="ruleForm">
+    <div
+      *ngFor="let symp of symptoms.controls; let i = index"
+      formArrayName="symptoms"
+    >
+      <ul>
+        <input type="checkbox" [formControlName]="i" />
+        <label for="">{{ templates.symptoms[i].templateName }}</label>
+      </ul>
+    </div>
+    <div
+      *ngFor="let risk of riskFactors.controls; let i = index"
+      formArrayName="riskFactors"
+    >
+      <ul>
+        <input type="checkbox" [formControlName]="i" />
+        <label for="">{{ templates.riskFactors[i].templateName }}</label>
+      </ul>
+    </div>
+  </form>
+</div>

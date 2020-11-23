@@ -2,10 +2,8 @@ package pl.mleczko.PlantExpertSystem.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,8 +13,6 @@ import java.util.Set;
 @Entity
 @Table(name = "user")
 @Data
-@NoArgsConstructor
-@RequiredArgsConstructor
 public class User {
 
     @Id
@@ -41,19 +37,31 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
+    private boolean isEnabled = false;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private VerificationToken verificationToken;
+
     @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
     private Set<Role> roles = new HashSet<>();
 
 
     @JsonIgnore
-    @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<MailMessage> sentMessages;
-
-    @JsonIgnore
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Diagnose> diagnoses;
 
+
+    public User(@NonNull String email, @NonNull String password, @NonNull String firstName, @NonNull String lastName) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.isEnabled = false;
+    }
+
+    public User() {
+        this.isEnabled = true;
+    }
 }

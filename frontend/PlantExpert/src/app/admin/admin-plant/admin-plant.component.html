@@ -1,0 +1,32 @@
+<div class="new-plant-container">
+  <div class="new-plant margin-center">
+    <h1>Nowe rośliny</h1>
+
+    <div class="table-box">
+      <table>
+        <tr>
+          <th>Lp.</th>
+          <th>Nazwa Rośliny</th>
+          <th>Data złożenia</th>
+          <th></th>
+          <th></th>
+        </tr>
+
+        <tr *ngFor="let plant of plantRequests; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ plant.name }}</td>
+          <td>{{ plant.requestDate | date: "EEEE dd.MM.yyyy HH:mm" }}</td>
+          <td>
+            <button class="delete-btn" (click)="deletePlantRequest(i)">
+              Usuń
+            </button>
+          </td>
+          <td>
+            <button class="add-btn" (click)="acceptRequest(i)">Dodaj</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <h3 *ngIf="!plantRequests">Brak zapytań o dodanie nowych roślin</h3>
+  </div>
+</div>

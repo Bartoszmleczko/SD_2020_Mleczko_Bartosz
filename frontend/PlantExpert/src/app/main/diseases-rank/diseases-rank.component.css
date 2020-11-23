@@ -1,0 +1,33 @@
+.rank-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #3e5063;
+  color: #fff0b3;
+}
+
+.disease-box {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #fff0b3;
+  cursor: pointer;
+}
+
+.disease-box:hover {
+  background-color: #45596e;
+}
+
+.img-box {
+  width: 110px;
+  height: 110px;
+}
+
+.disease-details-box {
+  width: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

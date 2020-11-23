@@ -1,0 +1,16 @@
+.main-container {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.diagnoses-table-wrapper {
+  margin-top: 10px;
+  width: 60%;
+}
+
+.rank-wrapper {
+  margin-top: 10px;
+  width: 35%;
+}

@@ -1,0 +1,34 @@
+<h1>Twoje diagnozy</h1>
+
+<div class="diagnose-table-container">
+  <div class="toscroll-wrapper">
+    <table>
+      <thead>
+        <th>Lp.</th>
+        <th>Data stworzenia</th>
+        <th>Choroby</th>
+        <th></th>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let diagnose of diagnoses; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>
+            {{ diagnose.creationTime | date: "EEEE dd.MM.yyyy HH:mm" }}
+          </td>
+          <td>
+            <span *ngFor="let disease of diagnose.diseases; let j = index">
+              {{ disease.diseaseName }} <br />
+            </span>
+          </td>
+          <td>
+            <i
+              class="fas fa-info-circle fa-2x details-btn"
+              (click)="openDiagnoseModal(i)"
+            ></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

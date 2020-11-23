@@ -1,0 +1,54 @@
+<div class="admin-roles-container">
+  <div class="scroll-wrapper">
+    <div class="search">
+      <form action="" [formGroup]="searchForm">
+        <input
+          formControlName="name"
+          type="text"
+          placeholder="Wyszukaj użytkownika"
+          (change)="findAllByUsername()"
+        />
+      </form>
+    </div>
+
+    <table>
+      <thead>
+        <th>Email</th>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>Funkcje</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let i = index">
+          <td>{{ user.email }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>
+            <span *ngFor="let role of user.roles">{{ role }} <br /></span>
+          </td>
+          <td>
+            <button
+              *ngIf="!user.roles.includes('ROLE_MODERATOR')"
+              mat-raised-button
+              matTooltip="Nadaj uprawnienia moderatora."
+              (click)="grantModeratorAuthority(i)"
+              class="bg-green"
+            >
+              <i class="fas fa-user-plus"></i>
+            </button>
+            <button
+              *ngIf="user.roles.includes('ROLE_MODERATOR')"
+              mat-raised-button
+              matTooltip="Odbierz uprawnienia moderatora."
+              (click)="takeModeratorAuthority(i)"
+              class="bg-red"
+            >
+              <i class="fas fa-user-minus"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

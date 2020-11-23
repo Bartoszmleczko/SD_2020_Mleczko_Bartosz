@@ -1,0 +1,38 @@
+<div class="mod-plant-container">
+  <div class="plant-form">
+    <h1>Nowa roślina</h1>
+    <form action="" [formGroup]="newPlantForm">
+      <div class="form-input">
+        <div class="input-box">
+          <input
+            type="text"
+            formControlName="name"
+            placeholder="Nazwa rośliny"
+          />
+          <span
+            mat-raised-button
+            matTooltip="Podaj nazwę rośliny która powinna zostać dodana. Dodanie nastąpi dopiero
+    po zatwierdzeniu przez administratora."
+            class="ml-2"
+          >
+            <button disabled="true">?</button>
+          </span>
+        </div>
+      </div>
+    </form>
+    <div class="error-box">
+      <label for="" *ngIf="f.name.errors"
+        >Nazwa rośliny musi zawierać od 3 do 20 znaków.</label
+      >
+    </div>
+    <div>
+      <button
+        class="submit-button mt-2"
+        [disabled]="!newPlantForm.valid"
+        (click)="savePlantRequest()"
+      >
+        Wyślij
+      </button>
+    </div>
+  </div>
+</div>

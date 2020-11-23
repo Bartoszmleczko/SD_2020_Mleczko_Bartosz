@@ -114,7 +114,14 @@
         >
           Resetuj formularz
         </button>
-        <button mat-button type="button">Zapisz diagnozę</button>
+        <button
+          mat-button
+          type="button"
+          [disabled]="!diagnose"
+          (click)="saveDiagnose()"
+        >
+          Zapisz diagnozę
+        </button>
       </div>
     </form>
   </mat-step>

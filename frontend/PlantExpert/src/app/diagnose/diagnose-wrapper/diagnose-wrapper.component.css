@@ -30,11 +30,6 @@ ul label {
   font-size: 20px;
 }
 
-mat-horizontal-stepper button {
-  color: #fff0b3;
-  font-size: 20px;
-  width: 14%;
-}
 .app-full-bleed-dialog .mat-dialog-container {
   padding: 0;
 }

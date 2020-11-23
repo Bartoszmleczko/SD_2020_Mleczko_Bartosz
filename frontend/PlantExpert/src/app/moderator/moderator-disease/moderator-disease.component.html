@@ -1,0 +1,221 @@
+<div class="mod-disease-container">
+  <div class="disease-form-box">
+    <div class="d-flex justify-content-center mt-5">
+      <mat-form-field appearance="fill" class="align-self-center checkbox">
+        <mat-label style="color: #fff0b3">Wybierz roślinę</mat-label>
+
+        <mat-select
+          name="plantSelect"
+          #choosedValue
+          (valueChange)="setPlant(choosedValue.value)"
+        >
+          <mat-option value="none">Brak </mat-option>
+          <mat-option *ngFor="let plant of plants" [value]="plant.name">
+            <span>
+              {{ plant.name }}
+            </span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <form action="" [formGroup]="newDiseaseForm">
+      <div class="disease-name-input">
+        <input
+          type="text"
+          placeholder="Nazwa choroby"
+          formControlName="diseaseName"
+        />
+        <div class="error-wrapper">
+          <label for="" *ngIf="f.diseaseName.errors"
+            >Nazwa choroby jest wymagana ( min. 5 znaków)</label
+          >
+        </div>
+      </div>
+      <div class="disease-description-textarea">
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          placeholder="Wprowadź opis choroby"
+          formControlName="diseaseDescription"
+        ></textarea>
+        <div class="error-wrapper">
+          <label for="" *ngIf="f.diseaseDescription.errors"
+            >Opis choroby jest wymagany ( min. 20 znaków)</label
+          >
+        </div>
+      </div>
+      <div class="disease-diagnose-input">
+        <div class="input-box">
+          <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+            placeholder="Wprowadź diagnozę zapobiegawczą"
+            formControlName="precautionDiagnose"
+          ></textarea>
+          <div class="error-wrapper">
+            <label for="" *ngIf="f.precautionDiagnose.errors"
+              >Diagnoza zapobiegawcza jest opcjonalna (min. 20 znaków)</label
+            >
+          </div>
+        </div>
+
+        <div class="input-box">
+          <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+            placeholder="Wprowadź diagnozę interwencyjną"
+            formControlName="interventionDiagnose"
+          ></textarea>
+          <div class="error-wrapper">
+            <label for="" *ngIf="f.interventionDiagnose.errors"
+              >Diagnoza interwencyjna jest opcjonalna (min. 20 znaków)</label
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="file-input-box">
+        <label for="file" class="file-input">
+          <input
+            type="file"
+            id="file"
+            (change)="handleImageFileInput($event)"
+          />Wybierz zdjęcie choroby -
+          <span *ngIf="!filename"> Brak pliku</span>
+          <span> {{ filename }}</span>
+        </label>
+      </div>
+
+      <div class="disease-templates-inputs">
+        <div class="input-box" formArrayName="riskFactors">
+          <div
+            *ngFor="let riskFactor of riskFactors.controls; let i = index"
+            class="dynamic-input"
+          >
+            <div [formGroupName]="i" class="inner-dynamic-input">
+              <div class="input-with-delete-btn">
+                <input
+                  type="text"
+                  placeholder="Wprowadź czynnik ryzyka"
+                  formControlName="templateName"
+                />
+                <button
+                  class="minus-btn"
+                  [disabled]="i == 0"
+                  (click)="removeRiskFactor(i)"
+                >
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+              <div class="error-wrapper">
+                <label
+                  for=""
+                  *ngIf="f.riskFactors.controls[i].get('templateName').errors"
+                  >Czynnik ryzyka nie może być pusty (min. 5 znaków)</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="plus-btn" (click)="addRiskFactor()">
+            <i class="fas fa-plus"></i>
+          </div>
+        </div>
+        <div class="input-box" formArrayName="symptoms">
+          <div
+            *ngFor="let symptom of symptoms.controls; let i = index"
+            class="dynamic-input"
+          >
+            <div [formGroupName]="i" class="inner-dynamic-input">
+              <div class="input-with-delete-btn">
+                <input
+                  type="text"
+                  placeholder="Wprowadź symptom"
+                  formControlName="templateName"
+                />
+                <button
+                  class="minus-btn"
+                  [disabled]="i == 0"
+                  (click)="removeSymptom(i)"
+                >
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+              <div class="error-wrapper">
+                <label
+                  for=""
+                  *ngIf="f.symptoms.controls[i].get('templateName').errors"
+                  >Symptom nie może być pusty (min. 5 znaków)</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="plus-btn" (click)="addSymptom()">
+            <i class="fas fa-plus"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="disease-rules-inputs" formArrayName="rules">
+        <!-- <div
+          *ngFor="let rule of rules.controls; let j = index"
+          class="dynamic-input"
+        >
+          <div [formGroupName]="j" class="inner-dynamic-input">
+            <div class="input-with-delete-btn">
+              <input
+                type="text"
+                placeholder="Wprowadź regułę wnioskującą"
+                formControlName="templateName"
+              />
+              <button
+                class="minus-btn"
+                [disabled]="j == 0"
+                (click)="removeRule(j)"
+              >
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+            <div class="error-wrapper">
+              <label
+                for=""
+                *ngIf="f.rules.controls[j].get('templateName').errors"
+                >Reguła nie może być pusta (min. 5 znaków)</label
+              >
+            </div>
+          </div>
+        </div> -->
+        <button
+          class="plus-btn"
+          (click)="addRuleForm()"
+          [disabled]="
+            f.symptoms.status === 'INVALID' ||
+            f.riskFactors.status === 'INVALID'
+          "
+        >
+          <i class="fas fa-plus mr-2"></i> Dodaj regułę wnioskującą
+        </button>
+      </div>
+    </form>
+    <button
+      class="submit-btn"
+      [disabled]="
+        !newDiseaseForm.valid ||
+        !plantSelect ||
+        symptoms.length > 10 ||
+        riskFactors.length > 10
+      "
+      (click)="submitDisease()"
+    >
+      Dodaj
+    </button>
+
+    {{ errors.message }}
+  </div>
+</div>

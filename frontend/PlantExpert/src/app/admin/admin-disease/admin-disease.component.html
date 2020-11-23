@@ -1,0 +1,103 @@
+<div *ngIf="!isDataAvailable" class="new-plant margin-center mt-5">
+  <h1>Nowe choroby</h1>
+
+  <h3>Brak zapytań o dodanie nowych chorób</h3>
+</div>
+
+<div class="new-disease margin-center flex-center">
+  <div
+    class="content-box"
+    *ngFor="let disease of temporaryDiseases; let i = index"
+  >
+    <form action="" class="dark-background">
+      <div class="flex">
+        <div class="img-box">1</div>
+        <div class="temp-disease-content">
+          <div class="static-data">
+            <div class="static-data-block">
+              <h2>{{ disease.diseaseName }}</h2>
+            </div>
+            <div class="static-data-block bor-bottom">
+              <p>{{ disease.description }}</p>
+            </div>
+            <div class="static-data-block flex-center bor-bottom">
+              <div class="diagnose-block">
+                <h3>Diagnoza zapobiegawcza</h3>
+                <p>
+                  {{ disease.precautionDiagnose }}
+                </p>
+
+                <p *ngIf="!disease.precautionDiagnose">
+                  Brak diagnozy zapobiegawczej
+                </p>
+              </div>
+              <div class="diagnose-block">
+                <h3>Diagnoza interwencyjna</h3>
+                <p>
+                  {{ disease.interventionDiagnose }}
+                </p>
+
+                <p *ngIf="!disease.interventionDiagnose">
+                  Brak diagnozy interwencyjnej
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dynamic-data flex-center mt-2">
+        <div class="template-block">
+          <div class="dynamic-field-box">
+            <h3>Czynniki ryzyka</h3>
+            <div
+              *ngFor="
+                let riskFactor of temporaryDiseases[i].riskFactors;
+                let j = index
+              "
+              class="select-box button-wrapper risk-factor-border"
+            >
+              <mat-form-field
+                appearance="fill"
+                class="align-self-center checkbox"
+              >
+                <mat-label id="select1" style="color: #fff0b3"
+                  >Wybierz typ</mat-label
+                >
+
+                <mat-select
+                  name="plant"
+                  #choosedValue
+                  (valueChange)="changeFactorType(choosedValue.value, i, j)"
+                >
+                  <mat-option value="none">Brak </mat-option>
+                  <mat-option
+                    *ngFor="let factor of factorTypes"
+                    [value]="factor"
+                  >
+                    <span>
+                      {{ factor }}
+                    </span>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <p>{{ riskFactor.name }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="template-block">
+          <h3>Symptomy</h3>
+          <div
+            *ngFor="let symptom of temporaryDiseases[i].symptoms"
+            class="risk-factor-border symptom-box"
+          >
+            {{ symptom.name }}
+          </div>
+        </div>
+      </div>
+      <div class="button-wrapper">
+        <button>Usuń</button>
+        <button (click)="acceptDisease(i)">Zaakceptuj</button>
+      </div>
+    </form>
+  </div>
+</div>

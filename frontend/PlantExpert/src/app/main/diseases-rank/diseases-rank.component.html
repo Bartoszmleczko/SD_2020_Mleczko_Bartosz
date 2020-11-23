@@ -1,0 +1,15 @@
+<div class="rank-container">
+  <h3>Najczęściej występujące choroby</h3>
+  <div
+    class="disease-box"
+    *ngFor="let disease of diseases; let i = index"
+    (click)="openModal(i)"
+  >
+    <div class="img-box">
+      <img [src]="disease.url" alt="" class="img-box" />
+    </div>
+    <div class="disease-details-box">
+      <h5>{{ disease.diseaseName }}</h5>
+    </div>
+  </div>
+</div>

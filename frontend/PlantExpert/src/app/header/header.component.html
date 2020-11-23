@@ -1,23 +1,6 @@
-<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="color: white;">
-    <a class="navbar-brand titlenav" [routerLink]="['/home']" routerLinkActive="router-link-active" >Plant Expert </a>
-    <div class="nav nav-pills">
-        
-        <a class="nav-item nav-link" [routerLink]="['/home/diagnose']" routerLinkActive="router-link-active" >Diagnozy</a>
-        <a class="nav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active" >Link2</a>
-        <a class="nav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active" >Link3</a>
-        <a class="nav-item nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active" >Link4</a>
-        <a (click)="logout()"  class="nav-item nav-link" style="cursor: pointer; color: white; margin-left:auto;" >Logout</a>
-      
-    </div>
-  
-
-    </nav> -->
-
-<!-- <nav class="sidebar"> -->
-
 <ul class="list-unstyled justify-content-right sidebar-menu sidebar">
   <li
-    [routerLink]="['/home']"
+    [routerLink]="['/home/main']"
     [routerLinkActiveOptions]="{ exact: true }"
     routerLinkActive="router-link-active"
   >
@@ -40,7 +23,7 @@
     </a>
   </li>
 
-  <li [routerLink]="['/test2']" routerLinkActive="router-link-active">
+  <li [routerLink]="['/home/account']" routerLinkActive="router-link-active">
     <a class="nav-item nav-link text-center">
       <h3>Konto</h3>
     </a>
@@ -50,9 +33,22 @@
       <h3>Kontakt</h3>
     </a>
   </li>
-  <li [routerLink]="['/home/moderator']" routerLinkActive="router-link-active">
+  <li
+    [routerLink]="['/home/moderator/plant']"
+    routerLinkActive="router-link-active"
+    *ngIf="user.roles.includes('ROLE_MODERATOR')"
+  >
     <a class="nav-item nav-link text-center">
       <h3>Moderator</h3>
+    </a>
+  </li>
+  <li
+    [routerLink]="['/home/admin/plant']"
+    routerLinkActive="router-link-active"
+    *ngIf="user.roles.includes('ROLE_ADMIN')"
+  >
+    <a class="nav-item nav-link text-center">
+      <h3>Administrator</h3>
     </a>
   </li>
   <li (click)="logout()">
@@ -61,5 +57,3 @@
     </a>
   </li>
 </ul>
-
-<!-- </nav> -->
