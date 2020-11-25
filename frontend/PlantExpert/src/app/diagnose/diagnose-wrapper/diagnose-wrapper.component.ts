@@ -1,3 +1,4 @@
+import { BackendMessageComponent } from "./../../backend-message/backend-message/backend-message.component";
 import { DiagnosePlaceholderComponent } from "./../diagnose-placeholder/diagnose-placeholder.component";
 import { map, switchMap } from "rxjs/operators";
 import {
@@ -193,10 +194,19 @@ export class DiagnoseWrapperComponent implements OnInit {
     };
     this.diagnoseService.saveDiagnose(newDiagnose).subscribe(
       (data) => {
-        console.log("Pomyślnie zapisano");
+        this.resetBoxes();
+        this.dialog.open(BackendMessageComponent, {
+          width: "25%",
+          panelClass: "app-full-bleed-dialog",
+          data: { data: "Diagnoza została pomyślnie zapisana." },
+        });
       },
       (err) => {
-        console.log("Błąd zapisu");
+        this.dialog.open(BackendMessageComponent, {
+          width: "25%",
+          panelClass: "app-full-bleed-dialog",
+          data: { data: err.error },
+        });
       }
     );
   }

@@ -36,3 +36,47 @@ body {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: rgb(99, 98, 98);
 }
+
+.width-100 {
+  width: 100%;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.j-c-center {
+  justify-content: center;
+}
+
+.j-c-space-around {
+  justify-content: space-around;
+}
+
+.j-c-space-between {
+  justify-content: space-between;
+}
+
+.f-d-column {
+  flex-direction: column;
+}
+
+.a-i-center {
+  align-items: center;
+}
+
+.width-50 {
+  width: 50%;
+}
+
+.width-48 {
+  width: 48%;
+}
+
+.background-color-dark-blue {
+  background-color: #3e5063;
+}
+
+.font-color-yellow {
+  color: #fff0b3;
+}

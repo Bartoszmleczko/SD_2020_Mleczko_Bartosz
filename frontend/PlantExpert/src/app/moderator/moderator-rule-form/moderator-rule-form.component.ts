@@ -1,3 +1,4 @@
+import { map } from "rxjs/operators";
 import {
   FormArray,
   FormControl,
@@ -6,24 +7,49 @@ import {
   Validators,
 } from "@angular/forms";
 import { FormBuilder } from "@angular/forms";
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { RulePart, Templates } from "src/app/models/models";
+
+const minSelectedBoxes: ValidatorFn = (fg: FormGroup) => {
+  const symptoms = fg.get("symptoms") as FormArray;
+
+  const riskFactors = fg.get("riskFactors") as FormArray;
+
+  const symptomsSelected = symptoms.controls
+    .map((control) => control.value)
+    .reduce((prev, next) => (next ? prev + next : prev), 0);
+  const riskFactorsSelected = riskFactors.controls
+    .map((control) => control.value)
+    .reduce((prev, next) => (next ? prev + next : prev), 0);
+
+  return symptomsSelected + riskFactorsSelected >= 1
+    ? null
+    : { symptoms: false };
+};
 
 @Component({
   selector: "app-moderator-rule-form",
   templateUrl: "./moderator-rule-form.component.html",
   styleUrls: ["./moderator-rule-form.component.css"],
 })
-export class ModeratorRuleFormComponent implements OnInit {
+export class ModeratorRuleFormComponent implements OnInit, OnDestroy {
   templates: Templates = null;
-  ruleParts: RulePart[] = [];
+  rule: RulePart = null;
 
-  ruleForm = this.fb.group({
-    symptoms: this.fb.array([]),
-    riskFactors: this.fb.array([]),
-    diagnoseControls: ["", Validators.compose([Validators.required])],
-  });
+  duplicateMessage: string = "";
+
+  symptomIndexes: number[] = [];
+  riskFactorIndexes: number[] = [];
+
+  ruleForm = this.fb.group(
+    {
+      symptoms: this.fb.array([]),
+      riskFactors: this.fb.array([]),
+      diagnoseControls: ["", Validators.compose([Validators.required])],
+    },
+    { validators: minSelectedBoxes }
+  );
 
   constructor(
     public dialogRef: MatDialogRef<ModeratorRuleFormComponent>,
@@ -37,10 +63,8 @@ export class ModeratorRuleFormComponent implements OnInit {
     this.buildRiskFactors();
   }
 
-  newTemplate(): FormGroup {
-    return this.fb.group({
-      templateName: ["", Validators.compose([Validators.required])],
-    });
+  ngOnDestroy() {
+    this.clearData();
   }
 
   buildSymptoms() {
@@ -63,31 +87,91 @@ export class ModeratorRuleFormComponent implements OnInit {
     return this.ruleForm.get("riskFactors") as FormArray;
   }
 
-  // addPart(name: string) {
-  //   if (name.charAt(0) === "S") {
-  //     let part: RulePart = {
-  //       shortName: name,
-  //       fullName: this.templates.symptoms[Number.parseInt(name.charAt(1))].name,
-  //     };
-  //     this.templates.symptoms[Number.parseInt(name.charAt(1))].toDisable = true;
-  //   }
-  //   if (name.charAt(0) === "R") {
-  //     let part: RulePart = {
-  //       shortName: name,
-  //       fullName: this.templates.riskFactors[Number.parseInt(name.charAt(1))]
-  //         .name,
-  //     };
-  //     this.templates.riskFactors[
-  //       Number.parseInt(name.charAt(1))
-  //     ].toDisable = true;
-  //   }
-  // }
-
   get f() {
     return this.ruleForm.controls;
   }
 
   get templateControls() {
     return this.ruleForm.get("templateControls") as FormArray;
+  }
+
+  getCheckedSymptoms() {
+    this.symptoms.controls.forEach((control, i) => {
+      if (control.value && !this.symptomIndexes.includes(i)) {
+        this.symptomIndexes.push(i);
+      }
+    });
+  }
+
+  getCheckedRiskFactors() {
+    this.riskFactors.controls.forEach((control, i) => {
+      if (control.value && !this.riskFactorIndexes.includes(i)) {
+        this.riskFactorIndexes.push(i);
+      }
+    });
+  }
+
+  compareArrays(arr1: number[], arr2: number[]) {
+    if (arr1.length !== arr2.length) return false;
+    for (let i = 0, len = arr1.length; i < len; i++) {
+      if (arr1[i] !== arr2[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  checkIfDuplicate(): boolean {
+    for (let i = 0; i < this.templates.rules.length; i++) {
+      if (
+        this.compareArrays(
+          this.riskFactorIndexes,
+          this.templates.rules[i].riskFactorIndexes
+        ) &&
+        this.compareArrays(
+          this.symptomIndexes,
+          this.templates.rules[i].symptomIndexes
+        )
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  prepareRule(): RulePart {
+    this.getCheckedSymptoms();
+    this.getCheckedRiskFactors();
+    const diagnoseId = this.ruleForm.get("diagnoseControls").value;
+    const result: RulePart = {
+      symptomIndexes: this.symptomIndexes,
+      riskFactorIndexes: this.riskFactorIndexes,
+      diagnoseId: diagnoseId,
+    };
+    return result;
+  }
+
+  save(data: RulePart) {
+    this.dialogRef.close(data);
+  }
+
+  addRule() {
+    let data = this.prepareRule();
+    if (!this.checkIfDuplicate()) {
+      this.save(data);
+      this.clearData();
+      this.duplicateMessage = "";
+    } else {
+      this.duplicateMessage =
+        "Identyczna lub podobna (z innym typem diagnozy) reguła już istnieje. Popraw dane";
+      data = null;
+      this.clearData();
+    }
+  }
+
+  clearData() {
+    this.ruleForm.reset();
+    this.symptomIndexes = [];
+    this.riskFactorIndexes = [];
   }
 }

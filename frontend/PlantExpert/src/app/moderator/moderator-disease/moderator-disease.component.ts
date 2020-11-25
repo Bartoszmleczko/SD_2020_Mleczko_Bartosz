@@ -5,12 +5,14 @@ import { FormArray } from "@angular/forms";
 import {
   NewTemporaryDiseaseDto,
   Plant,
+  RulePart,
   Templates,
 } from "./../../models/models";
 import { DiagnoseService } from "./../../diagnose/diagnose.service";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ModeratorRuleFormComponent } from "../moderator-rule-form/moderator-rule-form.component";
+import { BackendMessageComponent } from "src/app/backend-message/backend-message/backend-message.component";
 
 @Component({
   selector: "app-moderator-disease",
@@ -18,35 +20,49 @@ import { ModeratorRuleFormComponent } from "../moderator-rule-form/moderator-rul
   styleUrls: ["./moderator-disease.component.css"],
 })
 export class ModeratorDiseaseComponent implements OnInit {
-  errors = [];
+  errors;
   filename: string = "";
   selectedFiles: FileList;
+  rules: RulePart[] = [];
+  templates: Templates;
   newDiseaseForm = this.fb.group({
+    plant: [
+      "",
+      Validators.compose([Validators.required, Validators.minLength(1)]),
+    ],
+
     diseaseName: [
       "",
       Validators.compose([Validators.required, Validators.minLength(5)]),
     ],
     diseaseDescription: [
       "",
-      Validators.compose([Validators.required, Validators.minLength(50)]),
+      Validators.compose([
+        Validators.required,
+        Validators.minLength(50),
+        Validators.maxLength(600),
+      ]),
     ],
-    precautionDiagnose: ["", Validators.minLength(20)],
+    precautionDiagnose: [
+      "",
+      Validators.compose([Validators.minLength(20), Validators.maxLength(200)]),
+    ],
     interventionDiagnose: [
       "",
-      Validators.compose([Validators.required, Validators.minLength(20)]),
+      Validators.compose([
+        Validators.required,
+        Validators.minLength(20),
+        Validators.maxLength(200),
+      ]),
     ],
-    file: ["", Validators.required],
+    file: [""],
     symptoms: this.fb.array(
       [this.newTemplate()],
-      Validators.compose([Validators.required])
+      Validators.compose([Validators.required, Validators.maxLength(10)])
     ),
     riskFactors: this.fb.array(
       [this.newTemplate()],
-      Validators.compose([Validators.required])
-    ),
-    rules: this.fb.array(
-      [this.newTemplate()]
-      // Validators.compose([Validators.required])
+      Validators.compose([Validators.required, Validators.maxLength(10)])
     ),
   });
   imageFileToUpload: File = null;
@@ -86,7 +102,11 @@ export class ModeratorDiseaseComponent implements OnInit {
     return this.fb.group({
       templateName: [
         "",
-        Validators.compose([Validators.required, Validators.minLength(5)]),
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(100),
+        ]),
       ],
     });
   }
@@ -98,10 +118,7 @@ export class ModeratorDiseaseComponent implements OnInit {
   }
 
   setPlant(name) {
-    if (name !== "none") {
-      this.plantSelect = name;
-    }
-    console.log(this.plantSelect);
+    this.plantSelect = name;
   }
 
   addSymptom() {
@@ -120,6 +137,10 @@ export class ModeratorDiseaseComponent implements OnInit {
     this.riskFactors.removeAt(i);
   }
 
+  removeRule(index: number) {
+    this.rules.splice(index, 1);
+  }
+
   // addRule() {
   //   this.rules.push(this.newTemplate());
   // }
@@ -129,22 +150,27 @@ export class ModeratorDiseaseComponent implements OnInit {
   // }
 
   getTemplates() {
-    const templates: Templates = {
+    this.templates = {
       riskFactors: this.riskFactors.controls.map((rf) => rf.value),
       symptoms: this.symptoms.controls.map((s) => s.value),
       precautionDiagnose: this.newDiseaseForm.get("precautionDiagnose").value,
       interventionDiagnose: this.newDiseaseForm.get("interventionDiagnose")
         .value,
+      rules: this.rules,
     };
-    return templates;
+    return this.templates;
   }
 
   addRuleForm() {
-    console.log(this.symptoms.status);
-    this.dialog.open(ModeratorRuleFormComponent, {
+    const dialogRef = this.dialog.open(ModeratorRuleFormComponent, {
       width: "60%",
       panelClass: "app-full-bleed-dialog",
       data: { data: this.getTemplates() },
+    });
+    dialogRef.afterClosed().subscribe((data: RulePart) => {
+      if (data) {
+        this.rules.push(data);
+      }
     });
   }
 
@@ -165,24 +191,36 @@ export class ModeratorDiseaseComponent implements OnInit {
     // const ruleArray = this.rules.controls.map((rule) => rule.value);
 
     const dto: NewTemporaryDiseaseDto = {
-      plantType: this.plantSelect,
+      plantType: this.newDiseaseForm.get("plant").value,
       diseaseName: diseaseName,
       diseaseDescription: diseaseDescription,
       precautionDiagnose: precautionDiagnose,
       interventionDiagnose: interventionDiagnose,
       symptoms: syptomArray,
       riskFactors: riskFactorArray,
-      rules: null,
+      rules: this.rules,
       image: this.imageFileToUpload,
     };
 
     this.uploadService.postFile(dto).subscribe(
       (data) => {
-        console.log(data);
+        this.newDiseaseForm.reset();
+        const dialogRef = this.dialog.open(BackendMessageComponent, {
+          width: "30%",
+          panelClass: "app-full-bleed-dialog",
+          data: {
+            data:
+              "Poprawnie przesłano na serwer. Po zatwierdzeniu przez administrację choroba pojawi się na stronie.",
+          },
+        });
       },
       (err) => {
         this.errors = err;
-        console.log(this.errors);
+        const dialogRef = this.dialog.open(BackendMessageComponent, {
+          width: "25%",
+          panelClass: "app-full-bleed-dialog",
+          data: { data: err.error },
+        });
       }
     );
   }

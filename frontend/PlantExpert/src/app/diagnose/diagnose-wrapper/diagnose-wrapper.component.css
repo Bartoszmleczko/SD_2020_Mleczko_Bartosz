@@ -66,3 +66,6 @@ img {
 div h3 {
   text-align: center;
 }
+::ng-deep .mat-form-field-label {
+  color: black;
+}

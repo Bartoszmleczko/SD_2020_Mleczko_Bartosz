@@ -1,3 +1,5 @@
+import { BackendMessageComponent } from "src/app/backend-message/backend-message/backend-message.component";
+import { MatDialog } from "@angular/material";
 import { Plant } from "./../../models/models";
 import { ModeratorService } from "./../moderator.service";
 import { HttpClient } from "@angular/common/http";
@@ -25,7 +27,8 @@ export class ModeratorPlantComponent implements OnInit {
 
   constructor(
     private moderatorService: ModeratorService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {}
@@ -37,13 +40,27 @@ export class ModeratorPlantComponent implements OnInit {
       requestDate: null,
     };
     console.log();
-    this.moderatorService
-      .sendNewPlantRequest(plant)
-      .subscribe((data: Plant) => {
-        this.backendMessage = "Pomyślnie zapisano";
+    this.moderatorService.sendNewPlantRequest(plant).subscribe(
+      (data: Plant) => {
+        this.dialog.open(BackendMessageComponent, {
+          width: "25%",
+          panelClass: "app-full-bleed-dialog",
+          data: {
+            data:
+              "Nowa roślina została przesłana do administratora. Zostanie dodana do treści strony po pozytywnej weryfikacji",
+          },
+        });
         this.newPlantForm.reset();
         this.newPlantForm.get("name").setValue("");
-      });
+      },
+      (err) => {
+        this.dialog.open(BackendMessageComponent, {
+          width: "25%",
+          panelClass: "app-full-bleed-dialog",
+          data: { data: err.error },
+        });
+      }
+    );
   }
 
   get f() {

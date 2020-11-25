@@ -1,7 +1,10 @@
 <div class="account-container">
   <div class="row-box">
-    <app-account-password class="child-box"></app-account-password>
+    <app-account-details-card class="child-box"></app-account-details-card>
 
-    <app-account-details class="child-box"></app-account-details>
+    <app-account-details
+      class="child-box"
+      (accountDetailsEmitter)="emitNewDetails($event)"
+    ></app-account-details>
   </div>
 </div>

@@ -1,16 +1,22 @@
 package pl.mleczko.PlantExpertSystem.Service;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.mleczko.PlantExpertSystem.Entity.Role;
 import pl.mleczko.PlantExpertSystem.Entity.User;
 import pl.mleczko.PlantExpertSystem.Entity.VerificationToken;
+import pl.mleczko.PlantExpertSystem.Exception.PasswordsNotMatching;
+import pl.mleczko.PlantExpertSystem.Model.UserDetailsForm;
 import pl.mleczko.PlantExpertSystem.Model.UserDto;
+import pl.mleczko.PlantExpertSystem.Model.UserPasswordForm;
 import pl.mleczko.PlantExpertSystem.Repository.RoleRepository;
 import pl.mleczko.PlantExpertSystem.Repository.UserRepository;
 import pl.mleczko.PlantExpertSystem.Repository.VerificationTokenRepository;
 
 import javax.transaction.Transactional;
+import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -45,12 +51,14 @@ public class UserService {
     public User save (User user){
         User newUser = new User(user.getEmail(), bCryptPasswordEncoder.encode(user.getPassword()), user.getFirstName(), user.getLastName());
         Role basicRole = roleRepository.findByRoleName("ROLE_USER");
+
         newUser.setRoles(new HashSet<>(Arrays.asList(basicRole)));
         VerificationToken token = new VerificationToken();
         token.setToken(UUID.randomUUID().toString());
         newUser.setVerificationToken(token);
+        newUser.setJoinDate(LocalDateTime.now());
         String link = "http://localhost:4200/activate/" + token.getToken();
-        mailService.sendEmail(user.getEmail(), "Aktywacja konta",mailService.prepareShortTermEmailBody(MailService.prepareEmail(link)) );
+        mailService.sendEmail(user.getEmail(), "Aktywacja konta",mailService.prepareActivationEmailBody(MailService.prepareEmail(link)) );
         return userRepository.save(newUser);
     }
 
@@ -105,5 +113,23 @@ public class UserService {
             }
         }
         return "Błąd aktywacji konta. Błędny link aktywacyjny.";
+    }
+
+    public String changeUserDetails(UserDetailsForm form, Principal principal) {
+        User user = findByUsername(principal.getName());
+
+        user.setFirstName(form.getFirstName());
+        user.setLastName(form.getLastName());
+        userRepository.save(user);
+        return "Pomyślnie zmieniono dane.";
+    }
+
+    public UserDetailsForm getUserDetails(String name) {
+        User user = findByUsername(name);
+        UserDetailsForm details = new UserDetailsForm();
+        details.setFirstName(user.getFirstName());
+        details.setLastName(user.getLastName());
+        details.setJoinDate(user.getJoinDate());
+        return details;
     }
 }

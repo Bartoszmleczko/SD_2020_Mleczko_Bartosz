@@ -10,9 +10,9 @@ const API_URL = "http://localhost:8886/";
 export class EncyclopedyService {
   constructor(private httpClient: HttpClient) {}
 
-  getData(page: number, size: number) {
+  getData(page: number, size: number, plant: string) {
     return this.httpClient.get(
-      API_URL + "diseases?page=" + page + "&size=" + size
+      API_URL + "diseases?page=" + page + "&size=" + size + "&plant=" + plant
     );
   }
 

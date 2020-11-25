@@ -4,7 +4,7 @@ import { Component, OnInit } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { EncyclopedyService } from "../encyclopedy.service";
 import { Observable } from "rxjs";
-import { DiseaseDto } from "src/app/models/models";
+import { DiseaseDto, Plant } from "src/app/models/models";
 import { PageEvent } from "@angular/material";
 
 @Component({
@@ -21,6 +21,8 @@ export class EncyclopedyComponent implements OnInit {
   pageSize: number = 5;
   pageNumber: number = 0;
   totalElements: number = 1;
+  plantTypes: Plant[] = [];
+  plant: string = "_";
 
   constructor(
     private diagnoseService: DiagnoseService,
@@ -30,12 +32,24 @@ export class EncyclopedyComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
+    this.getPlants();
     this.images = [];
+  }
+
+  getPlants() {
+    this.diagnoseService.getPlantTypes().subscribe((data: Plant[]) => {
+      this.plantTypes = data;
+    });
+  }
+
+  setPlant(name) {
+    this.plant = name;
+    this.getData();
   }
 
   getData() {
     this.encyclopedyService
-      .getData(this.pageNumber, this.pageSize)
+      .getData(this.pageNumber, this.pageSize, this.plant)
       .subscribe((data) => {
         this.totalElements = data["totalElements"];
         this.encyclopedyData = data["content"];

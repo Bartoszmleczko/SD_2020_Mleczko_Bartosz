@@ -1,0 +1,33 @@
+<div class="width-100 j-c-center display-flex">
+  <div class="display-flex f-d-column width-100 a-i-center toscroll-wrapper">
+    <h2>Stare wiadomości</h2>
+    <table class="background-color-dark-blue">
+      <thead class="font-color-yellow">
+        <th>Nadawca</th>
+        <th>Data</th>
+        <th>Tytuł</th>
+        <th></th>
+        <th></th>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let mess of oldMessages; let i = index">
+          <td>{{ mess.firstName }} {{ mess.lastName }}</td>
+          <td>{{ mess.creationDate | date: "dd.MM.yyyy HH:mm" }}</td>
+          <td>{{ mess.header }}</td>
+
+          <td>
+            <button class="bg-green">
+              <i class="fas fa-info" (click)="openReplyDialog(i)"></i>
+            </button>
+          </td>
+          <td>
+            <button class="bg-red" (click)="deleteMessage(i)">
+              <i class="fas fa-minus-circle"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

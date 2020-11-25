@@ -1,21 +1,27 @@
 <div class="account-details-box">
-  <form action="">
+  <form action="" [formGroup]="detailsForm">
     <h2>Zmień dane osobowe</h2>
 
     <div class="input-box">
-      <input type="text" placeholder="Imię" />
+      <input type="text" placeholder="Imię" formControlName="firstName" />
       <div class="error-box">
-        <label for="">Imię musi posiadać conajmniej 3 litery</label>
+        <label for="" *ngIf="f.firstName.errors"
+          >Imię musi posiadać conajmniej 3 litery</label
+        >
       </div>
     </div>
 
     <div class="input-box">
-      <input type="text" placeholder="Nazwisko" />
+      <input type="text" placeholder="Nazwisko" formControlName="lastName" />
       <div class="error-box">
-        <label for="">Nazwisko musi posiadać conajmniej 3 znaki</label>
+        <label for="" *ngIf="f.lastName.errors"
+          >Nazwisko musi posiadać conajmniej 3 znaki</label
+        >
       </div>
     </div>
 
-    <button>Zapisz</button>
+    <button [disabled]="!detailsForm.valid" (click)="changeDetails()">
+      Zapisz
+    </button>
   </form>
 </div>

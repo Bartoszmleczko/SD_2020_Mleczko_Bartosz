@@ -1,0 +1,12 @@
+<div class="width-100 display-flex">
+  <div class="w-50 display-flex j-c-center">
+    <app-new-messages
+      class="w-100 display-flex j-c-center"
+      (messageEmitter)="passToOldMessages($event)"
+    ></app-new-messages>
+  </div>
+
+  <div class="w-50 display-flex j-c-center">
+    <app-old-messages class="w-100 display-flex j-c-center"></app-old-messages>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="width-100 display-flex background-color-dark-blue inner-padding">
+  <div
+    class="width-50 display-flex f-d-column a-i-center font-color-yellow text-center"
+  >
+    <h2 class="text-center">Oryginalna wiadomość</h2>
+    <h3 class="border-gold">{{ originalMessage.header }}</h3>
+    <p>{{ originalMessage.content }}</p>
+  </div>
+  <div class="horizontal-line"></div>
+  <div
+    class="width-50 display-flex f-d-column a-i-center font-color-yellow text-center"
+  >
+    <h2>Odpowiedź</h2>
+    <form
+      [formGroup]="answerForm"
+      action=""
+      class="width-100 display-flex f-d-column a-i-center font-color-yellow text-center"
+    >
+      <textarea
+        name=""
+        id=""
+        cols="30"
+        rows="10"
+        placeholder="Podaj odpowiedź"
+        formControlName="answer"
+      ></textarea>
+      <div class="error-box">
+        <label for="" *ngIf="f.answer.errors"
+          >Wiadomość musi zawierać 10-200 znaków</label
+        >
+      </div>
+    </form>
+
+    <button [disabled]="!answerForm.valid" (click)="sendAnswer()">
+      Wyślij
+    </button>
+  </div>
+</div>

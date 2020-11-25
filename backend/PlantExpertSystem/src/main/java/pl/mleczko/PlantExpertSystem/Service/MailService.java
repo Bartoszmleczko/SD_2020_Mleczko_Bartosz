@@ -40,10 +40,23 @@ public class MailService {
 
     }
 
-    public String prepareShortTermEmailBody(Context context){
+    public String prepareActivationEmailBody(Context context){
         return templateEngine.process("RegisterActivationTemplate", context);
     }
 
+    public String prepareContactMessageAnswerEmail(Context context){
+        return templateEngine.process("AnswerEmailTemplate", context);
+    }
+
+    public Context prepareAnswerEmailContext(String header, String content, String answer, String adminFirstName, String adminLastName){
+        Context context = new Context();
+        context.setVariable("header", header);
+        context.setVariable("content", content);
+        context.setVariable("answer", answer);
+        context.setVariable("adminFirstName", adminFirstName);
+        context.setVariable("adminLastName", adminLastName);
+        return context;
+    }
 
     public static Context prepareEmail(String tokenLink){
 

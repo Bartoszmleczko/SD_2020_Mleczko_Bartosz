@@ -64,7 +64,7 @@ export interface NewTemporaryDiseaseDto {
   interventionDiagnose: string;
   riskFactors: string[];
   symptoms: string[];
-  rules: string[];
+  rules: RulePart[];
   image: File;
 }
 
@@ -101,9 +101,30 @@ export interface Templates {
   symptoms: TemplatePart[];
   precautionDiagnose: string;
   interventionDiagnose: string;
+  rules: RulePart[];
 }
 
 export interface RulePart {
-  shortName: string;
-  fullName: string;
+  symptomIndexes: number[];
+  riskFactorIndexes: number[];
+  diagnoseId: number;
+}
+
+export interface UserDetails {
+  firstName: string;
+  lastName: string;
+  joinDate: Date;
+}
+
+export interface ContactMessageDto {
+  id: number;
+  header: string;
+  content: string;
+  creationDate: Date;
+  answer: string;
+  answerTime: string;
+  status: string;
+  email: string;
+  firstName: string;
+  lastName: string;
 }

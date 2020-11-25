@@ -19,6 +19,10 @@ public interface DiseaseRepository extends JpaRepository<Disease, Long> {
 
     public Disease findByName(String name);
 
+    public List<Disease> findAllByPlantType(PlantType plantType);
+
+    public Page<Disease> findAllByPlantType(Pageable pageable, PlantType plantType);
+
     public Page<Disease> findAll(Pageable pageable);
 
     public Disease findByNameOrTemplateNameAndPlantType(String name, String templateName, PlantType type);

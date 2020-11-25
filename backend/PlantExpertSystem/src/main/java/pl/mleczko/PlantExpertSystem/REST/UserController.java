@@ -91,6 +91,18 @@ public class UserController {
         return ResponseEntity.ok(new ActivationMessage(userService.activateUserAccount(token)));
     }
 
+    @PutMapping("/users/details")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<String> changeUserDetails(@RequestBody UserDetailsForm form, Principal principal){
+        return ResponseEntity.ok(userService.changeUserDetails(form, principal));
+    }
+
+    @GetMapping("/users/details")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<UserDetailsForm> getUserDetails(Principal principal){
+        return ResponseEntity.ok(userService.getUserDetails(principal.getName()));
+    }
+
 }
 
 

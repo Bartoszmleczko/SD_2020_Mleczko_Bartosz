@@ -53,6 +53,15 @@ button {
   border: 1px solid grey;
   font-size: 22px;
 }
+button:hover,
+button:focus {
+  background-color: #52779e;
+  outline: none;
+}
+
+button:disabled {
+  background-color: #6f87a0;
+}
 
 .error-box {
   text-align: center;

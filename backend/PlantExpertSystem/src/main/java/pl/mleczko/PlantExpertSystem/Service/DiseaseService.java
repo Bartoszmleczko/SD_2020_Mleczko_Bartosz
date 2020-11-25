@@ -6,6 +6,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,40 +42,6 @@ public class DiseaseService {
         this.objectMapper = objectMapper;
     }
 
-//    @Transactional
-//    public TemporaryDisease addNewDisease(MultipartFile file, String plantType, MultipartFile image) throws IOException {
-//
-//        if(!FilenameUtils.isExtension(file.getOriginalFilename(), "txt")){
-//            throw new FileValidationException("Zły format pliku tekstowego");
-//        }
-//
-//        NewDiseaseForm  newForm = parseTxtFileForNewDisease(file);
-//
-//        PlantType dbPlantType = plantTypeService.findByName(plantType);
-//
-//        TemporaryDisease tempDisease = new TemporaryDisease();
-//
-//        tempDisease.setDiseaseName(newForm.getDiseaseName());
-//        tempDisease.setDiseaseTemplateName(newForm.getDiseaseTemplateName());
-//        tempDisease.setRiskFactors(createTempRiskFactorSet(newForm.getRiskFactors()));
-//        tempDisease.setSymptoms(createTempSymptomSet(newForm.getSymptoms()));
-//        tempDisease.setDescription(newForm.getDescription());
-//        tempDisease.setInterventionDiagnose(newForm.getInterventionDiagnose());
-//        tempDisease.setPrecautionDiagnose(newForm.getPrecautionDiagnose());
-//        tempDisease.setRules(Arrays.asList(newForm.getRules()));
-//        tempDisease.setJessRules(generateJessRule(newForm));
-//        tempDisease.setPlantType(dbPlantType);
-//        tempDisease.setRequestDate(LocalDateTime.now());
-//
-//        boolean correctImageFormat = FilenameUtils.isExtension(image.getOriginalFilename(), Arrays.asList("jpg", "jpeg", "png"));
-//        if(!correctImageFormat)
-//            throw new FileValidationException("Zły format zdjęcia");
-//        fileStorageService.store(image,newForm.getDiseaseTemplateName());
-//        tempDisease.setImageUrl(newForm.getDiseaseTemplateName()+"."+FilenameUtils.getExtension(image.getOriginalFilename()));
-//
-//
-//        return temporaryDiseaseService.save(tempDisease);
-//    }
 
 
     @Transactional
@@ -83,7 +50,7 @@ public class DiseaseService {
         String diseaseTemplateName = convertToLowerCaseWithUnderscores(form.getDiseaseName());
         TemporaryDisease dbDisease = temporaryDiseaseService.findByTemplateName(diseaseTemplateName);
         PlantType plantType = plantTypeService.findByName(form.getPlantType());
-        System.out.println(plantType.getName());
+
         if(dbDisease == null){
 
             TemporaryDisease newTempDisease = new TemporaryDisease();
@@ -94,9 +61,9 @@ public class DiseaseService {
             if(form.getPrecautionDiagnose() == null)
             newTempDisease.setPrecautionDiagnose("");
             newTempDisease.setInterventionDiagnose(form.getInterventionDiagnose());
-            List<String> rulesList = Arrays.asList(parseJsonSymptomAndRiskFactors(form.getRules()));
+            List<RuleTemplate> rulesList = Arrays.asList(parseRuleString(form.getRules()));
 
-            newTempDisease.setRules(rulesList);
+            newTempDisease.setRules(parseRuleTemplatesToTemporaryRule(rulesList));
             String[] symptomArr = parseJsonSymptomAndRiskFactors(form.getSymptoms());
 
             String[] riskFactorArr = parseJsonSymptomAndRiskFactors(form.getRiskFactors());
@@ -108,7 +75,7 @@ public class DiseaseService {
             newTempDisease.setRiskFactors(tempRiskFactors);
 
 
-            List<RuleForm> forms = parseTextRulesToObjects(newTempDisease.getRules().toArray(new String[]{}), getTemplateData(symptomArr)
+            List<RuleForm> forms = parseRuleTemplatesToRuleForm(rulesList, getTemplateData(symptomArr)
                     , getTemplateData(riskFactorArr));
             newTempDisease.setJessRules(generateJessRule(forms, newTempDisease.getDiseaseTemplateName()));
             boolean correctImageFormat = FilenameUtils.isExtension(form.getImage().getOriginalFilename(), Arrays.asList("jpg", "jpeg", "png"));
@@ -150,124 +117,25 @@ public class DiseaseService {
     }
 
     @Transactional
-    public Page<DiseaseDto> findAll(Pageable pageable){
+    public Page<DiseaseDto> findAll(Pageable pageable, String plant){
 
             List<DiseaseDto> dtos = new ArrayList<>();
-            long allDiseasesSize = diseaseRepository.findAll().size();
-            Page<Disease> disease = diseaseRepository.findAll(pageable);
+            long allDiseasesSize = 0L;
+            Page<Disease> disease = null;
+            if(plant.equals("_")){
+                allDiseasesSize = diseaseRepository.findAll().size();
+                disease = diseaseRepository.findAll(pageable);
+            } else{
+                PlantType type = plantTypeService.findByName(plant);
+                allDiseasesSize = diseaseRepository.findAllByPlantType(type).size();
+                disease = diseaseRepository.findAllByPlantType(pageable, type);
+            }
+
             disease.forEach(disease1 -> {
                     dtos.add(new DiseaseDto(disease1.getName(), null, disease1.getDiseaseDescription(), disease1.getCount()));
             });
             return new PageImpl<>(dtos,pageable, allDiseasesSize);
     }
-
-    private String getTextFromFile(MultipartFile file) throws IOException {
-        String content = new String(file.getBytes());
-        return content;
-    }
-
-//    public String[] splitStringToSegments(String content, String separator){
-//        if(content == null || content.trim().isEmpty()){
-//            throw new FileValidationException("File is empty");
-//        } else {
-//            content = content.trim();
-//            content = content.replaceAll("[\\\r\\\n]+","");
-//            String[] result = Arrays.stream(content.split(separator)).map(String::trim).toArray(String[]::new);
-//
-//            if(result[0].trim().isEmpty()){
-//                String[] result2 = new String[result.length-1];
-//                for(int i = 0; i<result.length-1; i++){
-//                    result2[i] = result[i+1];
-//                }
-//                return result2;
-//            }
-//            return result;
-//        }
-//
-//    }
-
-//    public NewDiseaseForm parseTxtFileForNewDisease(MultipartFile file) throws IOException {
-//        File file  = new File("src/main/resources/templates/jesstest.txt");
-//
-//        String content = getTextFromFile(file);
-//        String[] segments = splitStringToSegments(content, ";");
-//
-//        if(newDiseaseFileValidation.isSegmentNumberRight(segments.length) && newDiseaseFileValidation.checkSegmentHeadlines(segments)){
-//            Map<String, String[]> contentMap = getSegmentContent(segments);
-//            NewDiseaseForm diseaseForm = prepareTemplate(contentMap);
-//            return diseaseForm;
-//        } else{
-//            throw new FileValidationException("Zły format pliku");
-//        }
-//    }
-
-//    public Map<String, String[]> getSegmentContent(String[] segments){
-//        if(segments != null){
-//            Map<String, String[]> contents = new HashMap<>();
-//            for( int i = 0; i<segments.length; i++){
-//                segments[i]= segments[i].trim();
-//                segments[i] = segments[i].replaceAll("::", ":");
-//                String[] temp = segments[i].split(":");
-//                if(temp.length > 1){
-//                    //trim all elements of each segment and remove blank spaces
-//                    String[] details =Arrays.stream(temp[1].trim().split(",")).map(String::trim).toArray(String[]::new);
-//                    List<String> detList = new ArrayList<String>(Arrays.asList(details));
-//                    detList.removeAll(Arrays.asList(""));
-//                    details = new String[detList.size()];
-//                    details = detList.toArray(details);
-//                    contents.put(temp[0], details);
-//                }
-//                else contents.put(temp[0], null);
-//            }
-//            return contents;
-//        } else throw new FileValidationException("Plik jest pusty");
-//
-//    }
-
-//    public NewDiseaseForm prepareTemplate(Map<String, String[]> content){
-//
-//        NewDiseaseForm newDiseaseForm = new NewDiseaseForm();
-//        String diseaseName;
-//        String[] disease = content.get("CHOROBA");
-//        diseaseName = convertToLowerCaseWithUnderscores(disease[0]);
-//        newDiseaseForm.setDiseaseName(disease[0].trim());
-//        newDiseaseForm.setDiseaseTemplateName(convertToLowerCaseWithUnderscores(disease[0]));
-//
-//        String[] symptomsFromFile = content.get("SYMPTOMY");
-//        Set<SimpleTemplateForm> symptomsForms = getTemplateData(symptomsFromFile);
-//        newDiseaseForm.setSymptoms(symptomsForms);
-//        String[] riskFactorsFromFile = content.get("CZYNNIKI RYZYKA");
-//        Set<SimpleTemplateForm> riskFactors = getTemplateData(riskFactorsFromFile);
-//        newDiseaseForm.setRiskFactors(riskFactors);
-//
-//        if(content.get("KOMUNIKAT ZAPOBIEGAWCZY") != null){
-//            if(!content.get("KOMUNIKAT ZAPOBIEGAWCZY")[0].trim().isEmpty())
-//            newDiseaseForm.setPrecautionDiagnose(content.get("KOMUNIKAT ZAPOBIEGAWCZY")[0]);
-//        }
-//
-//
-//        if(content.get("KOMUNIKAT INTERWENCYJNY") != null ){
-//            if(!content.get("KOMUNIKAT INTERWENCYJNY")[0].trim().isEmpty())
-//            newDiseaseForm.setInterventionDiagnose(content.get("KOMUNIKAT INTERWENCYJNY")[0]);
-//        }
-//
-//
-//        String[] rules = content.get("REGUŁY WNIOSKUJĄCE");
-//        newDiseaseForm.setRules(rules);
-//
-//        if(content.get("OPIS CHOROBY")[0] != null)
-//            newDiseaseForm.setDescription(content.get("OPIS CHOROBY")[0]);
-//
-//        List<RuleForm> forms = parseTextRulesToObjects(rules, newDiseaseForm.getSymptoms(), newDiseaseForm.getRiskFactors());
-//        newDiseaseForm.setRuleForms(forms);
-//
-//        return newDiseaseForm;
-//
-//
-//    }
-
-
-
 
 
 
@@ -306,66 +174,10 @@ public class DiseaseService {
     }
 
 
-    public List<RuleForm> parseTextRulesToObjects(String[] rawRules, Set<SimpleTemplateForm> symptoms, Set<SimpleTemplateForm> riskFactors) {
-        if (rawRules != null) {
-            if (rawRules.length > 0) {
-                List<RuleForm> result = new ArrayList<>();
-                for (int i = 0; i < rawRules.length; i++) {
-                    RuleForm form = parseSingleRule(rawRules[i], symptoms, riskFactors);
-                    result.add(form);
-                }
-                return result;
-            }
-        } throw new FileValidationException("Brak reguł wnioskujących");
-    }
 
 
-    public RuleForm parseSingleRule(String rawRule, Set<SimpleTemplateForm> symptoms, Set<SimpleTemplateForm> riskFactors){
 
-        if(rawRule != null && symptoms != null && riskFactors != null){
-            if(!rawRule.isEmpty()){
-                String[] separateResult = rawRule.split("=");
-                separateResult[0] = separateResult[0].trim();
-                separateResult[1] = separateResult[1].trim();
-                if(separateResult[1].equals("0") || separateResult[1].equals("1")) {
-                    String[] ruleParts = separateResult[0].split("[+]");
-                    for(int i = 0 ; i < ruleParts.length; i++){
-                        ruleParts[i] = ruleParts[i].trim();
-                    }
-                    List<String> detList = new ArrayList<String>(Arrays.asList(ruleParts));
-                    detList.removeAll(Arrays.asList(""));
-                    ruleParts = new String[detList.size()];
-                    ruleParts = detList.toArray(ruleParts);
-                    RuleForm ruleForm = new RuleForm();
-                    List<SimpleTemplateForm> symptomRules = new ArrayList<>();
-                    List<SimpleTemplateForm> riskFactorRules = new ArrayList<>();
-                    for(int i = 0; i< ruleParts.length; i++){
-                        if(StringUtils.isNumeric(String.valueOf(ruleParts[i].charAt(1)))){
-                            int index = Integer.parseInt(separateResult[1]);
 
-                            ruleForm.setResult(index);
-                            if(ruleParts[i].trim().charAt(0) == 'S'){
-
-                                SimpleTemplateForm form = findTemplateForm(symptoms, Integer.parseInt(String.valueOf(ruleParts[i].charAt(1))) );
-                                symptomRules.add(form);
-                            }
-                            if(ruleParts[i].trim().charAt(0) == 'R'){
-                                SimpleTemplateForm form = findTemplateForm(riskFactors,Integer.parseInt(String.valueOf(ruleParts[i].charAt(1))));
-                                riskFactorRules.add(form);
-                            }
-                        }
-                    }
-                    if(riskFactorRules != null && symptomRules != null){
-                        ruleForm.setSymptomParts(symptomRules);
-                        ruleForm.setRiskFactorParts(riskFactorRules);
-                        return ruleForm;
-                    }
-
-                }
-            }
-        } throw new FileValidationException("Błąd walidacji reguł");
-
-    }
 
 public SimpleTemplateForm findTemplateForm(Set<SimpleTemplateForm> forms, int index){
         forms.forEach(f -> System.out.println(f.getId() + f.getTemplateName()));
@@ -453,6 +265,46 @@ public SimpleTemplateForm findTemplateForm(Set<SimpleTemplateForm> forms, int in
         return tempArr;
     }
 
+    public RuleTemplate[] parseRuleString(String toParse) throws JsonProcessingException {
+        RuleTemplate[] rules = objectMapper.readValue(toParse, RuleTemplate[].class);
+        return  rules;
+    }
 
+
+    public RuleForm parseSingleRuleTemplateToRuleForm(RuleTemplate template, Set<SimpleTemplateForm> symptoms,
+                                                        Set<SimpleTemplateForm> riskFactors ){
+        List<SimpleTemplateForm> symptomsList = new ArrayList<>(symptoms);
+        List<SimpleTemplateForm> riskFactorsList = new ArrayList<>(riskFactors);
+
+        RuleForm form = new RuleForm();
+        form.setResult(template.getDiagnoseId());
+
+        List<SimpleTemplateForm> rfs = template.getRiskFactorIndexes().stream().map(id -> riskFactorsList.get(id)).collect(Collectors.toList());
+        form.setRiskFactorParts(rfs);
+
+        List<SimpleTemplateForm> smp = template.getSymptomIndexes().stream().map(id -> symptomsList.get(id)).collect(Collectors.toList());
+        form.setSymptomParts(smp);
+        return form;
+    }
+
+
+    public List<RuleForm> parseRuleTemplatesToRuleForm(List<RuleTemplate> templates, Set<SimpleTemplateForm> symptoms,
+                                                       Set<SimpleTemplateForm> riskFactors  ){
+
+        return templates.stream().map(temp -> parseSingleRuleTemplateToRuleForm(temp, symptoms,riskFactors)).collect(Collectors.toList());
+    }
+
+    public TempRule parseSingleRuleTemplateToTemporaryRule(RuleTemplate template){
+        TempRule rule = new TempRule();
+
+        rule.setDiagnoseId(template.getDiagnoseId());
+        rule.setRiskFactorIndexes(template.getRiskFactorIndexes());
+        rule.setSymptomIndexes(template.getSymptomIndexes());
+        return rule;
+    }
+
+    public List<TempRule> parseRuleTemplatesToTemporaryRule(List<RuleTemplate> templates){
+        return templates.stream().map(t -> parseSingleRuleTemplateToTemporaryRule(t)).collect(Collectors.toList());
+    }
 
 }

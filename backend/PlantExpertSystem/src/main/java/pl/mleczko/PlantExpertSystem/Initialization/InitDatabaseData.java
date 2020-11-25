@@ -8,6 +8,7 @@ import pl.mleczko.PlantExpertSystem.Service.FileStorageService;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -59,6 +60,7 @@ public class InitDatabaseData {
         user.setLastName("Mleczko");
         user.setEnabled(true);
         user.setRoles(new HashSet<>(roles));
+        user.setJoinDate(LocalDateTime.now());
         userRepository.save(user);
 
         User user2 = new User();

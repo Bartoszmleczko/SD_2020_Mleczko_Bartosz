@@ -25,7 +25,7 @@ public class Diagnose {
     @Column(name = "note", columnDefinition = "LONGTEXT")
     private String note;
 
-    @JsonBackReference(value = "userReference")
+    @JsonBackReference(value = "userDiagnoses")
     @ManyToOne
     private User user;
 

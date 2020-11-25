@@ -52,6 +52,12 @@ import { AccountPasswordComponent } from "./account/account-password/account-pas
 import { AccountDetailsComponent } from "./account/account-details/account-details.component";
 import { RegisterActivationComponent } from "./register/register-activation/register-activation.component";
 import { ModeratorRuleFormComponent } from "./moderator/moderator-rule-form/moderator-rule-form.component";
+import { BackendMessageComponent } from "./backend-message/backend-message/backend-message.component";
+import { AccountDetailsCardComponent } from "./account/account-details-card/account-details-card.component";
+import { NewMessagesComponent } from "./admin/admin-messages/new-messages/new-messages.component";
+import { OldMessagesComponent } from "./admin/admin-messages/old-messages/old-messages.component";
+import { AnswerFormComponent } from "./admin/admin-messages/answer-form/answer-form.component";
+import { MessagesComponent } from "./admin/admin-messages/messages/messages.component";
 registerLocaleData(localePl);
 const routes: Routes = [
   {
@@ -143,6 +149,12 @@ const routes: Routes = [
             canActivate: [AuthGuardService],
             data: { roles: "ROLE_ADMIN" },
           },
+          {
+            path: "messages",
+            component: MessagesComponent,
+            canActivate: [AuthGuardService],
+            data: { roles: "ROLE_ADMIN" },
+          },
         ],
       },
     ],
@@ -178,6 +190,12 @@ const routes: Routes = [
     AccountDetailsComponent,
     RegisterActivationComponent,
     ModeratorRuleFormComponent,
+    BackendMessageComponent,
+    AccountDetailsCardComponent,
+    NewMessagesComponent,
+    OldMessagesComponent,
+    AnswerFormComponent,
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -217,6 +235,8 @@ const routes: Routes = [
     DiagnosesNoteModalComponent,
     DiseaseDetailComponent,
     ModeratorRuleFormComponent,
+    BackendMessageComponent,
+    AnswerFormComponent,
   ],
 })
 export class AppModule {}

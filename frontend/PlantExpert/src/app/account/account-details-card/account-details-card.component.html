@@ -1,0 +1,12 @@
+<div class="details-container" *ngIf="details">
+  <div class="img-box"></div>
+  <div class="details-box">
+    <h2>Twoje dane</h2>
+
+    <p>Imię: {{ details.firstName }}</p>
+    <p>Nazwisko: {{ details.lastName }}</p>
+    <span for="joinDate"
+      >Konto od dnia: {{ details.joinDate | date: "EEEE dd.MM.yyyy" }}</span
+    >
+  </div>
+</div>

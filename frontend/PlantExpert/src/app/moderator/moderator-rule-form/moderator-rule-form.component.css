@@ -1,3 +1,7 @@
+h1 {
+  margin: 20px;
+}
+
 .rule-box {
   width: 100%;
   background-color: #3e5063;
@@ -7,8 +11,26 @@
   color: #fff0b3;
 }
 
+.checkbox-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.checkboxes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.wrap {
+  width: 50%;
+  max-width: 50%;
+}
+
 form {
-  width: 80%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,10 +38,16 @@ form {
 
 .select-box {
   width: 100%;
+  margin: 40px;
 }
 
 select {
   width: 80%;
+}
+
+label {
+  width: 100%;
+  word-break: break-all;
 }
 
 .error-wrapper {
@@ -30,4 +58,55 @@ select {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+h3 {
+  text-align: center;
+}
+
+button {
+  width: 200px;
+  height: 55px;
+  background-color: #485d74;
+  border: 1px solid grey;
+  color: #fff0b3;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: #547292;
+}
+button:focus {
+  outline: none;
+}
+
+button:disabled {
+  background-color: #658bb3;
+}
+select {
+  width: 50%;
+  height: 35px;
+  font-size: 18px;
+  background-color: #506b88;
+  color: #fff0b3;
+  border-radius: 4px;
+  border: 1px solid grey;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+}
+
+option {
+}
+
+select:focus {
+  outline: none;
+}
+
+select:hover {
+  -webkit-appearance: none;
+  background-color: #2f3653;
+  transition: 0.4s;
+}
+
+select option[value=""] {
+  color: #999999;
 }

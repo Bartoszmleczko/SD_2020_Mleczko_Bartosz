@@ -35,10 +35,9 @@ public class TemporaryDisease {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<TempSymptom> symptoms;
 
-    @ElementCollection
-    @CollectionTable(name = "rules", joinColumns = @JoinColumn(name = "id"))
-    @Column(columnDefinition = "LONGTEXT")
-    private List<String> rules;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<TempRule> rules;
 
     @ElementCollection
     @CollectionTable(name = "jess_rules", joinColumns = @JoinColumn(name = "id"))

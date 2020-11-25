@@ -7,7 +7,7 @@ public interface  PlantTypeRepository extends JpaRepository<PlantType, Long> {
 
     public PlantType findByName(String name);
 
-
+    public boolean existsByName(String name);
 }
 
 

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,7 +38,10 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    private boolean isEnabled = false;
+    private boolean isEnabled;
+
+    @Column
+    private LocalDateTime joinDate;
 
     @OneToOne(cascade = CascadeType.ALL)
     private VerificationToken verificationToken;
@@ -46,9 +50,13 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
     private Set<Role> roles = new HashSet<>();
 
+    @JsonManagedReference("userMessages")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<ContactMessage> messages;
+
 
     @JsonIgnore
-    @JsonManagedReference
+    @JsonManagedReference("userDiagnoses")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Diagnose> diagnoses;
 
@@ -59,6 +67,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.isEnabled = false;
+        this.joinDate = LocalDateTime.now();
     }
 
     public User() {

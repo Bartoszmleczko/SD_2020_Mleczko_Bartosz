@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.mleczko.PlantExpertSystem.Entity.PlantType;
 import pl.mleczko.PlantExpertSystem.Entity.TemporaryPlantType;
 import pl.mleczko.PlantExpertSystem.Exception.NotFoundException;
+import pl.mleczko.PlantExpertSystem.Exception.ObjectAlreadyExists;
 import pl.mleczko.PlantExpertSystem.Repository.TemporaryPlantTypeRepository;
 
 import javax.transaction.Transactional;
@@ -28,8 +29,12 @@ public class TemporaryPlantTypeService {
 
     @Transactional
     public TemporaryPlantType save(TemporaryPlantType temporaryPlantType){
-        temporaryPlantType.setRequestDate(LocalDateTime.now());
-        return temporaryPlantTypeRepository.save(temporaryPlantType);
+        if(temporaryPlantTypeRepository.existsByName(temporaryPlantType.getName())){
+            throw new ObjectAlreadyExists(TemporaryPlantType.class.getSimpleName());
+        }else{
+            temporaryPlantType.setRequestDate(LocalDateTime.now());
+            return temporaryPlantTypeRepository.save(temporaryPlantType);
+        }
     }
 
     @Transactional

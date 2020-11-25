@@ -32,4 +32,8 @@ public class NotFoundAdvice {
         return ex.getMessage();
     }
 
+    @ResponseBody
+    @ExceptionHandler(PasswordsNotMatching.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public String passwordsNotMatchingHandler(PasswordsNotMatching ex) { return ex.getMessage();}
 }

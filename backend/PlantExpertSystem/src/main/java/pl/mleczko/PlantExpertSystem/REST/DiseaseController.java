@@ -9,6 +9,7 @@ import pl.mleczko.PlantExpertSystem.Entity.Disease;
 import pl.mleczko.PlantExpertSystem.Entity.TemporaryDisease;
 import pl.mleczko.PlantExpertSystem.ExpertSystem.DiseaseCreatingService;
 import pl.mleczko.PlantExpertSystem.Model.DiseaseDto;
+import pl.mleczko.PlantExpertSystem.Model.RuleTemplate;
 import pl.mleczko.PlantExpertSystem.Model.TemporaryDiseaseTemplateForm;
 import pl.mleczko.PlantExpertSystem.Service.DiagnoseService;
 import pl.mleczko.PlantExpertSystem.Service.DiseaseService;
@@ -39,8 +40,8 @@ public class DiseaseController {
 
 
     @GetMapping("/diseases")
-    public Page<DiseaseDto> getAllDiseases(@RequestParam int page, @RequestParam int size){
-        return diseaseService.findAll(PageRequest.of(page,size));
+    public Page<DiseaseDto> getAllDiseases(@RequestParam int page, @RequestParam int size, @RequestParam String plant){
+        return diseaseService.findAll(PageRequest.of(page,size), plant);
     }
 
     @GetMapping("/diseases/fromDtos")
@@ -57,6 +58,7 @@ public class DiseaseController {
     public ResponseEntity<TemporaryDisease> addNewDisease(@ModelAttribute TemporaryDiseaseTemplateForm form) throws IOException {
 
         return ResponseEntity.ok(diseaseService.addNewDisease(form));
+
     }
 
     @PostMapping("/diseases/accept")
