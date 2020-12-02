@@ -31,6 +31,12 @@ export class DiagnoseService {
     });
   }
 
+  public getTempImage(diseaseName: string) {
+    return this.httpClient.get(API_URL + "tempImages?name=" + diseaseName, {
+      responseType: "blob",
+    });
+  }
+
   public getPlantTypes() {
     return this.httpClient.get(API_URL + "plantTypes");
   }

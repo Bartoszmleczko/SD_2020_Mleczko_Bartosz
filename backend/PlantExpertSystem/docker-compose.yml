@@ -1,0 +1,21 @@
+version: "3"
+services:
+
+  plantexpert-db:
+    image: mysql:5.7
+    container_name: plantexpert-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=plant_expert
+    ports:
+      - "3307:3306"
+    restart: always
+  frontend:
+    container_name: 'frontend'
+    build: ../../frontend/PlantExpert
+    volumes:
+      - '../../frontend/PlantExpert:/usr/src/app'
+    ports:
+      - '4200:4200'
+    depends_on:
+      - plantexpert-db

@@ -10,15 +10,11 @@ import pl.mleczko.PlantExpertSystem.Model.DiagnoseDto;
 import pl.mleczko.PlantExpertSystem.Model.DiagnoseFormDto;
 import pl.mleczko.PlantExpertSystem.Model.DiseaseDto;
 import pl.mleczko.PlantExpertSystem.Model.PlantSicknessRequest;
-import pl.mleczko.PlantExpertSystem.Repository.DiagnoseRepository;
-import pl.mleczko.PlantExpertSystem.Repository.DiseaseRepository;
-import pl.mleczko.PlantExpertSystem.Repository.RiskFactorRepository;
-import pl.mleczko.PlantExpertSystem.Repository.SymptomRepository;
+import pl.mleczko.PlantExpertSystem.Repository.*;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.security.Principal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,11 +33,12 @@ public class DiagnoseService {
     private final PlantTypeService plantTypeService;
     private final UserService userService;
     private final DiagnoseRepository diagnoseRepository;
+    private final TemporaryDiseaseRepository temporaryDiseaseRepository;
 
     public DiagnoseService(RiskFactorRepository riskFactorRepository, SymptomRepository symptomRepository,
                            PlantExpertEvalService plantExpertEvalService, DiseaseRepository diseaseRepository,
                            FileStorageService fileStorageService, PlantTypeService plantTypeService,
-                           UserService userService, DiagnoseRepository diagnoseRepository) {
+                           UserService userService, DiagnoseRepository diagnoseRepository, TemporaryDiseaseRepository temporaryDiseaseRepository) {
         this.riskFactorRepository = riskFactorRepository;
         this.symptomRepository = symptomRepository;
         this.plantExpertEvalService = plantExpertEvalService;
@@ -50,6 +47,7 @@ public class DiagnoseService {
         this.plantTypeService = plantTypeService;
         this.userService = userService;
         this.diagnoseRepository = diagnoseRepository;
+        this.temporaryDiseaseRepository = temporaryDiseaseRepository;
     }
 
     @Transactional
@@ -89,21 +87,21 @@ public class DiagnoseService {
     public HashSet<DiseaseDto> diagnose(PlantSicknessRequest plantSicknessRequest) throws JessException, IOException {
         ArrayList<String> jessResults = (ArrayList<String>) plantExpertEvalService.provideFact(plantSicknessRequest);
         HashSet<DiseaseDto> finalResult = new HashSet<>();
-
+        PlantType plantType = plantTypeService.findByName(plantSicknessRequest.getPlant());
         for(String res : jessResults){
 
             String[] resultParts = res.split(":");
             String diseaseTemplateName = res.split(":")[0];
             String diagnoseType = res.split(":")[1];
 
+            Disease disease  = diseaseRepository.findByTemplateNameAndPlantType(diseaseTemplateName, plantType);
+            if(disease != null){
+                String diagnose = pickDiagnose(disease, diagnoseType);
 
+                DiseaseDto dto = new DiseaseDto(disease.getName(), diagnose,disease.getDiseaseDescription(),disease.getCount());
+                finalResult.add(dto);
+            }
 
-            Disease disease  = findDiseaseByTemplateName(diseaseTemplateName);
-
-            String diagnose = pickDiagnose(disease, diagnoseType);
-
-            DiseaseDto dto = new DiseaseDto(disease.getName(), diagnose,disease.getDiseaseDescription(),disease.getCount());
-            finalResult.add(dto);
         }
         return finalResult;
     }
@@ -126,6 +124,16 @@ public class DiagnoseService {
         }
     }
 
+    public byte[] getTempDiseaseImage(String diseaseName) {
+        TemporaryDisease disease = temporaryDiseaseRepository.findByDiseaseName(diseaseName);
+        byte[] image = fileStorageService.getImageFile(disease.getImageUrl());
+        if(image != null) {
+            return fileStorageService.getImageFile(disease.getImageUrl());
+        } else{
+            throw new FileNotFoundException();
+        }
+    }
+
     @Transactional
     public Diagnose findById(Long id){
         return diagnoseRepository.findById(id).orElseThrow(() -> new NotFoundException(Diagnose.class.getSimpleName()));
@@ -142,7 +150,6 @@ public class DiagnoseService {
 
     @Transactional
     public Diagnose saveDiagnose(DiagnoseDto dto, String username){
-        System.out.println(username);
         User user = userService.findByUsername(username);
         Diagnose diagnose = new Diagnose();
         diagnose.setUser(user);

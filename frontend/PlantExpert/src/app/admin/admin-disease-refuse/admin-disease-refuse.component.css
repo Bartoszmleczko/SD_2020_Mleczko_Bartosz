@@ -1,0 +1,36 @@
+h2 {
+  text-align: center;
+}
+
+form {
+  margin-top: 20px;
+  width: 70%;
+}
+
+label {
+  font-size: 22px;
+}
+
+button {
+  width: 250px;
+  font-size: 22px;
+  height: 45px;
+  margin: 25px;
+  background-color: #3e5063;
+  color: #fff0b3;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: #47627e;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:disabled {
+  background-color: #5f758d;
+}

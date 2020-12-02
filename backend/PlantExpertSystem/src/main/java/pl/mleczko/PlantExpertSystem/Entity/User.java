@@ -60,6 +60,10 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Diagnose> diagnoses;
 
+    @JsonManagedReference("userTemporaryDiseases")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<TemporaryDisease> temporaryDiseases;
+
 
     public User(@NonNull String email, @NonNull String password, @NonNull String firstName, @NonNull String lastName) {
         this.email = email;

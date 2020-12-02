@@ -1,0 +1,19 @@
+<div
+  class="width-100 display-flex f-d-column a-i-center background-color-dark-blue font-color-yellow"
+>
+  <h2>Wybierz które elementy wymagają poprawy.</h2>
+  <form action="" class="display-flex f-d-column" [formGroup]="newForm">
+    <label
+      formArrayName="namesBoxes"
+      for="c{{ i }}  "
+      *ngFor="let checkBox of nameBoxes.controls; let i = index"
+    >
+      <input id="c{{ i }}" type="checkbox" [formControlName]="i" />
+      {{ names[i] }}
+    </label>
+
+    <button [disabled]="!newForm.valid" (click)="send()">
+      Zatwierdź i wyślij
+    </button>
+  </form>
+</div>

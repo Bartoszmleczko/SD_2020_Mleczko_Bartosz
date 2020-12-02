@@ -89,7 +89,7 @@
             type="file"
             id="file"
             (change)="handleImageFileInput($event)"
-          />Wybierz zdjęcie choroby -
+          />Wybierz zdjęcie choroby (wymagane) -
           <span *ngIf="!filename"> Brak pliku</span>
           <span> {{ filename }}</span>
         </label>
@@ -97,6 +97,7 @@
 
       <div class="disease-templates-inputs">
         <div class="input-box" formArrayName="riskFactors">
+          <h3>Czynniki ryzyka</h3>
           <div
             *ngFor="let riskFactor of riskFactors.controls; let i = index"
             class="dynamic-input"
@@ -139,6 +140,7 @@
           </button>
         </div>
         <div class="input-box" formArrayName="symptoms">
+          <h3>Symptomy</h3>
           <div
             *ngFor="let symptom of symptoms.controls; let i = index"
             class="dynamic-input"

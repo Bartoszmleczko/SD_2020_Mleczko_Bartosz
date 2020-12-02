@@ -14,6 +14,10 @@ table {
   width: 90%;
 }
 
+img {
+  width: 100%;
+}
+
 .table-box {
   display: flex;
   justify-content: center;
@@ -55,12 +59,12 @@ table {
 .img-box {
   min-width: 35%;
   width: 35%;
-  height: 450px;
-  background-color: grey;
+  height: 400px;
 }
 
 .content-box {
   width: 100%;
+  margin-top: 20px;
 }
 
 .flex-center {
@@ -99,13 +103,46 @@ table {
 .button-wrapper {
   display: flex;
   justify-content: space-evenly;
-  margin-bottom: 15px;
+  padding: 30px;
 }
 
 .button-wrapper button {
   width: 150px;
   height: 50px;
+  border-radius: 10px;
+  border: 1px solid grey;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
 }
+
+.bg-red {
+  background-color: rgb(238, 48, 48);
+  color: white;
+}
+
+.bg-red:hover {
+  background-color: rgb(238, 69, 69);
+}
+
+.bg-green {
+  background-color: rgb(42, 202, 42);
+  color: white;
+}
+
+.bg-green:hover {
+  background-color: rgb(76, 207, 76);
+}
+.refuse-btn {
+  background-color: rgb(63, 81, 100);
+  color: #fff0b3;
+}
+
+.refuse-btn:hover {
+  background-color: rgb(66, 94, 124);
+}
+.button-wrapper button:focus {
+  outline: none;
+}
+
 ::ng-deep .mat-select-value-text {
   color: #fff0b3;
 }

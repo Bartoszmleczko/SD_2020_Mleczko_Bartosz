@@ -1,3 +1,4 @@
+import { MessageInfoComponent } from "./../message-info/message-info.component";
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { BackendMessageComponent } from "src/app/backend-message/backend-message/backend-message.component";
@@ -27,6 +28,14 @@ export class OldMessagesComponent implements OnInit {
       .subscribe((data: ContactMessageDto[]) => {
         this.oldMessages = data;
       });
+  }
+
+  openInfoDialog(index) {
+    const dialogRef = this.dialog.open(MessageInfoComponent, {
+      width: "50%",
+      panelClass: "app-full-bleed-dialog",
+      data: { data: this.oldMessages[index] },
+    });
   }
 
   deleteMessage(index) {

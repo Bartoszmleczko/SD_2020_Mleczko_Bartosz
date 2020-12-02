@@ -35,6 +35,7 @@ export interface DiagnoseForm {
 export interface PlantSicknessRequest {
   riskFactors: RequestSlotDto[];
   symptoms: RequestSlotDto[];
+  plant: string;
 }
 
 export interface DiseaseDto {
@@ -54,6 +55,7 @@ export interface TemporaryDiseaseDto {
   riskFactors: RiskFactor[];
   symptoms: Symptom[];
   form: FormGroup;
+  url: SafeUrl;
 }
 
 export interface NewTemporaryDiseaseDto {
@@ -66,6 +68,7 @@ export interface NewTemporaryDiseaseDto {
   symptoms: string[];
   rules: RulePart[];
   image: File;
+  properties: RefuseFormDto;
 }
 
 export interface DiagnoseDto {
@@ -127,4 +130,15 @@ export interface ContactMessageDto {
   email: string;
   firstName: string;
   lastName: string;
+}
+
+export interface RefuseFormDto {
+  id: number;
+  name: boolean;
+  description: boolean;
+  precautionDiagnose: boolean;
+  interventionDiagnose: boolean;
+  symptoms: boolean;
+  riskFactors: boolean;
+  rules: boolean;
 }

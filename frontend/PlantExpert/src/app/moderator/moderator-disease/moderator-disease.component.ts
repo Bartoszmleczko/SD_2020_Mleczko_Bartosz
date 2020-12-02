@@ -45,7 +45,7 @@ export class ModeratorDiseaseComponent implements OnInit {
     ],
     precautionDiagnose: [
       "",
-      Validators.compose([Validators.minLength(20), Validators.maxLength(200)]),
+      Validators.compose([Validators.required, Validators.minLength(20), Validators.maxLength(200)]),
     ],
     interventionDiagnose: [
       "",
@@ -200,11 +200,16 @@ export class ModeratorDiseaseComponent implements OnInit {
       riskFactors: riskFactorArray,
       rules: this.rules,
       image: this.imageFileToUpload,
+      properties: null,
     };
 
     this.uploadService.postFile(dto).subscribe(
       (data) => {
         this.newDiseaseForm.reset();
+        this.rules = [];
+        this.imageFileToUpload = null;
+        this.filename = null;
+        this.templates = null;
         const dialogRef = this.dialog.open(BackendMessageComponent, {
           width: "30%",
           panelClass: "app-full-bleed-dialog",

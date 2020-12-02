@@ -1,0 +1,220 @@
+<div class="width-100 display-flex f-d-column a-i-center" *ngIf="disease">
+  <form
+    [formGroup]="newDiseaseForm"
+    class="disease-box display-flex f-d-column a-i-center background-color-dark-blue"
+  >
+    <div class="width-100 name-box display-flex f-d-column a-i-center">
+      <h2>Nazwa choroby</h2>
+      <input
+        type="text"
+        formControlName="diseaseName"
+        [readOnly]="!disease.properties.name"
+      />
+      <div class="width-100 error-box">
+        <label for="" *ngIf="f.diseaseName.errors"
+          >Nazwa jest wymagana (5-50 znaków).</label
+        >
+      </div>
+    </div>
+    <div class="width-100 display-flex j-c-space-around info-box">
+      <div class="info">
+        Powód odrzucenia:
+        <span *ngIf="disease.properties.name">Nazwa choroby, </span>
+        <span *ngIf="disease.properties.description">opis choroby, </span>
+        <span *ngIf="disease.properties.precautionDiagnose">
+          diagnoza zapobiegawcza,
+        </span>
+        <span *ngIf="disease.properties.interventionDiagnose"
+          >diagnoza interwencyjna,
+        </span>
+        <span *ngIf="disease.properties.riskFactors">czynniki ryzyka, </span>
+        <span *ngIf="disease.properties.symptoms">symptomy, </span>
+        <span *ngIf="disease.properties.rules">reguły wnioskujące. </span>
+      </div>
+      <div class="info">Roślina: {{ disease.plantType.name }}</div>
+    </div>
+    <div class="desc-diagnose-box display-flex width-100">
+      <div class="description-box width-50 display-flex f-d-column a-i-center">
+        <h3>Opis choroby</h3>
+        <textarea
+          rows="5"
+          cols="50"
+          formControlName="diseaseDescription"
+          [readOnly]="!disease.properties.description"
+        ></textarea>
+        <div class="width-100 error-box">
+          <label for="" *ngIf="f.diseaseDescription.errors"
+            >Opis choroby jest wymagany (50-600 znaków).</label
+          >
+        </div>
+      </div>
+      <div class="diagnose-box width-50 display-flex f-d-column">
+        <div class="width-100 display-flex f-d-column a-i-center">
+          <h3>Diagnoza zapobiegawcza</h3>
+          <input
+            class="input-lg"
+            type="text"
+            formControlName="precautionDiagnose"
+            [readOnly]="!disease.properties.precautionDiagnose"
+          />
+          <div class="width-100 error-box">
+            <label for="" *ngIf="f.precautionDiagnose.errors"
+              >Diagnoza zapobiegawcza jest wymagana (20-200 znaków).</label
+            >
+          </div>
+        </div>
+        <div class="width-100 display-flex f-d-column a-i-center">
+          <h3>Diagnoze interwencyjna</h3>
+          <input
+            class="input-lg"
+            type="text"
+            formControlName="interventionDiagnose"
+            [readOnly]="!disease.properties.interventionDiagnose"
+          />
+          <div class="width-100 error-box">
+            <label for="" *ngIf="f.interventionDiagnose.errors"
+              >Diagnoze interwencyjna jest wymagana (20-200 znaków).</label
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="template-box desc-diagnose-box width-100 display-flex">
+      <div
+        class="width-50 display-flex f-d-column a-i-center"
+        formArrayName="riskFactors"
+      >
+        <h3>Czynniki ryzyka</h3>
+        <div
+          class="width-100 display-flex f-d-column a-i-center"
+          *ngFor="let riskFactor of riskFactors.controls; let i = index"
+        >
+          <div class="width-100 display-flex j-c-center" [formGroupName]="i">
+            <input
+              class="input-md"
+              type="text"
+              formControlName="templateName"
+              [readOnly]="keepRules"
+            />
+            <button
+              class="minus-btn"
+              [disabled]="
+                i == 0 && riskFactors.controls.length == 1 && rules.length > 0
+              "
+              (click)="removeRiskFactor(i)"
+            >
+              <i class="fas fa-minus"></i>
+            </button>
+          </div>
+          <div
+            class="width-100 error-box"
+            *ngIf="f.riskFactors.controls[i].get('templateName').errors"
+          >
+            <label for="">Czynnik ryzyka musi posiadać 10-100 znaków.</label>
+          </div>
+        </div>
+        <button
+          class="plus-btn"
+          (click)="addRiskFactor()"
+          [disabled]="keepRules || rules.length > 0"
+        >
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <div
+        class="width-50 display-flex f-d-column a-i-center"
+        formArrayName="symptoms"
+      >
+        <h3>Symptomy</h3>
+        <div
+          class="width-100 display-flex f-d-column a-i-center"
+          *ngFor="let symptom of symptoms.controls; let i = index"
+        >
+          <div class="width-100 display-flex j-c-center" [formGroupName]="i">
+            <input
+              class="input-md"
+              type="text"
+              formControlName="templateName"
+              [readOnly]="keepRules"
+            />
+            <button
+              class="minus-btn"
+              [disabled]="
+                (i == 0 && symptoms.controls.length == 1) || rules.length > 0
+              "
+              (click)="removeSymptom(i)"
+            >
+              <i class="fas fa-minus"></i>
+            </button>
+          </div>
+          <div
+            class="width-100 error-box"
+            *ngIf="f.symptoms.controls[i].get('templateName').errors"
+          >
+            <label for="">Symptom musi posiadać 10-100 znaków.</label>
+          </div>
+        </div>
+        <button
+          class="plus-btn"
+          (click)="addSymptom()"
+          [disabled]="keepRules || rules.length > 0"
+        >
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="width-100 display-flex f-d-column a-i-center">
+      <h3>Reguły wnioskujące</h3>
+      <div
+        class="disease-box width-100 display-flex f-d-column a-i-center rule-border"
+        *ngFor="let rule of rules; let i = index"
+      >
+        <h4>Reguła {{ i + 1 }}</h4>
+        <div class="width-100 display-flex temp">
+          <div class="width-50">
+            <h4>Czynniki ryzyka</h4>
+            <div *ngFor="let id of rule.riskFactorIndexes; let j = index">
+              {{ templates.riskFactors[id].templateName }}
+            </div>
+          </div>
+          <div class="width-50">
+            <h4>Symptomy</h4>
+            <div *ngFor="let id of rule.symptomIndexes; let j = index">
+              {{ templates.symptoms[id].templateName }}
+            </div>
+          </div>
+        </div>
+        <h4 *ngIf="rule.diagnoseId == 1">Wynik: Diagnoza interwencyjna</h4>
+        <h4 *ngIf="rule.diagnoseId == 0">Wynik: Diagnoza zapobiegawcza</h4>
+        <button
+          class="minus-btn"
+          (click)="removeRule(i)"
+          [disabled]="keepRules || (i == 0 && symptoms.controls.length == 1)"
+        >
+          <i class="fas fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <button
+      class="plus-btn"
+      [disabled]="
+        keepRules ||
+        f.symptoms.status === 'INVALID' ||
+        f.riskFactors.status === 'INVALID' ||
+        f.precautionDiagnose.errors ||
+        f.interventionDiagnose.errors
+      "
+      (click)="addRuleForm()"
+    >
+      Dodaj nową regułę
+    </button>
+
+    <button
+      class="submit-btn"
+      [disabled]="!newDiseaseForm.valid || rules.length === 0"
+      (click)="sendData()"
+    >
+      Wyślij
+    </button>
+  </form>
+</div>

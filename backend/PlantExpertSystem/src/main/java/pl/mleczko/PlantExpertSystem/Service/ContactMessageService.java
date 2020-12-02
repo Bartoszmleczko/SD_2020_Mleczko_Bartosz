@@ -37,7 +37,7 @@ public class ContactMessageService {
         user.getMessages().add(message);
         message.setUser(user);
         message.setStatus(MessageStatus.DOSTARCZONO);
-        user = userRepository.save(user);
+        userRepository.save(user);
         return message;
     }
 

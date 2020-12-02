@@ -1,0 +1,81 @@
+.inner-padding {
+  padding: 25px;
+}
+
+textarea {
+  width: 90%;
+  resize: none;
+  border-radius: 10px;
+  color: #fff0b3;
+  background-color: #3c5269;
+  border: 1px solid grey;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+textarea:hover {
+  background-color: #4d6277;
+  transition: 0.4s;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.horizontal-line {
+  width: 2px;
+  height: 45vh;
+  background-color: #fff0b3;
+}
+
+.border-gold {
+  margin: 20px;
+  width: 70%;
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+p {
+  margin: 20px;
+  width: 70%;
+  font-size: 22px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  text-align: left;
+  height: 200px;
+  text-indent: 10px;
+  word-break: break-all;
+  line-break: strict;
+  box-shadow: 1px 2px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+button {
+  margin-top: 20px;
+  width: 200px;
+  height: 50px;
+  color: #fff0b3;
+  background-color: #445769;
+  border: 1px solid grey;
+  font-size: 30px;
+  border-radius: 10px;
+  box-shadow: 1px 2px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+button:hover {
+  background-color: #43617c;
+  transition: 0.4s;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:disabled {
+  background-color: #566879;
+}
+
+.error-box {
+  height: 25px;
+  padding: 10px;
+}

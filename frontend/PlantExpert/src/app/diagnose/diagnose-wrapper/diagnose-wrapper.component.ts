@@ -40,6 +40,7 @@ export class DiagnoseWrapperComponent implements OnInit {
   diagnose: DiseaseDto[];
 
   plants: Plant[] = [];
+  plant;
 
   constructor(
     private diagnoseService: DiagnoseService,
@@ -84,6 +85,7 @@ export class DiagnoseWrapperComponent implements OnInit {
 
   getDiagnoseFormData(templateName: string) {
     if (templateName !== "none") {
+      this.plant = templateName;
       this.diagnoseService
         .getDiagnoseForm(templateName)
         .subscribe((data: DiagnoseForm) => {
@@ -132,6 +134,7 @@ export class DiagnoseWrapperComponent implements OnInit {
     const sicknessRequest: PlantSicknessRequest = {
       riskFactors: this.selectedRiskFactorValues,
       symptoms: this.selectedSymptomsValues,
+      plant: this.plant,
     };
 
     this.diagnoseService

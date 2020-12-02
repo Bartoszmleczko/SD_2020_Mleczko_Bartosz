@@ -20,4 +20,6 @@ public interface RiskFactorRepository extends JpaRepository<RiskFactor, Long> {
 
     public List<RiskFactor> findAllBySlotNameInAndPlantType(List<String> slotNames, PlantType plantType);
 
+    public RiskFactor findBySlotNameAndPlantType(String slotname, PlantType plantType);
+
 }

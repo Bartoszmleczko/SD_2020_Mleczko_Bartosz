@@ -41,5 +41,10 @@ public class RiskFactorService {
         return riskFactorRepository.findAllBySlotNameInAndPlantType(slotNames,plantType);
     }
 
+    @Transactional
+    public RiskFactor findBySlotNameAndPlantType(String slotName, PlantType plantType){
+        return riskFactorRepository.findBySlotNameAndPlantType(slotName, plantType);
+    }
+
 
 }

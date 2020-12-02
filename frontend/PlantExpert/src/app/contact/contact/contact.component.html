@@ -1,58 +1,7 @@
-<div class="contact">
-  <div class="card">
-    <h1>Napisz do nas...</h1>
-
-    <div class="form-box">
-      <form action="" [formGroup]="contactForm">
-        <div class="form-field-box">
-          <div class="input-box">
-            <input
-              type="text"
-              placeholder="Nagłówek"
-              formControlName="title"
-              class="input-header"
-            />
-          </div>
-          <div class="error-box">
-            <label for="" *ngIf="f.title.errors"
-              >Nagłówek jest wymagany (5-15 znaków)</label
-            >
-          </div>
-        </div>
-
-        <div class="form-field-box">
-          <div class="input-box">
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              placeholder="Treść wiadomości"
-              formControlName="text"
-            ></textarea>
-          </div>
-          <div class="error-box">
-            <label for="" *ngIf="f.text.errors"
-              >Treść musi posiadać 5-200 znaków</label
-            >
-          </div>
-        </div>
-        <div class="form-field-box">
-          <button
-            type="submit"
-            [disabled]="!contactForm.valid"
-            (click)="sendMessage()"
-          >
-            Wyślij
-          </button>
-        </div>
-      </form>
-    </div>
-
-    <h1>... lub zadzwoń</h1>
-    <div class="phonecall-box">
-      <i class="fas fa-phone-alt"></i>
-      <label for=""> 111222333</label>
-    </div>
-  </div>
+<div class="width-100 display-flex">
+  <app-contact-form
+    class="width-50"
+    (messageEmitter)="pushNewMessage($event)"
+  ></app-contact-form>
+  <app-contact-old-messages class="width-50"></app-contact-old-messages>
 </div>

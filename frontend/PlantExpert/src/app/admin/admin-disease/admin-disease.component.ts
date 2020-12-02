@@ -1,5 +1,10 @@
+import { DomSanitizer } from "@angular/platform-browser";
+import { DiagnoseService } from "src/app/diagnose/diagnose.service";
+import { BackendMessageComponent } from "./../../backend-message/backend-message/backend-message.component";
+import { AdminDiseaseRefuseComponent } from "./../admin-disease-refuse/admin-disease-refuse.component";
+import { MatDialog } from "@angular/material";
 import { AdminService } from "./../admin.service";
-import { TemporaryDiseaseDto } from "./../../models/models";
+import { RefuseFormDto, TemporaryDiseaseDto } from "./../../models/models";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 
@@ -12,8 +17,15 @@ export class AdminDiseaseComponent implements OnInit {
   temporaryDiseases: TemporaryDiseaseDto[] = [];
   isDataAvailable = false;
   factorTypes: [] = [];
+  refuseData: RefuseFormDto;
 
-  constructor(private adminservice: AdminService, private fb: FormBuilder) {}
+  constructor(
+    private adminservice: AdminService,
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private diagnoseService: DiagnoseService,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit() {
     this.getDiseaseTemplates();
@@ -22,11 +34,30 @@ export class AdminDiseaseComponent implements OnInit {
 
   public getDiseaseTemplates() {
     this.temporaryDiseases = [];
-    this.adminservice.getDiseaseTemplates().subscribe((data: []) => {
-      this.temporaryDiseases = data;
-      if (this.temporaryDiseases.length > 0) {
-        this.isDataAvailable = true;
-      }
+    this.adminservice
+      .getDiseaseTemplates()
+      .subscribe((data: TemporaryDiseaseDto[]) => {
+        this.temporaryDiseases = data;
+        this.temporaryDiseases.forEach((td) => {
+          this.getImage(td);
+        });
+
+        if (this.temporaryDiseases.length > 0) {
+          this.isDataAvailable = true;
+        }
+      });
+  }
+
+  getImage(disease: TemporaryDiseaseDto) {
+    let imageBytes = null;
+    let image = null;
+    this.diagnoseService.getTempImage(disease.diseaseName).subscribe((data) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(data);
+      reader.onloadend = (e) => (
+        (imageBytes = reader.result),
+        (disease.url = this.sanitizer.bypassSecurityTrustUrl(imageBytes))
+      );
     });
   }
 
@@ -43,14 +74,36 @@ export class AdminDiseaseComponent implements OnInit {
 
   public acceptDisease(index: number) {
     const disease = this.temporaryDiseases[index];
-    this.temporaryDiseases.slice(index, 1);
+    this.temporaryDiseases.splice(index, 1);
     this.adminservice.acceptDisease(disease).subscribe();
   }
 
   public deleteDisease(index: number) {
-    this.temporaryDiseases.slice(index, 1);
+    this.temporaryDiseases.splice(index, 1);
     this.adminservice
       .deleteDisease(this.temporaryDiseases[index].id)
       .subscribe();
+  }
+
+  public refuseDisease(index) {
+    const i = this.temporaryDiseases[index].id;
+    const ref = this.dialog.open(AdminDiseaseRefuseComponent, {
+      width: "25%",
+      panelClass: "app-full-bleed-dialog",
+    });
+
+    ref.afterClosed().subscribe((data: RefuseFormDto) => {
+      if (data) {
+        console.log(data);
+        this.refuseData = data;
+        this.refuseData.id = i;
+        this.adminservice.refuseDisease(data).subscribe(
+          (dat) => {
+            this.temporaryDiseases.splice(index, 1);
+          },
+          (err) => {}
+        );
+      }
+    });
   }
 }

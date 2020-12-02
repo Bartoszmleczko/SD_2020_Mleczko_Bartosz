@@ -2,6 +2,7 @@
   width: 100%;
   background-color: #3e5063;
   display: flex;
+  justify-content: center;
 }
 
 p {
@@ -30,9 +31,8 @@ h2 {
 }
 
 span {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 25px;
+  width: 100%;
   text-align: center;
+  margin-top: 25px;
   color: #fff0b3;
 }

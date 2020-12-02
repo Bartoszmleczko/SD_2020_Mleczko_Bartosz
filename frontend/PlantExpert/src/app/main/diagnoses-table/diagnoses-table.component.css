@@ -80,3 +80,14 @@ tr:hover {
   background-color: #567596;
   cursor: pointer;
 }
+
+.empty-table {
+  width: 100%;
+  background-color: #3e5063;
+  color: #fff0b3;
+  text-align: center;
+}
+
+h5 {
+  padding: 20px;
+}

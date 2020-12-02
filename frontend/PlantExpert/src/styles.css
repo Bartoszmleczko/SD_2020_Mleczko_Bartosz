@@ -53,6 +53,10 @@ body {
   justify-content: space-around;
 }
 
+.j-c-flex-end {
+  justify-content: flex-end;
+}
+
 .j-c-space-between {
   justify-content: space-between;
 }

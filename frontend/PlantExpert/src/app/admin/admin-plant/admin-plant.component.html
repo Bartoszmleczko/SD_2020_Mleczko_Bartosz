@@ -27,6 +27,8 @@
         </tr>
       </table>
     </div>
-    <h3 *ngIf="!plantRequests">Brak zapytań o dodanie nowych roślin</h3>
+    <h3 *ngIf="!plantRequests || plantRequests.length === 0">
+      Brak zapytań o dodanie nowych roślin
+    </h3>
   </div>
 </div>

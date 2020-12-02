@@ -70,6 +70,11 @@ private final DiseaseService diseaseService;
         return diagnoseService.getImage(name);
     }
 
+    @GetMapping("/tempImages")
+    public byte[] getTempDiseaseImageUrl(@RequestParam("name") String name) throws IOException {
+        return diagnoseService.getTempDiseaseImage(name);
+    }
+
     @GetMapping("/factorTypes")
     public ResponseEntity<FactorType[]> getAllFactorTypes(){
         return ResponseEntity.ok(FactorType.values());

@@ -58,6 +58,13 @@ import { NewMessagesComponent } from "./admin/admin-messages/new-messages/new-me
 import { OldMessagesComponent } from "./admin/admin-messages/old-messages/old-messages.component";
 import { AnswerFormComponent } from "./admin/admin-messages/answer-form/answer-form.component";
 import { MessagesComponent } from "./admin/admin-messages/messages/messages.component";
+import { MessageInfoComponent } from "./admin/admin-messages/message-info/message-info.component";
+import { ContactFormComponent } from "./contact/contact-form/contact-form.component";
+import { ContactOldMessagesComponent } from "./contact/contact-old-messages/contact-old-messages.component";
+import { AdminDiseaseRefuseComponent } from "./admin/admin-disease-refuse/admin-disease-refuse.component";
+import { ModeratorRefusedDiseasesComponent } from "./moderator/moderator-refused-diseases/moderator-refused-diseases.component";
+import { ModeratorAllDiseasesComponent } from './moderator-all-diseases/moderator-all-diseases.component';
+import { ModeratorDiseaseEditFormComponent } from './moderator/moderator-disease-edit-form/moderator-disease-edit-form.component';
 registerLocaleData(localePl);
 const routes: Routes = [
   {
@@ -120,6 +127,12 @@ const routes: Routes = [
           {
             path: "disease",
             component: ModeratorDiseaseComponent,
+            canActivate: [AuthGuardService],
+            data: { roles: "ROLE_MODERATOR" },
+          },
+          {
+            path: "refused",
+            component: ModeratorRefusedDiseasesComponent,
             canActivate: [AuthGuardService],
             data: { roles: "ROLE_MODERATOR" },
           },
@@ -196,6 +209,13 @@ const routes: Routes = [
     OldMessagesComponent,
     AnswerFormComponent,
     MessagesComponent,
+    MessageInfoComponent,
+    ContactFormComponent,
+    ContactOldMessagesComponent,
+    AdminDiseaseRefuseComponent,
+    ModeratorRefusedDiseasesComponent,
+    ModeratorAllDiseasesComponent,
+    ModeratorDiseaseEditFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -237,6 +257,8 @@ const routes: Routes = [
     ModeratorRuleFormComponent,
     BackendMessageComponent,
     AnswerFormComponent,
+    MessageInfoComponent,
+    AdminDiseaseRefuseComponent,
   ],
 })
 export class AppModule {}

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import pl.mleczko.PlantExpertSystem.Entity.Disease;
+import pl.mleczko.PlantExpertSystem.Entity.Plant;
 import pl.mleczko.PlantExpertSystem.Entity.PlantType;
 
 import java.util.List;
@@ -28,5 +29,7 @@ public interface DiseaseRepository extends JpaRepository<Disease, Long> {
     public Disease findByNameOrTemplateNameAndPlantType(String name, String templateName, PlantType type);
 
     public List<Disease> findTop5ByOrderByCountDesc();
+
+    public Disease findByTemplateNameAndPlantType(String templateName, PlantType plantType);
 
 }

@@ -15,6 +15,7 @@ public class PlantSicknessRequest {
     private Set<RequestSlotDto> riskFactors = new HashSet<>();
     @NotNull
     private Set<RequestSlotDto> symptoms = new HashSet<>();
-
+    @NotNull
+    private String plant;
 
 }

@@ -1,7 +1,7 @@
 import { Plant, UserDto } from "./../models/models";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { TemporaryDiseaseDto } from "../models/models";
+import { TemporaryDiseaseDto, RefuseFormDto } from "../models/models";
 
 const API_URL = "http://localhost:8886/";
 
@@ -53,5 +53,9 @@ export class AdminService {
 
   public takeModeratorRole(dto: UserDto) {
     return this.httpClient.put(API_URL + "users/declineMod", dto);
+  }
+
+  public refuseDisease(data: RefuseFormDto) {
+    return this.httpClient.post(API_URL + "tempDiseases/refuse", data);
   }
 }

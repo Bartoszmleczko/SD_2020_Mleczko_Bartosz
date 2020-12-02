@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -49,6 +50,11 @@ public class FileStorageService {
         return array;
     }
 
+    public File getImageAsFile(String name ){
+        File image = new File("src/main/resources/images/" + name);
+        return image;
+    }
+
 
     public void store (MultipartFile file, String name){
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
@@ -64,6 +70,22 @@ public class FileStorageService {
             Path path2 = Paths.get(this.path);
 
             Files.copy(inputStream,path2.resolve(name + "." + FilenameUtils.getExtension(file.getOriginalFilename())), StandardCopyOption.REPLACE_EXISTING);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void store (File file, String name){
+        String filename = StringUtils.cleanPath(file.getName());
+
+
+        try (InputStream inputStream = new FileInputStream(file)) {
+
+            Path path2 = Paths.get(this.path);
+
+            Files.copy(inputStream,path2.resolve(name + "." + FilenameUtils.getExtension(file.getName() )), StandardCopyOption.REPLACE_EXISTING);
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,0 +1,24 @@
+<div class="width-100 display-flex f-d-column a-i-center">
+  <div class="toscroll-wrapper">
+    <table>
+      <thead>
+        <th>Lp.</th>
+        <th>Nazwa</th>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let disease of refusedDiseases; let i = index"
+          (click)="changeDisease(i)"
+        >
+          <td>{{ i + 1 }}</td>
+          <td>{{ disease.diseaseName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-moderator-disease-edit-form
+    class="width-100"
+    (emitter)="removeDiseaseFromList($event)"
+  ></app-moderator-disease-edit-form>
+</div>

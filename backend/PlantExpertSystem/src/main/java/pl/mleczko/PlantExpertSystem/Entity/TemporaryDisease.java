@@ -1,6 +1,7 @@
 package pl.mleczko.PlantExpertSystem.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
 import lombok.*;
 import pl.mleczko.PlantExpertSystem.Model.SimpleTemplateForm;
@@ -50,6 +51,8 @@ public class TemporaryDisease {
     @Column(name = "precaution", columnDefinition = "LONGTEXT")
     private String precautionDiagnose;
 
+    @Enumerated(EnumType.STRING)
+    private TempDiseaseStatus tempDiseaseStatus;
 
     @Column(name = "intervention", columnDefinition = "LONGTEXT")
     private String interventionDiagnose;
@@ -62,5 +65,12 @@ public class TemporaryDisease {
 
     @Column
     private String imageUrl;
+
+    @JsonBackReference("userTemporaryDiseases")
+    @ManyToOne
+    private User user;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private TemporaryDiseaseRefuseProperties properties;
 
 }

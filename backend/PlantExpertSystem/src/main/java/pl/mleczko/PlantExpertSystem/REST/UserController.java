@@ -47,9 +47,9 @@ public class UserController {
     }
 
     @PostMapping("/register" )
-    public  String response(@RequestBody User user){
+    public  ResponseEntity<String> response(@RequestBody User user){
         userService.save(user);
-        return "User registered";
+        return ResponseEntity.ok("Pomyślnie zarejestrowano");
     }
 
     @PostMapping("/login")

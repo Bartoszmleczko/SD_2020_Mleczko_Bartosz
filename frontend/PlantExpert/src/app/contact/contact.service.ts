@@ -16,6 +16,9 @@ export class ContactService {
     return this.httpClient.get(API_URL + "messages/unanswered");
   }
 
+  getCurrentUserAllMessages() {
+    return this.httpClient.get(API_URL + "users/messages");
+  }
   getAnsweredMessages() {
     return this.httpClient.get(API_URL + "messages/answered");
   }

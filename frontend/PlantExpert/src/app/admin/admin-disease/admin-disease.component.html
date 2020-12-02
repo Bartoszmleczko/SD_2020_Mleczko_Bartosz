@@ -4,14 +4,17 @@
   <h3>Brak zapytań o dodanie nowych chorób</h3>
 </div>
 
-<div class="new-disease margin-center flex-center">
+<div
+  class="new-disease margin-center display-flex f-d-column a-i-center"
+  *ngIf="isDataAvailable"
+>
   <div
     class="content-box"
     *ngFor="let disease of temporaryDiseases; let i = index"
   >
     <form action="" class="dark-background">
       <div class="flex">
-        <div class="img-box">1</div>
+        <div class="img-box"><img [src]="disease.url" alt="" /></div>
         <div class="temp-disease-content">
           <div class="static-data">
             <div class="static-data-block">
@@ -41,6 +44,7 @@
                   Brak diagnozy interwencyjnej
                 </p>
               </div>
+              <h3>Roślina: {{ disease.plantType.name }}</h3>
             </div>
           </div>
         </div>
@@ -95,8 +99,9 @@
         </div>
       </div>
       <div class="button-wrapper">
-        <button>Usuń</button>
-        <button (click)="acceptDisease(i)">Zaakceptuj</button>
+        <button (click)="deleteDisease(i)" class="bg-red">Usuń</button>
+        <button (click)="refuseDisease(i)" class="refuse-btn">Odrzuć</button>
+        <button (click)="acceptDisease(i)" class="bg-green">Zaakceptuj</button>
       </div>
     </form>
   </div>

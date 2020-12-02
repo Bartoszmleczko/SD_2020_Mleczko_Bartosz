@@ -9,18 +9,75 @@
   position: relative;
 }
 
-.login-back {
+.input-box {
+  width: 60%;
+  margin: 25px;
 }
 
-.login-form {
-  position: absolute;
-  right: 10%;
+input {
+  background-color: #3e5063;
+  width: 100%;
+  height: 45px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
+  font-size: 22px;
 }
 
-.welcome-text {
-  font-size: 17px;
-  width: 95%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 2%;
+h1,
+input {
+  color: #fff0b3;
+}
+
+input::placeholder {
+  color: white;
+}
+
+input:focus,
+button:focus {
+  outline: none;
+}
+
+.light-background {
+  background-color: rgba(62, 80, 99, 0.4);
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+}
+
+button:hover,
+input:hover {
+  background-color: #47617e;
+}
+
+button {
+  height: 40px;
+  width: 150px;
+  font-size: 22px;
+  background-color: #3e5063;
+  color: #fff0b3;
+  margin-bottom: 10px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
+  border: 1px solid grey;
+}
+
+.text-box {
+  width: 30%;
+}
+
+label {
+  color: #3e5063;
+  font-size: 50px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-shadow: 1px 1px 1px 1px grey;
+}
+
+p {
+  color: #3e5063;
+  font-size: 22px;
+  font-weight: 550;
+}
+
+.register-box {
+  width: 50%;
 }
