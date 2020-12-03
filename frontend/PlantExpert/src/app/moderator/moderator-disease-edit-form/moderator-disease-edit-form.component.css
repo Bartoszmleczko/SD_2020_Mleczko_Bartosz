@@ -11,6 +11,10 @@ label {
   width: 90%;
 }
 
+.mt {
+  margin-top: 20px;
+}
+
 form {
   border-bottom: 1px solid #fff0b3;
 }

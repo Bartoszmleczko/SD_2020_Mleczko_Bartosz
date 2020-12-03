@@ -1,7 +1,7 @@
 FROM node:14
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
-COPY package.json package-lock.json ./
+COPY package.json /usr/src/app
 RUN npm install
 RUN npm install -g @angular/cli
 COPY . /usr/src/app
