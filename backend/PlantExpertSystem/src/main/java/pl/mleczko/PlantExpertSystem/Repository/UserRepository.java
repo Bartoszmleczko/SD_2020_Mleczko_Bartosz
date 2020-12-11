@@ -22,4 +22,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     public User findByVerificationToken(VerificationToken token);
 
+    public boolean existsByEmail(String email);
+
 }

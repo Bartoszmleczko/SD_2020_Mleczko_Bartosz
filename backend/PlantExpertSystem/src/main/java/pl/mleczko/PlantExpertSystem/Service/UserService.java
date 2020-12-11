@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.mleczko.PlantExpertSystem.Entity.Role;
 import pl.mleczko.PlantExpertSystem.Entity.User;
 import pl.mleczko.PlantExpertSystem.Entity.VerificationToken;
+import pl.mleczko.PlantExpertSystem.Exception.ObjectAlreadyExists;
 import pl.mleczko.PlantExpertSystem.Exception.PasswordsNotMatching;
 import pl.mleczko.PlantExpertSystem.Model.UserDetailsForm;
 import pl.mleczko.PlantExpertSystem.Model.UserDto;
@@ -49,17 +50,22 @@ public class UserService {
 
     @Transactional
     public User save (User user){
-        User newUser = new User(user.getEmail(), bCryptPasswordEncoder.encode(user.getPassword()), user.getFirstName(), user.getLastName());
-        Role basicRole = roleRepository.findByRoleName("ROLE_USER");
 
-        newUser.setRoles(new HashSet<>(Arrays.asList(basicRole)));
-        VerificationToken token = new VerificationToken();
-        token.setToken(UUID.randomUUID().toString());
-        newUser.setVerificationToken(token);
-        newUser.setJoinDate(LocalDateTime.now());
-        String link = "http://192.168.99.100:4200/activate/" + token.getToken();
-        mailService.sendEmail(user.getEmail(), "Aktywacja konta",mailService.prepareActivationEmailBody(MailService.prepareEmail(link)) );
-        return userRepository.save(newUser);
+        if(userRepository.existsByEmail(user.getEmail())){
+            throw new ObjectAlreadyExists(User.class.getSimpleName());
+        } else{
+            User newUser = new User(user.getEmail(), bCryptPasswordEncoder.encode(user.getPassword()), user.getFirstName(), user.getLastName());
+            Role basicRole = roleRepository.findByRoleName("ROLE_USER");
+
+            newUser.setRoles(new HashSet<>(Arrays.asList(basicRole)));
+            VerificationToken token = new VerificationToken();
+            token.setToken(UUID.randomUUID().toString());
+            newUser.setVerificationToken(token);
+            newUser.setJoinDate(LocalDateTime.now());
+            String link = "http://192.168.99.100:4200/activate/" + token.getToken();
+            mailService.sendEmail(user.getEmail(), "Aktywacja konta",mailService.prepareActivationEmailBody(MailService.prepareEmail(link)) );
+            return userRepository.save(newUser);
+        }
     }
 
     @Transactional
