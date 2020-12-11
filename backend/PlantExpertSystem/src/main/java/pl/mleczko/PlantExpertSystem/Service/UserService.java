@@ -57,7 +57,7 @@ public class UserService {
         token.setToken(UUID.randomUUID().toString());
         newUser.setVerificationToken(token);
         newUser.setJoinDate(LocalDateTime.now());
-        String link = "http://localhost:4200/activate/" + token.getToken();
+        String link = "http://192.168.99.100:4200/activate/" + token.getToken();
         mailService.sendEmail(user.getEmail(), "Aktywacja konta",mailService.prepareActivationEmailBody(MailService.prepareEmail(link)) );
         return userRepository.save(newUser);
     }
