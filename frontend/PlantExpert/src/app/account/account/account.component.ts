@@ -10,7 +10,7 @@ import { AccountDetailsComponent } from "../account-details/account-details.comp
   styleUrls: ["./account.component.css"],
 })
 export class AccountComponent implements OnInit {
-  @ViewChild(AccountDetailsCardComponent, { static: false })
+  @ViewChild(AccountDetailsCardComponent)
   accountDetailsComponent: AccountDetailsCardComponent;
 
   constructor() {}

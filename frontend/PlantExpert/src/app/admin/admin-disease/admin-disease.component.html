@@ -1,4 +1,7 @@
-<div *ngIf="!isDataAvailable" class="new-plant margin-center mt-5">
+<div
+  *ngIf="!isDataAvailable || temporaryDiseases.length == 0"
+  class="new-plant margin-center mt-5"
+>
   <h1>Nowe choroby</h1>
 
   <h3>Brak zapytań o dodanie nowych chorób</h3>
@@ -23,6 +26,7 @@
             <div class="static-data-block bor-bottom">
               <p>{{ disease.description }}</p>
             </div>
+            <h3>Roślina: {{ disease.plantType.name }}</h3>
             <div class="static-data-block flex-center bor-bottom">
               <div class="diagnose-block">
                 <h3>Diagnoza zapobiegawcza</h3>
@@ -44,60 +48,68 @@
                   Brak diagnozy interwencyjnej
                 </p>
               </div>
-              <h3>Roślina: {{ disease.plantType.name }}</h3>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="dynamic-data flex-center mt-2">
-        <div class="template-block">
-          <div class="dynamic-field-box">
-            <h3>Czynniki ryzyka</h3>
             <div
-              *ngFor="
-                let riskFactor of temporaryDiseases[i].riskFactors;
-                let j = index
-              "
-              class="select-box button-wrapper risk-factor-border"
+              class="static-data-block display-flex j-c-space-around bor-bottom"
             >
-              <mat-form-field
-                appearance="fill"
-                class="align-self-center checkbox"
-              >
-                <mat-label id="select1" style="color: #fff0b3"
-                  >Wybierz typ</mat-label
-                >
-
-                <mat-select
-                  name="plant"
-                  #choosedValue
-                  (valueChange)="changeFactorType(choosedValue.value, i, j)"
-                >
-                  <mat-option value="none">Brak </mat-option>
-                  <mat-option
-                    *ngFor="let factor of factorTypes"
-                    [value]="factor"
+              <div class="diagnose-block">
+                <h3>Czynniki ryzyka</h3>
+                <ul>
+                  <li
+                    *ngFor="
+                      let riskFactor of disease.riskFactors;
+                      let j = index
+                    "
+                    class=""
                   >
-                    <span>
-                      {{ factor }}
-                    </span>
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              <p>{{ riskFactor.name }}</p>
+                    {{ riskFactor.name }}
+                  </li>
+                </ul>
+              </div>
+              <div class="diagnose-block">
+                <h3>Symptomy</h3>
+                <ul>
+                  <li *ngFor="let symptom of disease.symptoms" class="">
+                    {{ symptom.name }}
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-        <div class="template-block">
-          <h3>Symptomy</h3>
+      </div>
+      <div class="width-100 display-flex f-d-column a-i-center">
+        <div class="rules display-flex f-d-column a-i-center">
+          <h3>Reguły wnioskujące</h3>
           <div
-            *ngFor="let symptom of temporaryDiseases[i].symptoms"
-            class="risk-factor-border symptom-box"
+            class="disease-box width-100 display-flex f-d-column a-i-center rule-border"
+            *ngFor="let rule of disease.rules; let i = index"
           >
-            {{ symptom.name }}
+            <h4>Reguła {{ i + 1 }}</h4>
+            <div class="width-100 display-flex j-c-space-around">
+              <div class="diagnose-block">
+                <h4>Czynniki ryzyka</h4>
+                <ul>
+                  <li *ngFor="let id of rule.riskFactorIndexes; let j = index">
+                    {{ disease.riskFactors[id]["name"] }}
+                  </li>
+                </ul>
+              </div>
+              <div class="diagnose-block">
+                <h4>Symptomy</h4>
+                <ul>
+                  <li *ngFor="let id of rule.symptomIndexes; let j = index">
+                    {{ disease.symptoms[id]["name"] }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <h4 *ngIf="rule.diagnoseId == 1">Wynik: Diagnoza interwencyjna</h4>
+            <h4 *ngIf="rule.diagnoseId == 0">Wynik: Diagnoza zapobiegawcza</h4>
           </div>
         </div>
       </div>
+
       <div class="button-wrapper">
         <button (click)="deleteDisease(i)" class="bg-red">Usuń</button>
         <button (click)="refuseDisease(i)" class="refuse-btn">Odrzuć</button>

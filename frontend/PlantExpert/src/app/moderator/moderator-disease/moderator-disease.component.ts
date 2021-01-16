@@ -1,3 +1,4 @@
+import { ModeratorDiseaseInstructionComponent } from "./../moderator-disease-instruction/moderator-disease-instruction.component";
 import { MatDialog } from "@angular/material";
 import { FileUploadService } from "./../../services/file-upload.service";
 import { ModeratorService } from "./../moderator.service";
@@ -45,7 +46,11 @@ export class ModeratorDiseaseComponent implements OnInit {
     ],
     precautionDiagnose: [
       "",
-      Validators.compose([Validators.required, Validators.minLength(20), Validators.maxLength(200)]),
+      Validators.compose([
+        Validators.required,
+        Validators.minLength(20),
+        Validators.maxLength(200),
+      ]),
     ],
     interventionDiagnose: [
       "",
@@ -176,6 +181,13 @@ export class ModeratorDiseaseComponent implements OnInit {
 
   get f() {
     return this.newDiseaseForm.controls;
+  }
+
+  openInstruction() {
+    this.dialog.open(ModeratorDiseaseInstructionComponent, {
+      width: "50%",
+      panelClass: "app-full-bleed-dialog",
+    });
   }
 
   submitDisease() {

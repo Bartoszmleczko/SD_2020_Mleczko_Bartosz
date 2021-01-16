@@ -54,13 +54,12 @@ private final DiseaseService diseaseService;
     }
 
     @PostMapping(value = "/factors", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HashSet<DiseaseDto> provideFactsForEvaluation(@RequestBody PlantSicknessRequest request) throws JessException, IOException {
+    public DiagnoseDto provideFactsForEvaluation(@RequestBody PlantSicknessRequest request) throws JessException, IOException {
         return diagnoseService.diagnose(request);
     }
 
     @GetMapping("/disease")
     public ResponseEntity<HttpStatus> addNewDisease() throws IOException {
-
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 

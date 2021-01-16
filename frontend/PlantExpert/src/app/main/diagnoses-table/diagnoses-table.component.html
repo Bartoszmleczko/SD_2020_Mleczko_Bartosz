@@ -1,4 +1,8 @@
-<h1>Twoje diagnozy</h1>
+<div class="width-100 display-flex j-c-center">
+  <h1 class="background-color-dark-blue font-color-yellow header-box">
+    Twoje diagnozy
+  </h1>
+</div>
 
 <div class="diagnose-table-container">
   <div class="toscroll-wrapper">
@@ -25,6 +29,7 @@
             <i
               class="fas fa-info-circle fa-2x details-btn"
               (click)="openDiagnoseModal(i)"
+              matTooltip="Wyświetl informacje o diagnozie."
             ></i>
           </td>
         </tr>

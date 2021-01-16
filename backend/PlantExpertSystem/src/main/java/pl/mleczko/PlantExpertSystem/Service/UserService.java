@@ -51,7 +51,7 @@ public class UserService {
     @Transactional
     public User save (User user){
 
-        if(userRepository.existsByEmail(user.getEmail())){
+        if(userRepository.findByEmail(user.getEmail()) != null){
             throw new ObjectAlreadyExists(User.class.getSimpleName());
         } else{
             User newUser = new User(user.getEmail(), bCryptPasswordEncoder.encode(user.getPassword()), user.getFirstName(), user.getLastName());
@@ -138,4 +138,29 @@ public class UserService {
         details.setJoinDate(user.getJoinDate());
         return details;
     }
+
+    public void changeUserPassword(UserPasswordForm form, String username){
+        User user = findByUsername(username);
+        if(bCryptPasswordEncoder.matches(form.getOldPassword(), user.getPassword())){
+            user.setPassword(bCryptPasswordEncoder.encode(form.getNewPassword()));
+            userRepository.save(user);
+        }
+    }
+
+    public UserDto blockUser(UserDto dto){
+        User user = findByUsername(dto.getEmail());
+        user.setBlocked(true);
+        user.setEnabled(false);
+        user = userRepository.save(user);
+        return UserDto.convertToDto(user);
+    }
+
+    public UserDto unbanUser(UserDto dto){
+        User user = findByUsername(dto.getEmail());
+        user.setBlocked(false);
+        user.setEnabled(true);
+        user = userRepository.save(user);
+        return UserDto.convertToDto(user);
+    }
+
 }

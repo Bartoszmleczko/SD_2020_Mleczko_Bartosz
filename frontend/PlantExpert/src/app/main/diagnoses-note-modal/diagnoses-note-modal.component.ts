@@ -1,3 +1,5 @@
+import { AsyncSubject } from "rxjs";
+import { Subject } from "rxjs";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Component, Inject, OnInit, Optional } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
@@ -9,7 +11,7 @@ import {
 } from "src/app/models/models";
 import { DomSanitizer } from "@angular/platform-browser";
 import { DiagnoseService } from "src/app/diagnose/diagnose.service";
-
+import { maxLength } from "../../services/maxlength.validator";
 @Component({
   selector: "app-diagnoses-note-modal",
   templateUrl: "./diagnoses-note-modal.component.html",
@@ -17,18 +19,15 @@ import { DiagnoseService } from "src/app/diagnose/diagnose.service";
 })
 export class DiagnosesNoteModalComponent implements OnInit {
   diagnose: DiagnoseDto = null;
-
+  private editorSubject: Subject<any> = new AsyncSubject();
   diseases: ExtendedDiseaseDto[] = [];
   arr: string[] = [];
 
   noteForm = this.fb.group({
     note: [
       "",
-      Validators.compose([
-        Validators.required,
-        Validators.minLength(30),
-        Validators.maxLength(100),
-      ]),
+      Validators.compose([Validators.required]),
+      maxLength(this.editorSubject, 100, 30),
     ],
   });
 
@@ -45,6 +44,11 @@ export class DiagnosesNoteModalComponent implements OnInit {
     this.diagnose = this.data.data;
     console.log(this.diagnose);
     this.getDataNames(this.diagnose);
+  }
+
+  handleEditorInit(e) {
+    this.editorSubject.next(e.editor);
+    this.editorSubject.complete();
   }
 
   getDataNames(diag: DiagnoseDto) {
@@ -69,6 +73,10 @@ export class DiagnosesNoteModalComponent implements OnInit {
     return this.noteForm.controls;
   }
 
+  close() {
+    this.dialogRef.close();
+  }
+
   getImage(disease: any) {
     let imageBytes = null;
     this.diagnoseService.getImage(disease.name).subscribe((data) => {
@@ -86,6 +94,7 @@ export class DiagnosesNoteModalComponent implements OnInit {
     this.diagnose.note = newNote;
     this.diagnoseService.updateDiagnose(this.diagnose).subscribe(
       (data: DiagnoseDto) => {
+        this.noteForm.reset();
         this.diagnose = data;
       },
       (error) => {

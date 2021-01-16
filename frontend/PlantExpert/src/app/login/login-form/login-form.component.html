@@ -1,0 +1,18 @@
+<div class="width-100 display-flex j-c-flex-end">
+  <div class="width-100 display-flex f-d-column a-i-center mt-4">
+    <form
+      action=""
+      [formGroup]="loginForm"
+      class="light-background width-50 display-flex f-d-column a-i-center"
+    >
+      <h1>Zaloguj się</h1>
+      <div class="input-box">
+        <input type="email" placeholder="Email" formControlName="username" />
+      </div>
+      <div class="input-box">
+        <input type="password" placeholder="Hasło" formControlName="password" />
+      </div>
+      <button (click)="login()">Zaloguj</button>
+    </form>
+  </div>
+</div>

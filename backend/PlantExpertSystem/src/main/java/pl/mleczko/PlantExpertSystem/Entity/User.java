@@ -21,7 +21,6 @@ public class User {
     @Column(name = "user_id")
     private Long userId;
 
-
     @NonNull
     @Column(name = "email", unique = true)
     private String email;
@@ -40,6 +39,8 @@ public class User {
 
     private boolean isEnabled;
 
+    private boolean isBlocked;
+
     @Column
     private LocalDateTime joinDate;
 
@@ -53,7 +54,6 @@ public class User {
     @JsonManagedReference("userMessages")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<ContactMessage> messages;
-
 
     @JsonIgnore
     @JsonManagedReference("userDiagnoses")
@@ -71,6 +71,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.isEnabled = false;
+        this.isBlocked = false;
         this.joinDate = LocalDateTime.now();
     }
 

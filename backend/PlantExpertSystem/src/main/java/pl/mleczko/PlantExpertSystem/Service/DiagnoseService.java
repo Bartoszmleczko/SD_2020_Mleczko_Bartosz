@@ -6,20 +6,14 @@ import pl.mleczko.PlantExpertSystem.Entity.*;
 import pl.mleczko.PlantExpertSystem.Exception.FileNotFoundException;
 import pl.mleczko.PlantExpertSystem.Exception.NotFoundException;
 import pl.mleczko.PlantExpertSystem.ExpertSystem.PlantExpertEvalService;
-import pl.mleczko.PlantExpertSystem.Model.DiagnoseDto;
-import pl.mleczko.PlantExpertSystem.Model.DiagnoseFormDto;
-import pl.mleczko.PlantExpertSystem.Model.DiseaseDto;
-import pl.mleczko.PlantExpertSystem.Model.PlantSicknessRequest;
+import pl.mleczko.PlantExpertSystem.Model.*;
 import pl.mleczko.PlantExpertSystem.Repository.*;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -84,9 +78,11 @@ public class DiagnoseService {
         return diseaseRepository.findByTemplateName(templateName);
     }
 
-    public HashSet<DiseaseDto> diagnose(PlantSicknessRequest plantSicknessRequest) throws JessException, IOException {
+    public DiagnoseDto diagnose(PlantSicknessRequest plantSicknessRequest) throws JessException, IOException {
         ArrayList<String> jessResults = (ArrayList<String>) plantExpertEvalService.provideFact(plantSicknessRequest);
         HashSet<DiseaseDto> finalResult = new HashSet<>();
+        List<RiskFactor> factors = findRiskFactorsFromDiagnoseRequest(plantSicknessRequest.getRiskFactors());
+        List<Symptom> symptoms = findSymptomsFromDiagnoseRequest(plantSicknessRequest.getSymptoms());
         PlantType plantType = plantTypeService.findByName(plantSicknessRequest.getPlant());
         for(String res : jessResults){
 
@@ -97,13 +93,18 @@ public class DiagnoseService {
             Disease disease  = diseaseRepository.findByTemplateNameAndPlantType(diseaseTemplateName, plantType);
             if(disease != null){
                 String diagnose = pickDiagnose(disease, diagnoseType);
-
+                List<String> factorNames = factors.stream().map(f-> f.getName()).collect(Collectors.toList());
+                List<String> symptomNames = symptoms.stream().map(f-> f.getName()).collect(Collectors.toList());
                 DiseaseDto dto = new DiseaseDto(disease.getName(), diagnose,disease.getDiseaseDescription(),disease.getCount());
                 finalResult.add(dto);
             }
 
         }
-        return finalResult;
+            DiagnoseDto dto = new DiagnoseDto();
+        dto.setDiseases(finalResult);
+        dto.setSymptoms(symptoms);
+        dto.setRiskFactors(factors);
+        return dto;
     }
 
     private String pickDiagnose(Disease disease, String diagnoseType) {
@@ -154,6 +155,8 @@ public class DiagnoseService {
         Diagnose diagnose = new Diagnose();
         diagnose.setUser(user);
         List<Disease> diseases = dto.getDiseases().stream().map(d -> diseaseRepository.findByName(d.getDiseaseName())).collect(Collectors.toList());
+        diagnose.setSymptoms(dto.getSymptoms());
+        diagnose.setRiskFactors(dto.getRiskFactors());
         diseases.forEach(d -> d.setCount(d.getCount()+1));
         diseaseRepository.saveAll(diseases);
         diagnose.setDiseases(diseases);
@@ -172,9 +175,14 @@ public class DiagnoseService {
     @Transactional
     public List<DiseaseDto> find5TopDiseases(){
         List<Disease> diseases = diseaseRepository.findTop5ByOrderByCountDesc();
-        return diseases.stream().map( d -> DiseaseDto.convertToDto(d)).collect(Collectors.toList());
+        return diseases.stream().map( d -> DiseaseDto.convertToDto(d)).filter(d -> d.getCount() > 0 ).collect(Collectors.toList());
     }
 
-
+    public List<RiskFactor> findRiskFactorsFromDiagnoseRequest(Set<RequestSlotDto> riskFactorsSlotNames){
+        return riskFactorsSlotNames.stream().map(rf -> riskFactorRepository.findBySlotName(rf.getSlotName())).collect(Collectors.toList());
+    }
+    public List<Symptom> findSymptomsFromDiagnoseRequest(Set<RequestSlotDto> symptomSlotNames){
+        return symptomSlotNames.stream().map(sym -> symptomRepository.findBySlotName(sym.getSlotName())).collect(Collectors.toList());
+    }
 
 }

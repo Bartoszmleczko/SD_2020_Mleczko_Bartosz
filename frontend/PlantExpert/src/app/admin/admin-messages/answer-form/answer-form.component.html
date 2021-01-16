@@ -1,10 +1,13 @@
+<div class="close-box background-color-dark-blue">
+  <button class="close-btn" (click)="close()">x</button>
+</div>
 <div class="width-100 display-flex background-color-dark-blue inner-padding">
   <div
     class="width-50 display-flex f-d-column a-i-center font-color-yellow text-center"
   >
     <h2 class="text-center">Oryginalna wiadomość</h2>
     <h3 class="border-gold">{{ originalMessage.header }}</h3>
-    <p>{{ originalMessage.content }}</p>
+    <p [innerHTML]="originalMessage.content"></p>
   </div>
   <div class="horizontal-line"></div>
   <div
@@ -16,14 +19,31 @@
       action=""
       class="width-100 display-flex f-d-column a-i-center font-color-yellow text-center"
     >
-      <textarea
+      <!-- <textarea
         name=""
         id=""
         cols="30"
         rows="10"
         placeholder="Podaj odpowiedź"
         formControlName="answer"
-      ></textarea>
+      ></textarea> -->
+      <editor
+        formControlName="answer"
+        class="editor"
+        apiKey="kydv063o95iin1du5dwoflywzcspl729qc3pqudepzf6kqez"
+        (onInit)="handleEditorInit($event)"
+        [init]="{
+          icons: 'thin',
+          skin: 'outside',
+          plugins: 'wordcount',
+          placeholder: 'Treść wiadomości.',
+          content_css: '../../../assets/my_content.css',
+          menubar: false,
+          min_height: 230,
+          toolbar_location: 'bottom',
+          resize: false
+        }"
+      ></editor>
       <div class="error-box">
         <label for="" *ngIf="f.answer.errors"
           >Wiadomość musi zawierać 10-200 znaków</label
@@ -31,7 +51,11 @@
       </div>
     </form>
 
-    <button [disabled]="!answerForm.valid" (click)="sendAnswer()">
+    <button
+      [disabled]="!answerForm.valid"
+      (click)="sendAnswer()"
+      class="button"
+    >
       Wyślij
     </button>
   </div>

@@ -1,40 +1,38 @@
-<div class="row top-image">
-  <div class="width-100 display-flex j-c-flex-end">
-    <div class="width-50 display-flex f-d-column a-i-center mt-4">
-      <form
-        action=""
-        [formGroup]="loginForm"
-        class="light-background width-50 display-flex f-d-column a-i-center"
-      >
-        <h1>Zaloguj się</h1>
-        <div class="input-box">
-          <input type="email" placeholder="Email" formControlName="username" />
-        </div>
-        <div class="input-box">
-          <input
-            type="password"
-            placeholder="Hasło"
-            formControlName="password"
-          />
-        </div>
-        <button (click)="login()">Zaloguj</button>
-      </form>
-    </div>
-  </div>
+<div class="row top-image display-flex j-c-center">
+  <h1>Plant Expert</h1>
 </div>
 
 <div class="width-100 display-flex j-c-space-around">
   <div class="text-box">
     <div class="width-100 display-flex f-d-column a-i-center">
-      <label for="">Plant Expert</label>
+      <label for="">Witaj w Plant Expert</label>
       <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa ut
-        officiis dolor optio eligendi, ullam aliquid ad ipsum, cumque numquam
-        harum. Velit numquam quae soluta minus placeat. Aspernatur, rem debitis?
+        Naszym priorytetem jest szybka i rzetelna pomoc przy zarządzaniu
+        uprawami oraz jak najbardziej trafna diagnoza problemów nękających Twoje
+        plony. <br />
+        Czekamy na Ciebie!
       </p>
     </div>
   </div>
-  <div class="register-box">
-    <app-register></app-register>
+  <div class="register-box display-flex f-d-column a-i-center">
+    <div class="width-100 display-flex j-c-space-around">
+      <button
+        class="width-48"
+        [ngClass]="{ 'router-link-active': showLoginVar }"
+        (click)="showLogin()"
+      >
+        Logowanie
+      </button>
+      <button
+        class="width-48"
+        routerLinkActive="router-link-active"
+        [ngClass]="{ 'router-link-active': !showLoginVar }"
+        (click)="showRegister()"
+      >
+        Rejestracja
+      </button>
+    </div>
+    <app-login-form class="width-100" *ngIf="showLoginVar"></app-login-form>
+    <app-register class="width-100" *ngIf="!showLoginVar"></app-register>
   </div>
 </div>

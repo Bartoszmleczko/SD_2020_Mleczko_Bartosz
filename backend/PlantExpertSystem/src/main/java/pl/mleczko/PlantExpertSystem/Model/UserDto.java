@@ -19,6 +19,8 @@ public class UserDto {
 
     private String lastName;
 
+    private boolean isBlocked;
+
 
     public static UserDto convertToDto(User user){
 
@@ -26,6 +28,7 @@ public class UserDto {
         dto.setEmail(user.getEmail());
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());
+        dto.setBlocked(user.isBlocked());
         dto.setRoles(user.getRoles().stream().map(r -> r.getRoleName()).collect(Collectors.toList()));
         return dto;
 

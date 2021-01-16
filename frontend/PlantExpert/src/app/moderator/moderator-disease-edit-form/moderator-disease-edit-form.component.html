@@ -4,11 +4,21 @@
     class="disease-box display-flex f-d-column a-i-center background-color-dark-blue"
   >
     <div class="width-100 name-box display-flex f-d-column a-i-center">
-      <h2>Nazwa choroby</h2>
+      <div class="width-100 display-flex j-c-center">
+        <h1 class="mt-3">Popraw chorobę</h1>
+        <button
+          class="question-btn"
+          matTooltip="Kliknij by zobaczyć instrukcję."
+          (click)="openInstruction()"
+        >
+          <i class="fas fa-question"></i>
+        </button>
+      </div>
       <input
         type="text"
         formControlName="diseaseName"
         [readOnly]="!disease.properties.name"
+        class="name-input"
       />
       <div class="width-100 error-box">
         <label for="" *ngIf="f.diseaseName.errors"
@@ -18,20 +28,25 @@
     </div>
     <div class="width-100 display-flex j-c-space-around info-box">
       <div class="info">
-        Powód odrzucenia:
-        <span *ngIf="disease.properties.name">Nazwa choroby, </span>
-        <span *ngIf="disease.properties.description">opis choroby, </span>
-        <span *ngIf="disease.properties.precautionDiagnose">
-          diagnoza zapobiegawcza,
-        </span>
-        <span *ngIf="disease.properties.interventionDiagnose"
-          >diagnoza interwencyjna,
-        </span>
-        <span *ngIf="disease.properties.riskFactors">czynniki ryzyka, </span>
-        <span *ngIf="disease.properties.symptoms">symptomy, </span>
-        <span *ngIf="disease.properties.rules">reguły wnioskujące. </span>
+        <h3>Powód odrzucenia:</h3>
+        <ul>
+          <li *ngIf="disease.properties.name">Nazwa choroby</li>
+          <li *ngIf="disease.properties.description">Opis choroby</li>
+          <li *ngIf="disease.properties.precautionDiagnose">
+            Diagnoza zapobiegawcza
+          </li>
+          <li *ngIf="disease.properties.interventionDiagnose">
+            Diagnoza interwencyjna
+          </li>
+          <li *ngIf="disease.properties.riskFactors">Czynniki ryzyka</li>
+          <li *ngIf="disease.properties.symptoms">Symptomy</li>
+          <li *ngIf="disease.properties.rules">Reguły wnioskujące</li>
+        </ul>
       </div>
-      <div class="info">Roślina: {{ disease.plantType.name }}</div>
+      <div class="info">
+        <h3>Roślina</h3>
+        {{ disease.plantType["name"] }}
+      </div>
     </div>
     <div class="desc-diagnose-box display-flex width-100">
       <div class="description-box width-50 display-flex f-d-column a-i-center">
@@ -108,7 +123,7 @@
           </div>
           <div
             class="width-100 error-box"
-            *ngIf="f.riskFactors.controls[i].get('templateName').errors"
+            *ngIf="riskFactors.controls[i].get('templateName').errors"
           >
             <label for="">Czynnik ryzyka musi posiadać 10-100 znaków.</label>
           </div>
@@ -149,7 +164,7 @@
           </div>
           <div
             class="width-100 error-box"
-            *ngIf="f.symptoms.controls[i].get('templateName').errors"
+            *ngIf="symptoms.controls[i].get('templateName').errors"
           >
             <label for="">Symptom musi posiadać 10-100 znaków.</label>
           </div>
@@ -173,15 +188,19 @@
         <div class="width-100 display-flex temp">
           <div class="width-50">
             <h4>Czynniki ryzyka</h4>
-            <div *ngFor="let id of rule.riskFactorIndexes; let j = index">
-              {{ templates.riskFactors[id].templateName }}
-            </div>
+            <ul>
+              <li *ngFor="let id of rule.riskFactorIndexes; let j = index">
+                {{ templates.riskFactors[id]["templateName"] }}
+              </li>
+            </ul>
           </div>
           <div class="width-50">
             <h4>Symptomy</h4>
-            <div *ngFor="let id of rule.symptomIndexes; let j = index">
-              {{ templates.symptoms[id].templateName }}
-            </div>
+            <ul>
+              <li *ngFor="let id of rule.symptomIndexes; let j = index">
+                {{ templates.symptoms[id]["templateName"] }}
+              </li>
+            </ul>
           </div>
         </div>
         <h4 *ngIf="rule.diagnoseId == 1">Wynik: Diagnoza interwencyjna</h4>

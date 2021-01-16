@@ -19,22 +19,36 @@ form {
   justify-content: center;
 }
 
-input {
-  width: 30%;
-  height: 50px;
+.input-box {
+  border-radius: 10px;
   background-color: #4c637c;
   border: 1px solid grey;
-  border-radius: 10px;
+  width: 30%;
+}
+
+input {
+  width: 80%;
+  border: none;
+  background-color: #4c637c;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   color: #fff0b3;
   font-size: 20px;
 }
 
-input::placeholder {
-  color: white;
+.search-button {
+  width: 20%;
+  height: 100%;
+  border: none;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: #4c637c;
 }
 
-input:hover {
-  background-color: #4e6b8a;
+input::placeholder {
+  color: white;
 }
 
 input:focus {
@@ -109,6 +123,7 @@ button {
   height: 40px;
   border-radius: 50%;
   border: 1px solid grey;
+  font-size: 24px;
   color: #fff0b3;
 }
 
@@ -127,6 +142,7 @@ button:focus {
 
 .bg-red:hover {
   background-color: rgb(238, 69, 69);
+  transition: 0.4s;
 }
 
 .bg-green {
@@ -135,5 +151,24 @@ button:focus {
 }
 
 .bg-green:hover {
-  background-color: rgb(76, 207, 76);
+  transition: 0.4s;
+  background-color: rgb(98, 218, 98);
+}
+
+.bg-orange {
+  background-color: rgb(214, 148, 25);
+  color: white;
+}
+
+.bg-orange:hover {
+  background-color: rgb(238, 159, 13);
+  transition: 0.4s;
+}
+
+.bg-blue {
+  background-color: rgb(24, 24, 150);
+}
+.bg-blue:hover {
+  background-color: #184f8a;
+  transition: 0.4s;
 }

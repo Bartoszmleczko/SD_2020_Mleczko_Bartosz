@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { OldMessagesComponent } from './old-messages.component';
 
@@ -6,7 +6,7 @@ describe('OldMessagesComponent', () => {
   let component: OldMessagesComponent;
   let fixture: ComponentFixture<OldMessagesComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ OldMessagesComponent ]
     })

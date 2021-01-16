@@ -1,7 +1,11 @@
-<div class="width-100 j-c-center display-flex">
-  <div class="display-flex f-d-column width-100 a-i-center toscroll-wrapper">
-    <h2>Stare wiadomości</h2>
-    <table class="background-color-dark-blue">
+<div
+  class="width-100 j-c-center display-flex f-d-column a-i-center background-color-dark-blue shadow"
+>
+  <h2>Stare wiadomości</h2>
+  <div
+    class="display-flex f-d-column width-100 a-i-center toscroll-wrapper shadow"
+  >
+    <table class="background-color-dark-blue" *ngIf="oldMessages.length > 0">
       <thead class="font-color-yellow">
         <th>Data wysłania</th>
         <th>Tytuł</th>
@@ -25,5 +29,6 @@
         </tr>
       </tbody>
     </table>
+    <h3 *ngIf="oldMessages.length == 0">Brak wiadomości.</h3>
   </div>
 </div>

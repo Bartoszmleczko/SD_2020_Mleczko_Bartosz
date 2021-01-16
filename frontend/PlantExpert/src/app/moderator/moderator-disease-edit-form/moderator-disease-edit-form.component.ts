@@ -1,3 +1,5 @@
+import { ModeratorInstructionEditComponent } from "./../moderator-instruction-edit/moderator-instruction-edit.component";
+import { ModeratorDiseaseInstructionComponent } from "./../moderator-disease-instruction/moderator-disease-instruction.component";
 import { ModeratorService } from "./../moderator.service";
 import { ModeratorRuleFormComponent } from "./../moderator-rule-form/moderator-rule-form.component";
 import { MatDialog } from "@angular/material";
@@ -208,6 +210,13 @@ export class ModeratorDiseaseEditFormComponent implements OnInit {
       if (data) {
         this.rules.push(data);
       }
+    });
+  }
+
+  openInstruction() {
+    this.dialog.open(ModeratorInstructionEditComponent, {
+      width: "50%",
+      panelClass: "app-full-bleed-dialog",
     });
   }
 

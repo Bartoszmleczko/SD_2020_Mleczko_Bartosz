@@ -54,3 +54,26 @@
     (slot istnieje)
 )
 
+(deftemplate chwoscik_buraka
+    (slot istnieje)
+)
+
+(deftemplate czekoladowa_plamistosc_lisci
+    (slot istnieje)
+)
+
+(deftemplate rizoktonioza_ziemniaka
+    (slot istnieje)
+)
+
+(deftemplate czern_krzyzowych_rzepaku
+    (slot istnieje)
+)
+
+(deftemplate szara_plesn_rzepaku
+    (slot istnieje)
+)
+
+(deftemplate zgnilizna_twardzikowa_soi
+    (slot istnieje)
+)

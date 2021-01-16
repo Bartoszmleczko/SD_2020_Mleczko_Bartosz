@@ -13,7 +13,7 @@
             <label for="rf{{ i }}">
               <input id="rf{{ i }}" type="checkbox" [formControlName]="i" />
 
-              {{ templates.riskFactors[i].templateName }}</label
+              {{ templates.riskFactors[i]["templateName"] }}</label
             >
           </ul>
         </div>
@@ -29,7 +29,7 @@
           <ul>
             <label for="s{{ i }}">
               <input id="s{{ i }}" type="checkbox" [formControlName]="i" />
-              {{ templates.symptoms[i].templateName }}</label
+              {{ templates.symptoms[i]["templateName"] }}</label
             >
           </ul>
         </div>

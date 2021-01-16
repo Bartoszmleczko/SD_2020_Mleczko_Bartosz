@@ -1,5 +1,16 @@
 <div class="mod-disease-container">
   <div class="disease-form-box">
+    <div class="width-100 display-flex j-c-center">
+      <h1 class="mt-3">Wprowadź nową chorobę</h1>
+      <button
+        class="question-btn"
+        matTooltip="Kliknij by zobaczyć instrukcję."
+        (click)="openInstruction()"
+      >
+        <i class="fas fa-question"></i>
+      </button>
+    </div>
+
     <form action="" [formGroup]="newDiseaseForm">
       <div class="d-flex justify-content-center mt-5">
         <mat-form-field appearance="fill" class="align-self-center checkbox">
@@ -19,7 +30,7 @@
       <div class="disease-name-input">
         <div class="error-wrapper">
           <label for="" *ngIf="f.plant.errors"
-            >Podanie rośliny jest wymagana ( min. 5 znaków)</label
+            >Podanie rośliny jest wymagane.</label
           >
         </div>
 
@@ -33,6 +44,18 @@
             >Nazwa choroby jest wymagana ( min. 5 znaków)</label
           >
         </div>
+      </div>
+
+      <div class="file-input-box">
+        <label for="file" class="file-input">
+          <input
+            type="file"
+            id="file"
+            (change)="handleImageFileInput($event)"
+          />Wybierz zdjęcie choroby (wymagane) -
+          <span *ngIf="!filename"> Brak pliku</span>
+          <span> {{ filename }}</span>
+        </label>
       </div>
       <div class="disease-description-textarea">
         <textarea
@@ -83,18 +106,6 @@
         </div>
       </div>
 
-      <div class="file-input-box">
-        <label for="file" class="file-input">
-          <input
-            type="file"
-            id="file"
-            (change)="handleImageFileInput($event)"
-          />Wybierz zdjęcie choroby (wymagane) -
-          <span *ngIf="!filename"> Brak pliku</span>
-          <span> {{ filename }}</span>
-        </label>
-      </div>
-
       <div class="disease-templates-inputs">
         <div class="input-box" formArrayName="riskFactors">
           <h3>Czynniki ryzyka</h3>
@@ -124,7 +135,7 @@
               <div class="error-wrapper">
                 <label
                   for=""
-                  *ngIf="f.riskFactors.controls[i].get('templateName').errors"
+                  *ngIf="riskFactors.controls[i].get('templateName').errors"
                   >Czynnik ryzyka nie może być pusty (10-100 znaków)</label
                 >
               </div>
@@ -167,7 +178,7 @@
               <div class="error-wrapper">
                 <label
                   for=""
-                  *ngIf="f.symptoms.controls[i].get('templateName').errors"
+                  *ngIf="symptoms.controls[i].get('templateName').errors"
                   >Symptom nie może być pusty (10-100 znaków)</label
                 >
               </div>
@@ -195,14 +206,14 @@
               <div class="template-unit-box">
                 <h4>Czynniki ryzyka</h4>
                 <p for="" *ngFor="let id of rule.riskFactorIndexes">
-                  {{ templates.riskFactors[id].templateName }}
+                  {{ templates.riskFactors[id]["templateName"] }}
                 </p>
                 <br />
               </div>
               <div class="template-unit-box">
                 <h4>Symptomy</h4>
                 <p for="" *ngFor="let id of rule.symptomIndexes">
-                  {{ templates.symptoms[id].templateName }}
+                  {{ templates.symptoms[id]["templateName"] }}
                 </p>
               </div>
             </div>

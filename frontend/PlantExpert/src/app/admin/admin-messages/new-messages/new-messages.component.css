@@ -60,6 +60,14 @@ tr {
   font-size: 22px;
 }
 
+tr:hover {
+  background-color: #325172;
+  transition: 0.4s;
+}
+tr:not(:last-of-type) {
+  border-bottom: 1px solid rgba(255, 240, 179, 0.418);
+}
+
 td {
   min-width: 25%;
   line-break: strict;
@@ -75,4 +83,14 @@ button {
 
 button:focus {
   outline: none;
+}
+
+h3 {
+  padding: 15px;
+  text-align: center;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
+  background-color: #3e5063;
+  color: #fff0b3;
 }

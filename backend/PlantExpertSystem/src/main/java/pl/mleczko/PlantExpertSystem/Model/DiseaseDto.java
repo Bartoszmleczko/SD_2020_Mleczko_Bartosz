@@ -3,6 +3,8 @@ package pl.mleczko.PlantExpertSystem.Model;
 import lombok.*;
 import pl.mleczko.PlantExpertSystem.Entity.Disease;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

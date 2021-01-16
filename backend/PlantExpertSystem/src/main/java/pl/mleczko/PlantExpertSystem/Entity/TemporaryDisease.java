@@ -17,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "temporary_disease")
-public class TemporaryDisease {
+public class    TemporaryDisease {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -30,7 +30,7 @@
 }
 
 .router-link-active {
-  box-shadow: 4px 2px 2px 4px rgb(0, 0, 0, 0.4);
+  box-shadow: 2px 2px 2px 1px rgb(0, 0, 0, 0.4);
 
   background-color: #6686a8;
 }

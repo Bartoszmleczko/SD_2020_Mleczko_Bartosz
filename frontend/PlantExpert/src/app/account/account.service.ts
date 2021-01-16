@@ -15,4 +15,8 @@ export class AccountService {
   changeDetails(detailsForm) {
     return this.httpClient.put(API_URL + "users/details", detailsForm);
   }
+
+  changePassword(data) {
+    return this.httpClient.put(API_URL + "users/password", data);
+  }
 }

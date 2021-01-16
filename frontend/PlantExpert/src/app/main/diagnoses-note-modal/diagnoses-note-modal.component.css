@@ -17,10 +17,13 @@
 }
 
 .modal-scroll-wrapper::-webkit-scrollbar {
-  width: 10px;
+  width: 20px;
   background-color: #666f8c;
 }
 
+.editor {
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
 .modal-scroll-wrapper::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #fff0b3;
@@ -38,6 +41,7 @@
   display: flex;
   color: #fff0b3;
   margin-top: 40px;
+  padding-top: 15px;
 }
 
 .single-disease-box:not(:first-of-type) {
@@ -123,7 +127,7 @@ textarea:focus {
   font-size: 22px;
 }
 
-button {
+.button {
   width: 160px;
   height: 60px;
   background-color: #485e75;
@@ -142,13 +146,34 @@ h3 {
   text-align: center;
 }
 
-button:hover,
-button:focus {
+.button:hover,
+.button:focus {
   outline: none;
   background-color: #506a85;
 }
 
-button:disabled {
+.button:disabled {
   background-color: #6283a7;
   color: white;
+}
+
+h2 {
+  text-align: center;
+  color: #fff0b3;
+}
+
+.causes {
+  border-top: 1px solid #fff0b3;
+  margin-top: 20px;
+  padding-top: 20px;
+  color: #fff0b3;
+}
+
+label,
+li {
+  font-size: 22px;
+}
+
+.box {
+  padding: 10px;
 }

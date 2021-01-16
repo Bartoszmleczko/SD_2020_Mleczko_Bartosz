@@ -1,10 +1,13 @@
+<div class="close-box background-color-dark-blue">
+  <button class="close-btn" (click)="close()">x</button>
+</div>
 <div class="width-100 display-flex background-color-dark-blue inner-padding">
   <div
     class="width-50 display-flex f-d-column a-i-center font-color-yellow text-center"
   >
     <h2 class="text-center">Oryginalna wiadomość</h2>
     <h3 class="border-gold">{{ originalMessage.header }}</h3>
-    <p>{{ originalMessage.content }}</p>
+    <p [innerHTML]="originalMessage.content"></p>
   </div>
   <div class="horizontal-line"></div>
   <div
@@ -12,9 +15,9 @@
     *ngIf="originalMessage.answer"
   >
     <h2>
-      Odpowiediano: {{ originalMessage.answerTime | date: "dd.MM.yyyy HH:mm" }}
+      Odpowiedziano: {{ originalMessage.answerTime | date: "dd.MM.yyyy HH:mm" }}
     </h2>
-    <p>{{ originalMessage.answer }}</p>
+    <p [innerHTML]="originalMessage.answer"></p>
     <h5>W razie dodatkowych pytań rozmowę można kontynuwać drogą mailową.</h5>
   </div>
   <div

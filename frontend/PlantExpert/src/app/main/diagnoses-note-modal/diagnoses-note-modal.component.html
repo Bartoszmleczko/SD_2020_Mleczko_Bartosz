@@ -1,3 +1,7 @@
+<div class="close-box background-color-dark-blue">
+  <button class="close-btn" (click)="close()">x</button>
+</div>
+
 <div class="diagnose-modal-container">
   <div class="modal-scroll-wrapper">
     <div class="diseases-box">
@@ -8,28 +12,48 @@
           "
             [formGroup]="noteForm"
           >
-            <textarea
+            <!-- <textarea
               name=""
               id=""
               cols="30"
               rows="10"
               formControlName="note"
               placeholder="Dodaj notatkę"
-            ></textarea>
+            ></textarea> -->
+            <editor
+              formControlName="note"
+              class="editor"
+              apiKey="kydv063o95iin1du5dwoflywzcspl729qc3pqudepzf6kqez"
+              (onInit)="handleEditorInit($event)"
+              [init]="{
+                icons: 'thin',
+                skin: 'outside',
+                plugins: 'wordcount',
+                placeholder: 'Treść wiadomości.',
+                content_css: '../../assets/my_content.css',
+                menubar: false,
+                toolbar_location: 'bottom',
+                resize: false
+              }"
+            ></editor>
             <div class="error-box">
               <label for="" *ngIf="f.note.errors"
                 >Notatka musi zawierać 30-100 znaków</label
               >
             </div>
           </form>
-          <button [disabled]="!noteForm.valid" (click)="addNote()">
+          <button
+            [disabled]="!noteForm.valid"
+            (click)="addNote()"
+            class="button"
+          >
             Zapisz
           </button>
         </div>
 
         <div class="note-box">
           <h1>Notatka</h1>
-          <p *ngIf="diagnose.note">{{ diagnose.note }}</p>
+          <p *ngIf="diagnose.note" [innerHTML]="diagnose.note"></p>
           <p *ngIf="!diagnose.note">
             Do tej diagnozy nie dodano jeszcze notatki.
           </p>
@@ -48,7 +72,7 @@
               <p>
                 {{ disease.precautionDiagnose }}
               </p>
-              <p *ngIf="!diagnose.precautionDiagnose">
+              <p *ngIf="!disease.precautionDiagnose">
                 Ta choroba nie posiada diagnozy zapobiegawczej.
               </p>
             </div>
@@ -59,6 +83,37 @@
               </p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="causes">
+      <h2>Zdiagnozowano na podstawie:</h2>
+
+      <div class="width-100 display-flex">
+        <div class="width-50 box">
+          <h3>Symptomy</h3>
+          <ul>
+            <li *ngFor="let symptom of diagnose.symptoms">
+              {{ symptom.name }}
+            </li>
+          </ul>
+
+          <label *ngIf="diagnose.symptoms.length == 0">
+            Nie zaznaczono symptomów.
+          </label>
+        </div>
+
+        <div class="width-50 box">
+          <h3>Czynniki ryzyka</h3>
+          <ul>
+            <li *ngFor="let riskFactor of diagnose.riskFactors">
+              {{ riskFactor.name }}
+            </li>
+          </ul>
+
+          <label *ngIf="diagnose.riskFactors.length == 0">
+            Nie zaznaczono czynników ryzyka.
+          </label>
         </div>
       </div>
     </div>

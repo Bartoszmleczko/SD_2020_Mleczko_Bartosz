@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
     password: [""],
   });
 
+  showLoginVar = true;
+
   constructor(
     private fb: FormBuilder,
     private authenticationService: AuthenticationService,
@@ -27,24 +29,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  login() {
-    const credentials = {
-      email: this.loginForm.get("username").value,
-      password: this.loginForm.get("password").value,
-    };
-    this.authenticationService.login(credentials).subscribe(
-      (data) => {
-        this.tokenStorage.saveUser(data);
-        this.tokenStorage.saveJwtToken(data.jwtToken);
-        this.router.navigate(["/home/main"]);
-      },
-      (err) => {
-        this.dialog.open(BackendMessageComponent, {
-          width: "25%",
-          panelClass: "app-full-bleed-dialog",
-          data: { data: "Niepoprawny email lub hasło." },
-        });
-      }
-    );
+  showLogin() {
+    this.showLoginVar = true;
+  }
+
+  showRegister() {
+    this.showLoginVar = false;
   }
 }

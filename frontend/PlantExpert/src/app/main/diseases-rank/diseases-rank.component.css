@@ -5,18 +5,26 @@
   align-items: center;
   background-color: #3e5063;
   color: #fff0b3;
+  border-radius: 10px;
+  box-shadow: 2px 1px 1px 1px rgba(0, 0, 0, 0.4);
 }
 
 .disease-box {
   width: 100%;
   display: flex;
-  padding: 10px;
+  padding: 7px;
   border-top: 1px solid #fff0b3;
   cursor: pointer;
 }
 
 .disease-box:hover {
+  border-radius: 0px 0px 10px 10px;
   background-color: #45596e;
+}
+
+img {
+  box-shadow: 2px 1px 1px 1px rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
 }
 
 .img-box {
@@ -30,4 +38,9 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+h3 {
+  text-shadow: 1px 1px black;
+  padding: 20px;
 }

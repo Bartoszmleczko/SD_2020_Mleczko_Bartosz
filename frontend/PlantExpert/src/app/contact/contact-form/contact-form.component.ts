@@ -1,3 +1,4 @@
+import { AsyncSubject, Subject } from "rxjs";
 import { BackendMessageComponent } from "./../../backend-message/backend-message/backend-message.component";
 import { ContactMessageDto } from "./../../models/models";
 import { MatDialog } from "@angular/material";
@@ -5,6 +6,7 @@ import { ContactService } from "./../contact.service";
 import { FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { maxLength } from "../../services/maxlength.validator";
 
 @Component({
   selector: "app-contact-form",
@@ -14,7 +16,7 @@ import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 export class ContactFormComponent implements OnInit {
   @Output()
   messageEmitter: EventEmitter<ContactMessageDto> = new EventEmitter();
-
+  private editorSubject: Subject<any> = new AsyncSubject();
   contactForm = this.fb.group({
     title: [
       "",
@@ -26,11 +28,8 @@ export class ContactFormComponent implements OnInit {
     ],
     text: [
       "",
-      Validators.compose([
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(200),
-      ]),
+      Validators.compose([Validators.required]),
+      maxLength(this.editorSubject, 200, 5),
     ],
   });
 
@@ -88,5 +87,10 @@ export class ContactFormComponent implements OnInit {
         });
       }
     );
+  }
+
+  handleEditorInit(e) {
+    this.editorSubject.next(e.editor);
+    this.editorSubject.complete();
   }
 }

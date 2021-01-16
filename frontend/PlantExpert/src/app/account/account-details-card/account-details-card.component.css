@@ -1,8 +1,10 @@
 .details-container {
-  width: 100%;
+  width: 80%;
   background-color: #3e5063;
   display: flex;
   justify-content: center;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
 }
 
 p {
@@ -12,6 +14,11 @@ p {
   font-size: 28px;
   font-weight: bold;
   letter-spacing: 3px;
+  text-shadow: 2px 2px black;
+}
+h5 {
+  color: #fff0b3;
+  text-shadow: 1px 1px black;
 }
 
 h2 {

@@ -103,6 +103,26 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserDetails(principal.getName()));
     }
 
+    @PutMapping("/users/password")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<Void> changeUserPassword(@RequestBody UserPasswordForm form, Principal principal){
+        userService.changeUserPassword(form, principal.getName());
+        return ResponseEntity.ok().build();
+    }
+
+
+    @PutMapping("/users/ban")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<UserDto> banUser(@RequestBody UserDto dto){
+        return ResponseEntity.ok(userService.blockUser(dto));
+    }
+
+    @PutMapping("/users/unban")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<UserDto> unbanUser(@RequestBody UserDto dto){
+        return ResponseEntity.ok(userService.unbanUser(dto));
+    }
+
 }
 
 

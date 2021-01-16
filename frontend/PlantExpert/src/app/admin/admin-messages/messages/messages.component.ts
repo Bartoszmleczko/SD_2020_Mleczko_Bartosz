@@ -7,7 +7,7 @@ import { OldMessagesComponent } from "../old-messages/old-messages.component";
   styleUrls: ["./messages.component.css"],
 })
 export class MessagesComponent implements OnInit {
-  @ViewChild(OldMessagesComponent, { static: false })
+  @ViewChild(OldMessagesComponent)
   oldMessagesComponent: OldMessagesComponent;
 
   constructor() {}

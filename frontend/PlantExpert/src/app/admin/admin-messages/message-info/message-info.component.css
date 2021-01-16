@@ -50,7 +50,7 @@ p {
   box-shadow: 1px 2px 1px 2px rgba(0, 0, 0, 0.4);
 }
 
-button {
+.button {
   margin-top: 20px;
   width: 200px;
   height: 50px;
@@ -62,16 +62,16 @@ button {
   box-shadow: 1px 2px 1px 2px rgba(0, 0, 0, 0.4);
 }
 
-button:hover {
+.button:hover {
   background-color: #43617c;
   transition: 0.4s;
 }
 
-button:focus {
+.button:focus {
   outline: none;
 }
 
-button:disabled {
+.button:disabled {
   background-color: #566879;
 }
 

@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
+
+body {
+  color: #fff0b3;
+  background-color: #445970;
+  font-family: "Josefin Sans", sans-serif;
+  line-height: 1.4;
+  border-radius: 10px;
+}
+body::before {
+  color: #fff0b3;
+}
+.mce-content-body[data-mce-placeholder]:not(.mce-visualblocks)::before {
+  color: #f1e6b6;
+}
+
+editor .tox .tox-tinymce {
+  border: 1px solid black;
+}

@@ -1,5 +1,5 @@
 .disease-box {
-  width: 80%;
+  width: 99%;
   color: #fff0b3;
 }
 label {
@@ -11,16 +11,28 @@ label {
   width: 90%;
 }
 
+li {
+  text-align: left;
+}
+
 .mt {
   margin-top: 20px;
 }
 
 form {
   border-bottom: 1px solid #fff0b3;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
 }
 
 .input-md {
   width: 60%;
+}
+
+.name-input {
+  height: 50px;
+  width: 300px;
+  font-size: 22px;
 }
 
 input,
@@ -139,4 +151,30 @@ textarea:focus {
 }
 .desc-diagnose-box {
   margin: 20px;
+}
+
+h2 {
+  margin-top: 20px;
+}
+.question-btn {
+  width: 40px;
+  height: 40px;
+  margin-top: 20px;
+  margin-left: 50px;
+  border-radius: 50%;
+  background-color: #426081;
+  color: #fff0b3;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.question-btn:hover {
+  background-color: #29527e;
+  transition: 0.4s;
+}
+
+.question-btn:focus {
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  transition: 0.4s;
 }

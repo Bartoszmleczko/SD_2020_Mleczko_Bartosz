@@ -289,13 +289,13 @@ public class DiseaseCreatingService {
 
     public String preparePreacutionDiagnose(String diagnose, Disease disease){
 
-
-        String objIndex = "str"+String.valueOf(disease.getDiseaseId()+2);
+        Long id = disease.getDiseaseId()*2+2;
+        String objIndex = "str"+String.valueOf(id);
         String leftSideContent = new StringBuilder("\n(").append(disease.getTemplateName()).append(" (istnieje 0.5))").toString();
 
         StringBuilder content = new StringBuilder(" \n( defrule ").append(disease.getTemplateName()).append("_zapobieg").
                 append(leftSideContent).append(" => ( bind ?*").append(objIndex).append("* \"")
-                .append(disease.getTemplateName()).append(":zapob\") ").append("( return ?*").append(objIndex+2).append("*))");
+                .append(disease.getTemplateName()).append(":zapob\") ").append("( return ?*").append(objIndex).append("*))");
 
                 return content.toString();
     }
@@ -304,9 +304,9 @@ public class DiseaseCreatingService {
         String objIndex = "str"+String.valueOf(disease.getDiseaseId()+2);
         String leftSideContent = new StringBuilder("\n(").append(disease.getTemplateName()).append(" (istnieje 1))").toString();
 
-        StringBuilder content = new StringBuilder("( defrule ").append(disease.getTemplateName()).append("_interw").
+        StringBuilder content = new StringBuilder("\n( defrule ").append(disease.getTemplateName()).append("_interw").
                 append(leftSideContent).append(" => ( bind ?*").append(objIndex).append("* \"")
-                .append(disease.getTemplateName()).append(":interw\") ").append("( return ?*").append(objIndex).append("*))");
+                .append(disease.getTemplateName()).append(":interw\") ").append("( return ?*").append(objIndex).append("*))\n");
 
         return content.toString();
     }

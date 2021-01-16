@@ -13,5 +13,9 @@
 }
 
 .child-box {
-  width: 40%;
+  width: 50%;
+}
+
+.second-box {
+  width: 80%;
 }

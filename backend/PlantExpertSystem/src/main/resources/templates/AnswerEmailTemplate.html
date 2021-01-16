@@ -6,7 +6,7 @@
     <style type="text/css">
         h1 {font-size: 26px; color: #444444 !important; font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif; line-height: 1.5;}
         h3 {font-size: 12px; color: #444444 !important; font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif;}
-        p {font-size: 16px; color: #ffffff; font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif; line-height: 1.5;}
+        p {font-size: 16px; color: black; font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif; line-height: 1.5;}
         table { border: 1px solid #e4e4e4;}
         a {color: #062b67; font-weight: bold; cursor: pointer;}
     </style>
@@ -19,17 +19,17 @@
     </tr>
     <tr bgcolor="ffffff">
 
-        <td height="50" align="center"><h3 th:inline="text">W odpowiedzi na wiadomość w naszym serwisie: "<i th:text="${header}"></i>",  <br/>
+        <td height="50" align="center"><h3 th:inline="text">W odpowiedzi na wiadomość w naszym serwisie: <p th:utext="${header}"></p>,  <br/>
         </h3></td>
     <tr bgcolor="ffffff">
 
-        <td height="50" align="center"><h3 th:inline="text" >Treść oryginalnej wiadomości: "<i th:text="${content}"></i>" <br/>
+        <td height="50" align="center"><h3 th:inline="text" >Treść oryginalnej wiadomości: <p th:utext="${content}"></p> <br/>
         </h3></td>
     </tr>
     </tr>
     <tr bgcolor="ffffff">
 
-        <td height="100" align="center"><h3 th:inline="text">Odpowiedź PlantExpert: <i th:text="${answer}"></i>  W razie dalszych pytań zapraszam do korespondencji drogą mailową.<br/>
+        <td height="100" align="center"><h3 th:inline="text">Odpowiedź PlantExpert: <p th:utext="${answer}"></p>  W razie dalszych pytań zapraszam do korespondencji drogą mailową.<br/>
         </h3></td>
     </tr>
     <tr bgcolor="ffffff">

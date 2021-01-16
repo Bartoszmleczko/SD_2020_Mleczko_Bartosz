@@ -37,7 +37,7 @@ export class DiagnoseWrapperComponent implements OnInit {
   flatRiskFactorArr: RiskFactor[];
   selectedRiskFactorValues: RequestSlotDto[] = [];
 
-  diagnose: DiseaseDto[];
+  diagnose: DiagnoseDto;
 
   plants: Plant[] = [];
   plant;
@@ -139,10 +139,10 @@ export class DiagnoseWrapperComponent implements OnInit {
 
     this.diagnoseService
       .sendFormForEvaluation(sicknessRequest)
-      .subscribe((data: DiseaseDto[]) => {
+      .subscribe((data: DiagnoseDto) => {
         console.log(data);
         this.diagnose = data;
-        this.diagnose.forEach((diagnose: DiseaseDto, index) => {
+        this.diagnose.diseases.forEach((diagnose: DiseaseDto, index) => {
           this.diagnoseService
             .getImage(diagnose.diseaseName)
             .subscribe((data) => {
@@ -192,12 +192,15 @@ export class DiagnoseWrapperComponent implements OnInit {
     const newDiagnose: DiagnoseDto = {
       id: null,
       note: null,
-      diseases: this.diagnose,
+      diseases: this.diagnose.diseases,
       creationTime: null,
+      riskFactors: this.diagnose.riskFactors,
+      symptoms: this.diagnose.symptoms,
     };
     this.diagnoseService.saveDiagnose(newDiagnose).subscribe(
       (data) => {
         this.resetBoxes();
+        this.closeForm();
         this.dialog.open(BackendMessageComponent, {
           width: "25%",
           panelClass: "app-full-bleed-dialog",

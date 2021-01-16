@@ -274,6 +274,115 @@
 (defrule zarazaZiemniakaInterw
          (zaraza_ziemniaka (istnieje 1))
      =>
-     ( bind ?*str16* "zaraza_ziemniaka: interw")
+     ( bind ?*str16* "zaraza_ziemniaka:interw")
      (return ?*str16*)
  )
+
+(defrule chwoscikBuraka01
+    (symptoms {drobne_jasne_kropki_czarna_obwodka == 1 || schnace_opadajace_liscie == 1} )
+    => (assert (chwoscik_buraka (istnieje 1)))
+)
+
+(defrule chwoscikBuraka02
+    (risk_factors {czesta_uprawa_burakow == 1 || duze_rosy == 1 || mgla == 1  || opady_mzawka == 1 || temp_15_20} )
+    => (assert (chwoscik_buraka (istnieje 1)))
+)
+
+(defrule chwoscikBurakaInterw
+         (chwoscik_buraka (istnieje 1))
+     =>
+     ( bind ?*str17* "chwoscik_buraka:interw")
+     (return ?*str17*)
+ )
+
+ (defrule czekoladowaPlamistoscLisci01
+     (symptoms (drobne_czarne_plamki_rozrastajace_sie_w_brunatne_plamy 1) )
+     => (assert (czekoladowa_plamistosc_lisci (istnieje 0.5)))
+ )
+
+  (defrule czekoladowaPlamistoscLisci02
+      (risk_factors (ciepla_przekropna_pogoda 1) )
+      => (assert (czekoladowa_plamistosc_lisci (istnieje 1)))
+  )
+
+  (defrule czekoladowaPlamistoscLisciZapob
+           (czekoladowa_plamistosc_lisci (istnieje 1))
+       =>
+       ( bind ?*str18* "czekoladowa_plamistosc_lisci:zapob")
+       (return ?*str18*)
+   )
+
+(defrule czekoladowaPlamistoscLisciInterw
+              (czekoladowa_plamistosc_lisci (istnieje 1))
+          =>
+          ( bind ?*str19* "czekoladowa_plamistosc_lisci:interw")
+          (return ?*str19*)
+ )
+
+ (defrule rizoktoniozaZiemniaka01
+     (symptoms {brazowiejace_kielki_lodyg == 1 || brazowe_obrosniete_nalotem_lodygi == 1 || zbrazowiale_nieczynne_korzenie == 1} )
+     => (assert (rizoktonioza_ziemniaka (istnieje 1)))
+ )
+
+ (defrule rizoktoniozaZiemniaka02
+     (risk_factors {czesta_uprawa_ziemniaka == 1 || wysadzanie_niewykfalifikowanego_sadzeniaka == 1} )
+     => (assert (rizoktonioza_ziemniaka (istnieje 1)))
+ )
+
+ (defrule rizoktoniozaZiemniakaInterw
+               (rizoktionioza_ziemniaka (istnieje 1))
+           =>
+           ( bind ?*str20* "rizoktonioza_ziemniaka:interw")
+           (return ?*str20*)
+  )
+
+ (defrule czernKrzyzowychRzepaku01
+     (symptoms {czarne_plamy_na_lodygach_i_luszczynach == 1 || czarne_kropki_jesienia_rosnace_centrycznie_plamy == 1 } )
+     => (assert (czern_krzyzowych_rzepaku (istnieje 1)))
+   )
+
+ (defrule czernKrzyzowychRzepaku02
+     (risk_factors {czesta_uprawa_rzepaku == 1 || duza_wilgotnosc_wegetacja == 1} )
+     => (assert (czern_krzyzowych_rzepaku (istnieje 1)))
+ )
+
+ (defrule czernKrzyzowychRzepakuInterw
+               (czern_krzyzowych_rzepaku (istnieje 1))
+           =>
+           ( bind ?*str21* "czern_krzyzowych_rzepaku:interw")
+           (return ?*str21*)
+  )
+
+   (defrule szaraPlesnRzepaku01
+       (risk_factors {duza_wilgotnosc_powietrza_rzepak == 1 || zageszczenie_lanu == 1 } )
+       => (assert (szara_plesn_rzepaku (istnieje 1)))
+     )
+
+(defrule szaraPlesnRzepaku02
+        (symptoms (plamy_obrastajace_pilsniowym_nalotem 1) )
+         => (assert (szara_plesn_rzepaku (istnieje 1)))
+     )
+
+(defrule szaraPlesnRzepakuInterw
+               (szara_plesn_rzepaku (istnieje 1))
+           =>
+           ( bind ?*str22* "szara_plesn_rzepaku:interw")
+           (return ?*str22*)
+  )
+
+(defrule zgniliznaTwardzikowaSoi01
+     (risk_factors {czesta_uprawa_soi == 1 || duza_ilosc_soi_w_okolicy == 1 } )
+      => (assert (zgnilizna_twardzikowa_soi (istnieje 1)))
+    )
+
+(defrule zgniliznaTwardzikowaSoi02
+     (symptoms (male_szaro_czarne_plamy_na_styku_lisci_lodygi 1) )
+      => (assert (zgnilizna_twardzikowa_soi (istnieje 1)))
+    )
+
+(defrule zgniliznaTwardzikowaSoiInterw
+               (zgnilizna_twardzikowa_soi (istnieje 1))
+           =>
+           ( bind ?*str23* "zgnilizna_twardzikowa_soi:interw")
+           (return ?*str23*)
+  )

@@ -76,6 +76,8 @@ export interface DiagnoseDto {
   note: string;
   diseases: DiseaseDto[];
   creationTime: Date;
+  riskFactors: RiskFactor[];
+  symptoms: Symptom[];
 }
 
 export interface ExtendedDiseaseDto {
@@ -93,6 +95,7 @@ export interface UserDto {
   firstName: string;
   lastName: string;
   roles: string[];
+  blocked: boolean;
 }
 
 export interface TemplatePart {
@@ -117,6 +120,11 @@ export interface UserDetails {
   firstName: string;
   lastName: string;
   joinDate: Date;
+}
+
+export interface UserPassword {
+  oldPassword: string;
+  newPassword: string;
 }
 
 export interface ContactMessageDto {

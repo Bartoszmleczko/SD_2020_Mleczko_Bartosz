@@ -17,8 +17,10 @@ import { ModeratorService } from "../moderator.service";
   styleUrls: ["./moderator-refused-diseases.component.css"],
 })
 export class ModeratorRefusedDiseasesComponent implements OnInit {
-  @ViewChild(ModeratorDiseaseEditFormComponent, { static: false })
+  @ViewChild(ModeratorDiseaseEditFormComponent)
   editFormComponent: ModeratorDiseaseEditFormComponent;
+
+  showPlaceholder = true;
 
   refusedDiseases: NewTemporaryDiseaseDto[] = [];
 
@@ -40,14 +42,22 @@ export class ModeratorRefusedDiseasesComponent implements OnInit {
       });
   }
 
+  hidePlaceholder() {
+    this.showPlaceholder = false;
+  }
+
+  showPlaceholder1() {
+    this.showPlaceholder = true;
+  }
+
   changeDisease(index: number) {
     this.editFormComponent.changeDisease(this.refusedDiseases[index]);
   }
 
   removeDiseaseFromList(data: NewTemporaryDiseaseDto) {
-    if (this.refusedDiseases.includes(data)) {
-      const index = this.refusedDiseases.findIndex((d) => (d = data));
-      this.refusedDiseases.splice(index, 1);
-    }
+    this.showPlaceholder = true;
+
+    const index = this.refusedDiseases.findIndex((d) => (d = data));
+    this.refusedDiseases.splice(index, 1);
   }
 }

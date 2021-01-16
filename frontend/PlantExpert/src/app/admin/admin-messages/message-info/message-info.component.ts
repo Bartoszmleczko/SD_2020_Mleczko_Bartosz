@@ -1,5 +1,5 @@
 import { ContactMessageDto } from "./../../../models/models";
-import { MAT_DIALOG_DATA } from "@angular/material";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { Component, Inject, OnInit } from "@angular/core";
 
 @Component({
@@ -10,9 +10,16 @@ import { Component, Inject, OnInit } from "@angular/core";
 export class MessageInfoComponent implements OnInit {
   originalMessage: ContactMessageDto;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<MessageInfoComponent>
+  ) {}
 
   ngOnInit() {
     this.originalMessage = this.data.data;
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }

@@ -13,4 +13,8 @@ export class BackendMessageComponent implements OnInit {
   ) {}
 
   ngOnInit() {}
+
+  close() {
+    this.dialogRef.close();
+  }
 }

@@ -1,8 +1,14 @@
+<div class="close-box background-color-dark-blue">
+  <button class="close-btn" (click)="close()">x</button>
+</div>
 <div class="disease-detail-container">
   <div class="img-box"><img [src]="disease.url" alt="" /></div>
 
   <div class="disease-details">
-    <h1>{{ disease.diseaseName }}</h1>
+    <div class="width-100 display-flex">
+      <h1>{{ disease.diseaseName }}</h1>
+    </div>
+
     <div>
       <p>
         {{ disease.diseaseDescription }}

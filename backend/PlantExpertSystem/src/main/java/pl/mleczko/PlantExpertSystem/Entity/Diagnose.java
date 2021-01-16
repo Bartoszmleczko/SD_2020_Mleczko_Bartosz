@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -32,5 +33,17 @@ public class Diagnose {
     @JsonBackReference(value = "diseaseReference")
     @ManyToMany
     private List<Disease> diseases;
+
+    @ManyToMany
+    @JoinTable(name = "diagnose_risk_factor",
+            joinColumns = { @JoinColumn(name = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "riskId") })
+    private List<RiskFactor> riskFactors = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "diagnose_symptom",
+            joinColumns = { @JoinColumn(name = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "symptomId") })
+    private List<Symptom> symptoms = new ArrayList<>();
 
 }

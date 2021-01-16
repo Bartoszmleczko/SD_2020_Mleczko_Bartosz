@@ -1,5 +1,5 @@
 import { Inject } from "@angular/core";
-import { MAT_DIALOG_DATA } from "@angular/material";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -10,9 +10,16 @@ import { Component, OnInit } from "@angular/core";
 export class DiseaseDetailComponent implements OnInit {
   disease = null;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<DiseaseDetailComponent>
+  ) {}
 
   ngOnInit() {
     this.disease = this.data.data;
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }

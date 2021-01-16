@@ -2,7 +2,10 @@
   background-color: #3e5063;
   width: 50%;
   color: #fff0b3;
+  text-shadow: 1px 1px black;
   text-align: center;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
 }
 
 .new-plant h3 {
@@ -15,7 +18,7 @@ table {
 }
 
 img {
-  width: 100%;
+  width: 350px;
 }
 
 .table-box {
@@ -25,6 +28,8 @@ img {
 
 .dark-background {
   background-color: #3e5063;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
   color: #fff0b3;
 }
 .margin-center {
@@ -61,6 +66,11 @@ img {
   width: 35%;
   height: 400px;
 }
+img {
+  margin-left: 10px;
+  margin-top: 10px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
+}
 
 .content-box {
   width: 100%;
@@ -86,7 +96,7 @@ img {
 }
 
 .diagnose-block {
-  padding: 10px;
+  padding-right: 15px;
   margin-left: 50px;
   max-width: 50%;
 }
@@ -145,4 +155,28 @@ img {
 
 ::ng-deep .mat-select-value-text {
   color: #fff0b3;
+}
+
+button {
+  font-size: 22px;
+}
+
+button:hover {
+  transition: 0.4s;
+}
+
+li {
+  text-align: left;
+  font-size: 20px;
+}
+
+.rules,
+h3 {
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+p {
+  font-size: 20px;
 }

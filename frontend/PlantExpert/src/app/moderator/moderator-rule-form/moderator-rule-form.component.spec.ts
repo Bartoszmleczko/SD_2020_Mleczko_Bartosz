@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ModeratorRuleFormComponent } from './moderator-rule-form.component';
 
@@ -6,7 +6,7 @@ describe('ModeratorRuleFormComponent', () => {
   let component: ModeratorRuleFormComponent;
   let fixture: ComponentFixture<ModeratorRuleFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ModeratorRuleFormComponent ]
     })

@@ -1,3 +1,7 @@
+<div class="close-box background-color-dark-blue">
+  <button class="close-btn" (click)="close()">x</button>
+</div>
+
 <div class="message-background">
   <p *ngIf="data.data.text">{{ data.data.text }}</p>
   <p *ngIf="!data.data.text">{{ data.data }}</p>

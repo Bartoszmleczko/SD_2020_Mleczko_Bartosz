@@ -2,12 +2,17 @@
   <div class="scroll-wrapper">
     <div class="search">
       <form action="" [formGroup]="searchForm">
-        <input
-          formControlName="name"
-          type="text"
-          placeholder="Wyszukaj użytkownika"
-          (change)="findAllByUsername()"
-        />
+        <div class="input-box">
+          <input
+            formControlName="name"
+            type="text"
+            placeholder="Wpisz e-mail aby wyszukać użytkownika."
+            (keyup.enter)="findAllByUsername()"
+          />
+          <button class="search-button" (click)="findAllByUsername()">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
       </form>
     </div>
 
@@ -17,6 +22,7 @@
         <th>Imię</th>
         <th>Nazwisko</th>
         <th>Funkcje</th>
+        <th></th>
         <th></th>
       </thead>
       <tbody>
@@ -45,6 +51,26 @@
               class="bg-red"
             >
               <i class="fas fa-user-minus"></i>
+            </button>
+          </td>
+          <td>
+            <button
+              *ngIf="!user.blocked"
+              (click)="banUser(i)"
+              mat-raised-button
+              matTooltip="Zablokuj użytkownika."
+              class="bg-orange"
+            >
+              <i class="fas fa-ban"></i>
+            </button>
+            <button
+              *ngIf="user.blocked"
+              (click)="unbanUser(i)"
+              mat-raised-button
+              matTooltip="Odblokuj użytkownika."
+              class="bg-blue"
+            >
+              <i class="fas fa-lock-open"></i>
             </button>
           </td>
         </tr>

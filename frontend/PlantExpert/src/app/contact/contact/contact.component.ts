@@ -13,7 +13,7 @@ import { BackendMessageComponent } from "src/app/backend-message/backend-message
   styleUrls: ["./contact.component.css"],
 })
 export class ContactComponent implements OnInit {
-  @ViewChild(ContactOldMessagesComponent, { static: false })
+  @ViewChild(ContactOldMessagesComponent)
   contactOldMessagesComponent: ContactOldMessagesComponent;
 
   constructor() {}

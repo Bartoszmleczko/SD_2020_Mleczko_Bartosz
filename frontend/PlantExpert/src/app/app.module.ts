@@ -48,6 +48,7 @@ import { AdminDiseaseComponent } from "./admin/admin-disease/admin-disease.compo
 import { AdminRolesComponent } from "./admin/admin-roles/admin-roles.component";
 import { AccountComponent } from "./account/account/account.component";
 import { AccountService } from "./account/account.service";
+import { EditorModule } from "@tinymce/tinymce-angular";
 import { AccountPasswordComponent } from "./account/account-password/account-password.component";
 import { AccountDetailsComponent } from "./account/account-details/account-details.component";
 import { RegisterActivationComponent } from "./register/register-activation/register-activation.component";
@@ -63,8 +64,11 @@ import { ContactFormComponent } from "./contact/contact-form/contact-form.compon
 import { ContactOldMessagesComponent } from "./contact/contact-old-messages/contact-old-messages.component";
 import { AdminDiseaseRefuseComponent } from "./admin/admin-disease-refuse/admin-disease-refuse.component";
 import { ModeratorRefusedDiseasesComponent } from "./moderator/moderator-refused-diseases/moderator-refused-diseases.component";
-import { ModeratorAllDiseasesComponent } from './moderator-all-diseases/moderator-all-diseases.component';
-import { ModeratorDiseaseEditFormComponent } from './moderator/moderator-disease-edit-form/moderator-disease-edit-form.component';
+import { ModeratorAllDiseasesComponent } from "./moderator-all-diseases/moderator-all-diseases.component";
+import { ModeratorDiseaseEditFormComponent } from "./moderator/moderator-disease-edit-form/moderator-disease-edit-form.component";
+import { LoginFormComponent } from "./login/login-form/login-form.component";
+import { ModeratorDiseaseInstructionComponent } from "./moderator/moderator-disease-instruction/moderator-disease-instruction.component";
+import { ModeratorInstructionEditComponent } from "./moderator/moderator-instruction-edit/moderator-instruction-edit.component";
 registerLocaleData(localePl);
 const routes: Routes = [
   {
@@ -216,10 +220,13 @@ const routes: Routes = [
     ModeratorRefusedDiseasesComponent,
     ModeratorAllDiseasesComponent,
     ModeratorDiseaseEditFormComponent,
+    LoginFormComponent,
+    ModeratorDiseaseInstructionComponent,
+    ModeratorInstructionEditComponent,
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { relativeLinkResolution: "legacy" }),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -230,6 +237,7 @@ const routes: Routes = [
     MatDialogModule,
     MatPaginatorModule,
     MatTooltipModule,
+    EditorModule,
   ],
   providers: [
     AuthenticationService,
@@ -259,6 +267,8 @@ const routes: Routes = [
     AnswerFormComponent,
     MessageInfoComponent,
     AdminDiseaseRefuseComponent,
+    ModeratorDiseaseInstructionComponent,
+    ModeratorInstructionEditComponent,
   ],
 })
 export class AppModule {}

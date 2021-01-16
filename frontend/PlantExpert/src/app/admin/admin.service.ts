@@ -58,4 +58,12 @@ export class AdminService {
   public refuseDisease(data: RefuseFormDto) {
     return this.httpClient.post(API_URL + "tempDiseases/refuse", data);
   }
+
+  public banUser(user: UserDto) {
+    return this.httpClient.put(API_URL + "users/ban", user);
+  }
+
+  public unbanUser(user: UserDto) {
+    return this.httpClient.put(API_URL + "users/unban", user);
+  }
 }

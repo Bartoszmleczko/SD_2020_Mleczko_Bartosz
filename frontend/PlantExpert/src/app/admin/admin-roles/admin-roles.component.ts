@@ -28,6 +28,7 @@ export class AdminRolesComponent implements OnInit {
       .findAllByUsername(username)
       .subscribe((data: UserDto[]) => {
         this.users = data;
+        console.log(data);
       });
   }
 
@@ -36,6 +37,21 @@ export class AdminRolesComponent implements OnInit {
       .grantModeratorRole(this.users[index])
       .subscribe((data: UserDto) => {});
     this.users[index].roles.push("ROLE_MODERATOR");
+  }
+
+  banUser(index: number) {
+    this.adminService.banUser(this.users[index]).subscribe((data: UserDto) => {
+      console.log(data);
+      this.users[index].blocked = true;
+    });
+  }
+
+  unbanUser(index: number) {
+    this.adminService
+      .unbanUser(this.users[index])
+      .subscribe((data: UserDto) => {
+        this.users[index].blocked = false;
+      });
   }
 
   takeModeratorAuthority(index: number) {

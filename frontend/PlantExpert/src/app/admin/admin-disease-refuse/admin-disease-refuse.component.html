@@ -5,7 +5,7 @@
   <form action="" class="display-flex f-d-column" [formGroup]="newForm">
     <label
       formArrayName="namesBoxes"
-      for="c{{ i }}  "
+      for="c{{ i }}"
       *ngFor="let checkBox of nameBoxes.controls; let i = index"
     >
       <input id="c{{ i }}" type="checkbox" [formControlName]="i" />

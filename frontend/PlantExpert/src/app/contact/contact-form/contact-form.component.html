@@ -21,16 +21,31 @@
         </div>
 
         <div class="form-field-box">
-          <div class="input-box">
-            <textarea
+          <!-- <textarea
               name=""
               id=""
               cols="20"
               rows="5"
               placeholder="Treść wiadomości"
               formControlName="text"
-            ></textarea>
-          </div>
+            ></textarea> -->
+          <editor
+            formControlName="text"
+            class="editor"
+            apiKey="kydv063o95iin1du5dwoflywzcspl729qc3pqudepzf6kqez"
+            (onInit)="handleEditorInit($event)"
+            [init]="{
+              icons: 'thin',
+              skin: 'outside',
+              plugins: 'wordcount',
+              placeholder: 'Treść wiadomości.',
+              content_css: '../../assets/my_content.css',
+              menubar: false,
+              toolbar_location: 'bottom',
+              resize: false
+            }"
+          ></editor>
+
           <div class="error-box">
             <label for="" *ngIf="f.text.errors"
               >Treść musi posiadać 5-200 znaków</label

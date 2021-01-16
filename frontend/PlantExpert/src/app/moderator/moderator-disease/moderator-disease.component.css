@@ -2,7 +2,6 @@
   width: 100%;
   display: flex;
   justify-content: center;
-
   margin-top: 30px;
 }
 
@@ -15,6 +14,8 @@ form {
   width: 70%;
   background-color: #3e5063;
   color: #fff0b3;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,6 +45,8 @@ input {
   background-color: #3e5063;
   color: #fff0b3;
   border: 1px solid grey;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
 }
 
 input:hover {
@@ -53,6 +56,7 @@ input:hover {
 input:focus {
   background-color: #495e74;
   outline: none;
+  border: 1px solid black;
 }
 
 .disease-description-textarea {
@@ -64,40 +68,21 @@ input:focus {
   height: 300px;
 }
 
-.disease-description-textarea textarea {
-  resize: none;
-  width: 60%;
-  background-color: #3e5063;
-  color: #fff0b3;
-  border-radius: 10px;
-}
-
-.disease-description-textarea textarea:focus {
-  background-color: #495e74;
-  outline: none;
-}
-.disease-description-textarea textarea:hover {
-  background-color: #495e74;
-  outline: none;
-}
-.disease-description-textarea textarea::placeholder {
-  color: white;
-}
-
 .disease-diagnose-input {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
-.disease-diagnose-input textarea {
+textarea {
   width: 80%;
-  height: 150px;
+  height: 170px;
   background-color: #3e5063;
   color: #fff0b3;
   border: 1px solid grey;
   resize: none;
   border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
 }
 
 .input-box {
@@ -106,7 +91,7 @@ input:focus {
   flex-direction: column;
   align-items: center;
 }
-.disease-diagnose-input textarea:hover {
+textarea:hover {
   background-color: #495e74;
 }
 
@@ -116,6 +101,7 @@ textarea::placeholder {
 
 textarea:focus {
   background-color: #495e74;
+  border: 1px solid black;
   outline: none;
 }
 
@@ -208,6 +194,7 @@ input[type="file"] {
   margin-top: 5px;
   margin-bottom: 5px;
   border: 1px solid grey;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
 }
 
 .submit-btn {
@@ -278,4 +265,31 @@ h3 {
 
 .rule-border {
   border: 1px solid grey;
+}
+
+.question-btn {
+  width: 40px;
+  height: 40px;
+  margin-top: 20px;
+  margin-left: 50px;
+  border-radius: 50%;
+  background-color: #426081;
+  color: #fff0b3;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.question-btn:hover {
+  background-color: #29527e;
+  transition: 0.4s;
+}
+
+.question-btn:focus {
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  transition: 0.4s;
+}
+
+h1 {
+  text-shadow: 1px 1px rgba(0, 0, 0, 1);
 }

@@ -15,7 +15,35 @@ import { AccountService } from "../account.service";
   styleUrls: ["./account-password.component.css"],
 })
 export class AccountPasswordComponent implements OnInit {
-  constructor() {}
+  passwordForm = this.fb.group({
+    oldPassword: ["", Validators.compose([Validators.required])],
+    newPassword: [
+      "",
+      Validators.compose([
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(15),
+      ]),
+    ],
+  });
+
+  constructor(
+    private fb: FormBuilder,
+    private accountService: AccountService
+  ) {}
 
   ngOnInit() {}
+
+  changePassword() {
+    const data = {
+      oldPassword: this.passwordForm.get("oldPassword").value,
+      newPassword: this.passwordForm.get("newPassword").value,
+    };
+    this.passwordForm.reset();
+    this.accountService.changePassword(data).subscribe((data) => {});
+  }
+
+  get f() {
+    return this.passwordForm.controls;
+  }
 }

@@ -55,6 +55,7 @@ tr {
 
 tr:hover {
   background-color: #485c70;
+  transition: 0.4s;
 }
 
 mat-paginator {
@@ -77,11 +78,6 @@ mat-paginator {
 ::ng-deep .mat-paginator-range-label {
   color: #fff0b3;
 }
-
-::ng-deep .mat-paginator-icon {
-  color: #fff0b3;
-}
-
 .paginator-wrapper {
   width: 100%;
   display: flex;

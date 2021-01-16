@@ -1,17 +1,27 @@
 .shadow {
   box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+h2 {
+  font-size: 35px;
+  margin-top: 10px;
+  color: #fff0b3;
+  text-shadow: 2px 1px black;
 }
 
 table {
-  width: 98%;
+  border-radius: 10px;
+  width: 100%;
   border-collapse: collapse;
 }
 
 .toscroll-wrapper {
-  width: 95%;
+  width: 100%;
   overflow-y: auto;
   max-height: 650px;
   margin-top: 30px;
+  border-radius: 10px;
 }
 .toscroll-wrapper::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -34,6 +44,7 @@ thead {
   text-align: center;
   font-size: 28px;
   letter-spacing: 3px;
+  text-shadow: 2px 2px black;
 }
 .bg-red {
   background-color: rgb(238, 48, 48);
@@ -58,17 +69,20 @@ tr {
   height: 65px;
   text-align: center;
   font-size: 22px;
+  text-shadow: 1px 1px black;
 }
 
 tr:hover {
   transition: 0.4s;
   background-color: #3c5570;
+  border-radius: 10px;
 }
 
 td {
   min-width: 25%;
   line-break: strict;
   word-break: break-all;
+  border-radius: 10px;
 }
 
 button {
@@ -80,4 +94,9 @@ button {
 
 button:focus {
   outline: none;
+}
+
+h3 {
+  text-align: center;
+  color: #fff0b3;
 }

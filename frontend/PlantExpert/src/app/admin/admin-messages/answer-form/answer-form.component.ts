@@ -1,22 +1,23 @@
+import { AsyncSubject } from "rxjs";
+import { Subject } from "rxjs";
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { ContactMessageDto } from "src/app/models/models";
-
+import { maxLength } from "../../../services/maxlength.validator";
 @Component({
   selector: "app-answer-form",
   templateUrl: "./answer-form.component.html",
   styleUrls: ["./answer-form.component.css"],
 })
 export class AnswerFormComponent implements OnInit {
+  private editorSubject: Subject<any> = new AsyncSubject();
+
   answerForm = this.fb.group({
     answer: [
       "",
-      Validators.compose([
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(200),
-      ]),
+      Validators.compose([Validators.required]),
+      maxLength(this.editorSubject, 200, 10),
     ],
   });
 
@@ -32,6 +33,11 @@ export class AnswerFormComponent implements OnInit {
     this.originalMessage = this.data.data;
   }
 
+  handleEditorInit(e) {
+    this.editorSubject.next(e.editor);
+    this.editorSubject.complete();
+  }
+
   get f() {
     return this.answerForm.controls;
   }
@@ -39,5 +45,9 @@ export class AnswerFormComponent implements OnInit {
   sendAnswer() {
     this.originalMessage.answer = this.answerForm.get("answer").value;
     this.dialogRef.close(this.originalMessage);
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }

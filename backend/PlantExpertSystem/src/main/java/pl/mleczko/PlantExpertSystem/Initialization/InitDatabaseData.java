@@ -52,43 +52,47 @@ public class InitDatabaseData {
         role3.setRoleName("ROLE_ADMIN");
         List<Role> roles = roleRepository.saveAll(Arrays.asList(role,role2,role3));
 
-        User user = new User();
-        user.setUserId(1L);
-        user.setEmail("user1@gmail.com");
-        user.setPassword(bCryptPasswordEncoder.encode("root"));
-        user.setFirstName("Bartosz");
-        user.setLastName("Mleczko");
-        user.setEnabled(true);
-        user.setRoles(new HashSet<>(roles));
-        user.setJoinDate(LocalDateTime.now());
-        userRepository.save(user);
+        if(!userRepository.findById(1L).isPresent()){
+            User user = new User();
+            user.setUserId(1L);
+            user.setEmail("user1@gmail.com");
+            user.setPassword(bCryptPasswordEncoder.encode("root"));
+            user.setFirstName("Bartosz");
+            user.setLastName("Mleczko");
+            user.setEnabled(true);
+            user.setRoles(new HashSet<>(roles));
+            user.setJoinDate(LocalDateTime.now());
+            userRepository.save(user);
 
-        User user2 = new User();
-        user2.setUserId(2L);
-        user2.setEmail("user@gmail.com");
-        user2.setPassword(bCryptPasswordEncoder.encode("root"));
-        user2.setFirstName("Jan");
-        user2.setLastName("Mleczko");
-        user2.setRoles(new HashSet<>(Arrays.asList(roles.get(0))));
-        userRepository.save(user2);
+            User user2 = new User();
+            user2.setUserId(2L);
+            user2.setEmail("user@gmail.com");
+            user2.setPassword(bCryptPasswordEncoder.encode("root"));
+            user2.setFirstName("Jan");
+            user2.setLastName("Mleczko");
+            user2.setRoles(new HashSet<>(Arrays.asList(roles.get(0))));
+            userRepository.save(user2);
 
-        User user3 = new User();
-        user3.setUserId(3L);
-        user3.setEmail("newAccount@gmail.com");
-        user3.setPassword(bCryptPasswordEncoder.encode("root"));
-        user3.setFirstName("Andrzej");
-        user3.setLastName("Kowal");
-        user3.setRoles(new HashSet<>(Arrays.asList(roles.get(0))));
-        userRepository.save(user3);
+            User user3 = new User();
+            user3.setUserId(3L);
+            user3.setEmail("newAccount@gmail.com");
+            user3.setPassword(bCryptPasswordEncoder.encode("root"));
+            user3.setFirstName("Andrzej");
+            user3.setLastName("Kowal");
+            user3.setRoles(new HashSet<>(Arrays.asList(roles.get(0))));
+            userRepository.save(user3);
 
-        User user4 = new User();
-        user4.setUserId(4L);
-        user4.setEmail("konon1@gmail.com");
-        user4.setPassword(bCryptPasswordEncoder.encode("root"));
-        user4.setFirstName("Andrzej");
-        user4.setLastName("Kononowicz");
-        user4.setRoles(new HashSet<>(Arrays.asList(roles.get(0))));
-        userRepository.save(user4);
+            User user4 = new User();
+            user4.setUserId(4L);
+            user4.setEmail("konon1@gmail.com");
+            user4.setPassword(bCryptPasswordEncoder.encode("root"));
+            user4.setFirstName("Andrzej");
+            user4.setLastName("Kononowicz");
+            user4.setRoles(new HashSet<>(Arrays.asList(roles.get(0))));
+            userRepository.save(user4);
+        }
+
+
 
     }
 
@@ -96,7 +100,7 @@ public class InitDatabaseData {
         PlantType type = new PlantType();
 
         type.setId(1L);
-        type.setName("PSZENICA");
+        type.setName("ZBOŻA");
         plantTypeRepository.save(type);
 
         type.setId(2L);
@@ -106,6 +110,18 @@ public class InitDatabaseData {
         type.setId(3L);
         type.setName("ZIEMNIAK");
         plantTypeRepository.save(type);
+
+        type.setId(4L);
+        type.setName("BURAK");
+        plantTypeRepository.save(type);
+
+        type.setId(5L);
+        type.setName("BÓB");
+        plantTypeRepository.save(type);
+
+        type.setId(6L);
+        type.setName("SOJA");
+        plantTypeRepository.save(type);
     }
 
     public void initRiskFactors(){
@@ -113,6 +129,9 @@ public class InitDatabaseData {
         PlantType cereal = plantTypeRepository.findById(1L).get();
         PlantType colza = plantTypeRepository.findById(2L).get();
         PlantType potatoe = plantTypeRepository.findById(3L).get();
+        PlantType burak = plantTypeRepository.findById(4L).get();
+        PlantType bob = plantTypeRepository.findById(5L).get();
+        PlantType soja = plantTypeRepository.findById(6L).get();
 
         RiskFactor factor = new RiskFactor();
         factor.setRiskId(1L);
@@ -375,6 +394,89 @@ public class InitDatabaseData {
         factor.setPlantType(potatoe);
         riskFactorRepository.save(factor);
 
+        factor.setRiskId(38L);
+        factor.setName("Częsta uprawa buraków");
+        factor.setSlotName("czesta_uprawa_burakow");
+        factor.setFactorType(FactorType.OTHER);
+        factor.setPlantType(burak);
+        riskFactorRepository.save(factor);
+
+        factor.setRiskId(39L);
+        factor.setName("Duże rosy");
+        factor.setSlotName("duze_rosy");
+        factor.setFactorType(FactorType.MOISTURE);
+        factor.setPlantType(burak);
+        riskFactorRepository.save(factor);
+
+        factor.setRiskId(40L);
+        factor.setName("Mgła");
+        factor.setSlotName("mgla");
+        factor.setFactorType(FactorType.OTHER);
+        factor.setPlantType(burak);
+        riskFactorRepository.save(factor);
+
+        factor.setRiskId(41L);
+        factor.setName("Opady (szczególnie mżawka).");
+        factor.setSlotName("opady_mzawka");
+        factor.setFactorType(FactorType.OTHER);
+        factor.setPlantType(burak);
+        riskFactorRepository.save(factor);
+
+        factor.setRiskId(42L);
+        factor.setName("Temperatura 15-20 stopni.");
+        factor.setSlotName("temp_15_20");
+        factor.setFactorType(FactorType.TEMPERATURE);
+        factor.setPlantType(burak);
+        riskFactorRepository.save(factor);
+
+        factor.setRiskId(43L);
+        factor.setName("W okresie kwitnienia bobu lub bobiku ciepła i przekropna pogoda.");
+        factor.setSlotName("ciepla_przekropna_pogoda");
+        factor.setFactorType(FactorType.TEMPERATURE);
+        factor.setPlantType(bob);
+        riskFactorRepository.save(factor);
+
+        factor.setRiskId(44L);
+        factor.setName("Wysadzanie niewykfalifikowanego sadzeniaka");
+        factor.setSlotName("wysadzanie_niewykfalifikowanego_sadzeniaka");
+        factor.setFactorType(FactorType.OTHER);
+        factor.setPlantType(potatoe);
+        riskFactorRepository.save(factor);
+
+        factor.setRiskId(45L);
+        factor.setName("Duża wilgotność w okresie wegetacji");
+        factor.setSlotName("duza_wilgotnosc_wegetacja");
+        factor.setFactorType(FactorType.MOISTURE);
+        factor.setPlantType(colza);
+        riskFactorRepository.save(factor);
+
+        factor.setRiskId(46L);
+        factor.setName("Duża wilgotność powietrza");
+        factor.setSlotName("duza_wilgotnosc_powietrza_rzepak");
+        factor.setFactorType(FactorType.MOISTURE);
+        factor.setPlantType(colza);
+        riskFactorRepository.save(factor);
+
+        factor.setRiskId(47L);
+        factor.setName("Zagęszczenie łanu");
+        factor.setSlotName("zageszczenie_lanu");
+        factor.setFactorType(FactorType.OTHER);
+        factor.setPlantType(colza);
+        riskFactorRepository.save(factor);
+
+        factor.setRiskId(48L);
+        factor.setName("Częsta uprawa soi na polu");
+        factor.setSlotName("czesta_uprawa_soi");
+        factor.setFactorType(FactorType.OTHER);
+        factor.setPlantType(soja);
+        riskFactorRepository.save(factor);
+
+        factor.setRiskId(49L);
+        factor.setName("Duża ilość upraw soi w okolicy");
+        factor.setSlotName("duza_ilosc_soi_w_okolicy");
+        factor.setFactorType(FactorType.OTHER);
+        factor.setPlantType(soja);
+        riskFactorRepository.save(factor);
     }
 
 
@@ -384,6 +486,10 @@ public class InitDatabaseData {
         PlantType cereal = plantTypeRepository.findById(1L).get();
         PlantType colza = plantTypeRepository.findById(2L).get();
         PlantType potatoe = plantTypeRepository.findById(3L).get();
+        PlantType burak = plantTypeRepository.findById(4L).get();
+        PlantType bob = plantTypeRepository.findById(5L).get();
+        PlantType soja = plantTypeRepository.findById(6L).get();
+
 
         symptom.setSymptomId(1L);
         symptom.setName("Żółto brunatna plama w kształcie medalionu");
@@ -501,213 +607,359 @@ public class InitDatabaseData {
         symptom.setPlantType(potatoe);
         symptomRepository.save(symptom);
 
+        symptom.setSymptomId(20L);
+        symptom.setName("Drobne jasne kropki na liściu powiększające się z czarną obwódką.");
+        symptom.setSlotName("drobne_jasne_kropki_czarna_obwodka");
+        symptom.setPlantType(burak);
+        symptomRepository.save(symptom);
+
+        symptom.setSymptomId(21L);
+        symptom.setName("Schnące i odpadające liście.");
+        symptom.setSlotName("schnace_opadajace_liscie");
+        symptom.setPlantType(burak);
+        symptomRepository.save(symptom);
+
+        symptom.setSymptomId(22L);
+        symptom.setName("Na początku drobne czarne plamki które rozrastają się w nieregularne brunatne plamy na liściach i łodygach.");
+        symptom.setSlotName("drobne_czarne_plamki_rozrastajace_sie_w_brunatne_plamy");
+        symptom.setPlantType(bob);
+        symptomRepository.save(symptom);
+
+        symptom.setSymptomId(23L);
+        symptom.setName("Brązowiejące kiełki łodyg ziemniaka.");
+        symptom.setSlotName("brazowiejace_kielki_lodyg");
+        symptom.setPlantType(potatoe);
+        symptomRepository.save(symptom);
+
+        symptom.setSymptomId(24L);
+        symptom.setName("Brązowe obrośnięte pilśniowym nalotem łodygi i część nadkorzeniowa ziemniaka");
+        symptom.setSlotName("brazowe_obrosniete_nalotem_lodygi");
+        symptom.setPlantType(potatoe);
+        symptomRepository.save(symptom);
+
+        symptom.setSymptomId(25L);
+        symptom.setName("Zbrązowiałe nieczynne korzenie");
+        symptom.setSlotName("zbrazowiale_nieczynne_korzenie");
+        symptom.setPlantType(potatoe);
+        symptomRepository.save(symptom);
+
+        symptom.setSymptomId(26L);
+        symptom.setName("Jesienią początkowo czarne kropki rosnące do dużych centrycznie ukształtowanych plam na liściu");
+        symptom.setSlotName("czarne_kropki_jesienia_rosnace_centrycznie_plamy");
+        symptom.setPlantType(colza);
+        symptomRepository.save(symptom);
+
+        symptom.setSymptomId(27L);
+        symptom.setName("Wiosną czarne plamy na łodygach i łuszczynach rzepaku");
+        symptom.setSlotName("czarne_plamy_na_lodygach_i_luszczynach");
+        symptom.setPlantType(colza);
+        symptomRepository.save(symptom);
+
+        symptom.setSymptomId(28L);
+        symptom.setName("Początkowo mniejsze plamy na liściach, łodygach i łuszczynach obrastające szarym pilśniowym nalotem");
+        symptom.setSlotName("plamy_obrastajace_pilsniowym_nalotem");
+        symptom.setPlantType(colza);
+        symptomRepository.save(symptom);
+
+        symptom.setSymptomId(29L);
+        symptom.setName("Początkowe małe szaro-czarne na styku liści i łodygi przerastające całą łodygę a łodyga zamiera a w jej środku pojawiają się sklerocje.");
+        symptom.setSlotName("male_szaro_czarne_plamy_na_styku_lisci_lodygi");
+        symptom.setPlantType(soja);
+        symptomRepository.save(symptom);
     }
 
 
     public void initDiseases() throws IOException {
+
         Disease disease = new Disease();
 
         PlantType cereal = plantTypeRepository.findById(1L).get();
         PlantType colza = plantTypeRepository.findById(2L).get();
         PlantType potatoe = plantTypeRepository.findById(3L).get();
+        PlantType burak = plantTypeRepository.findById(4L).get();
+        PlantType bob = plantTypeRepository.findById(5L).get();
+        PlantType soja = plantTypeRepository.findById(6L).get();
 
         List<RiskFactor> riskFactors = new ArrayList<>();
         List<Symptom> symptoms = new ArrayList<>();
 
-        disease.setDiseaseId(1L);
-        disease.setName("Łamliwość podstawy źdźbła pszenicy");
-        disease.setTemplateName("lam_podst_zdzbla_pszen");
-        disease.setPrecautionDiagnose("Potencjalne zagrożenie łamliwością podstawy źdźbła. Wykonać zapobiegawczo zabieg preparatem zawierającym prochloraz, protokolazol lub metrafenon.");
-        disease.setInterventionDiagnose("100% symptom łamliwości źdźbła. Wykonać zabieg interwencyjny");
-        disease.setFactors(riskFactors);
-        disease.setSymptoms(symptoms);
-        disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
-        disease.setImageName("lam_podst_zdzbla_pszen.jpg");
-        disease.setPlantType(cereal);
-        disease.setCount(0L);
-        diseaseRepository.save(disease);
 
 
-        disease.setDiseaseId(2L);
-        disease.setName("Mączniak prawdziwy pszenicy");
-        disease.setTemplateName("maczniak_prawdziwy_pszenicy");
-        disease.setPrecautionDiagnose("");
-        disease.setInterventionDiagnose("Wykonać zabieg BBCH31 preparatami zawierającymi spiroksyaminę lub morfolinę np. fenprofidyne w mieszaninie z preparatami zawierającymi proquinazyd, metrafenon, lub preparatami zawierającymi składniki aktywne z grupy strobiluryn lub SDHI.");
-        disease.setFactors(riskFactors);
-        disease.setSymptoms(symptoms);
-        disease.setPlantType(cereal);
-        disease.setImageName("maczniak_prawdziwy_pszenicy.jpg");
-        disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
-        disease.setCount(0L);
-        diseaseRepository.save(disease);
+        if(!diseaseRepository.findById(1L).isPresent()){
+            disease.setDiseaseId(1L);
+            disease.setName("Łamliwość podstawy źdźbła pszenicy");
+            disease.setTemplateName("lam_podst_zdzbla_pszen");
+            disease.setPrecautionDiagnose("Potencjalne zagrożenie łamliwością podstawy źdźbła. Wykonać zapobiegawczo zabieg preparatem zawierającym prochloraz, protokolazol lub metrafenon.");
+            disease.setInterventionDiagnose("100% symptom łamliwości źdźbła. Wykonać zabieg interwencyjny");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setImageName("lam_podst_zdzbla_pszen.jpg");
+            disease.setPlantType(cereal);
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
 
 
-        disease.setDiseaseId(3L);
-        disease.setName("Brunatna plamistość liści pszenicy");
-        disease.setTemplateName("brunatna_plamistosc_lisci_pszenicy");
-        disease.setPrecautionDiagnose("");
-        disease.setInterventionDiagnose("W fazie rozwoju liścia flagowego lub w razie wystąpienia plamek stosujemy preparat zawierający protiokonazol lub epoksykonazol w połączeniu z innym triazolem i substancją z grupy SDHI lub strobiluryn.");
-        disease.setFactors(riskFactors);
-        disease.setSymptoms(symptoms);
-        disease.setPlantType(cereal);
-        disease.setImageName("brunatna_plamistosc_lisci_pszenicy.jpg");
-        disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
-        disease.setCount(0L);
-        diseaseRepository.save(disease);
+            disease.setDiseaseId(2L);
+            disease.setName("Mączniak prawdziwy pszenicy");
+            disease.setTemplateName("maczniak_prawdziwy_pszenicy");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("Wykonać zabieg BBCH31 preparatami zawierającymi spiroksyaminę lub morfolinę np. fenprofidyne w mieszaninie z preparatami zawierającymi proquinazyd, metrafenon, lub preparatami zawierającymi składniki aktywne z grupy strobiluryn lub SDHI.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(cereal);
+            disease.setImageName("maczniak_prawdziwy_pszenicy.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
 
 
-        disease.setDiseaseId(4L);
-        disease.setName("Septorioza paskowana pszenicy");
-        disease.setTemplateName("septorioza_paskowana_lisci");
-        disease.setPrecautionDiagnose("");
-        disease.setInterventionDiagnose("Zabieg wykonywany preparatami zawierającymi epoksykonazol, azoksystrobinę, preparaty z grupy SDHI.");
-        disease.setFactors(riskFactors);
-        disease.setSymptoms(symptoms);
-        disease.setPlantType(cereal);
-        disease.setImageName("septorioza_paskowana_lisci.jpg");
-        disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
-        disease.setCount(0L);
-        diseaseRepository.save(disease);
+            disease.setDiseaseId(3L);
+            disease.setName("Brunatna plamistość liści pszenicy");
+            disease.setTemplateName("brunatna_plamistosc_lisci_pszenicy");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("W fazie rozwoju liścia flagowego lub w razie wystąpienia plamek stosujemy preparat zawierający protiokonazol lub epoksykonazol w połączeniu z innym triazolem i substancją z grupy SDHI lub strobiluryn.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(cereal);
+            disease.setImageName("brunatna_plamistosc_lisci_pszenicy.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
 
 
-        disease.setDiseaseId(5L);
-        disease.setName("Septorioza plew pszenicy");
-        disease.setTemplateName("septorioza_plew");
-        disease.setPrecautionDiagnose("");
-        disease.setInterventionDiagnose("Wykonujemy zabieg preparatami zawierającymi triazole, SDHI i strobiluryny.");
-        disease.setFactors(riskFactors);
-        disease.setSymptoms(symptoms);
-        disease.setPlantType(cereal);
-        disease.setImageName("septorioza_plew.jpg");
-        disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
-        disease.setCount(0L);
-        diseaseRepository.save(disease);
+            disease.setDiseaseId(4L);
+            disease.setName("Septorioza paskowana pszenicy");
+            disease.setTemplateName("septorioza_paskowana_lisci");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("Zabieg wykonywany preparatami zawierającymi epoksykonazol, azoksystrobinę, preparaty z grupy SDHI.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(cereal);
+            disease.setImageName("septorioza_paskowana_lisci.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
 
 
-        disease.setDiseaseId(6L);
-        disease.setName("Fuzaryjna zgorzel źdźbła i korzeni pszenicy");
-        disease.setTemplateName("fuzaryjna_zgorzel_zdzbla_korzeni");
-        disease.setPrecautionDiagnose("");
-        disease.setInterventionDiagnose("Zabieg profilaktyczny w fazie BBCh31 wykonać preparatami zawierającymi substancje aktywne typu prochloraz,  tebukonazol, protriokonazol, metokonazol.");
-        disease.setFactors(riskFactors);
-        disease.setSymptoms(symptoms);
-        disease.setPlantType(cereal);
-        disease.setImageName("fuzaryjna_zgorzel_podstawy_zdzbla_korzeni.jpg");
-        disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
-        disease.setCount(0L);
-        diseaseRepository.save(disease);
+            disease.setDiseaseId(5L);
+            disease.setName("Septorioza plew pszenicy");
+            disease.setTemplateName("septorioza_plew");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("Wykonujemy zabieg preparatami zawierającymi triazole, SDHI i strobiluryny.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(cereal);
+            disease.setImageName("septorioza_plew.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
 
 
-        disease.setDiseaseId(7L);
-        disease.setName("Fuzarioza kłosów pszenicy" );
-        disease.setTemplateName("fuzarioza_klosow");
-        disease.setPrecautionDiagnose("");
-        disease.setInterventionDiagnose("W momencie gdy pylniki z dolnych kłosków odpadają wykonujemy zabieg preparatami zawierającymi protiokonazol, metkonazol, prochloraz, tebukonazol,  tiofanad metylu. Trzeba pamiętać, aby zabieg wykonać przynajmniej dwoma substancjami czynnymi wybranymi z powyższych.");
-        disease.setFactors(riskFactors);
-        disease.setSymptoms(symptoms);
-        disease.setPlantType(cereal);
-        disease.setImageName("fuzarioza_klosow.jpg");
-        disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
-        disease.setCount(0L);
-        diseaseRepository.save(disease);
+            disease.setDiseaseId(6L);
+            disease.setName("Fuzaryjna zgorzel źdźbła i korzeni pszenicy");
+            disease.setTemplateName("fuzaryjna_zgorzel_zdzbla_korzeni");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("Zabieg profilaktyczny w fazie BBCh31 wykonać preparatami zawierającymi substancje aktywne typu prochloraz,  tebukonazol, protriokonazol, metokonazol.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(cereal);
+            disease.setImageName("fuzaryjna_zgorzel_podstawy_zdzbla_korzeni.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
 
 
-        disease.setDiseaseId(8L);
-        disease.setName("Rdza brunatna pszenicy");
-        disease.setTemplateName("rdza_brunatna");
-        disease.setPrecautionDiagnose("");
-        disease.setInterventionDiagnose("Wykonujemy zabieg zawierający preparaty z grupy triazoli, SDHI i strobiluryn.");
-        disease.setFactors(riskFactors);
-        disease.setSymptoms(symptoms);
-        disease.setPlantType(cereal);
-        disease.setImageName("rdza_brunatna.jpg");
-        disease.setCount(0L);
-        disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
-        diseaseRepository.save(disease);
+            disease.setDiseaseId(7L);
+            disease.setName("Fuzarioza kłosów pszenicy" );
+            disease.setTemplateName("fuzarioza_klosow");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("W momencie gdy pylniki z dolnych kłosków odpadają wykonujemy zabieg preparatami zawierającymi protiokonazol, metkonazol, prochloraz, tebukonazol,  tiofanad metylu. Trzeba pamiętać, aby zabieg wykonać przynajmniej dwoma substancjami czynnymi wybranymi z powyższych.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(cereal);
+            disease.setImageName("fuzarioza_klosow.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
 
 
-        disease.setDiseaseId(9L);
-        disease.setName("Rdza źdźbłowa pszenicy");
-        disease.setTemplateName("rdza_zdzblowa");
-        disease.setPrecautionDiagnose("Wycinamy krzewy berberysu.");
-        disease.setInterventionDiagnose("Wykonujemy zabiegi tebukonazolem, protokonazolem, strobiluryną lub SDHI.");
-        disease.setFactors(riskFactors);
-        disease.setSymptoms(symptoms);
-        disease.setPlantType(cereal);
-        disease.setImageName("rdza_zdzblowa.jpg");
-        disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
-        disease.setCount(0L);
-        diseaseRepository.save(disease);
+            disease.setDiseaseId(8L);
+            disease.setName("Rdza brunatna pszenicy");
+            disease.setTemplateName("rdza_brunatna");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("Wykonujemy zabieg zawierający preparaty z grupy triazoli, SDHI i strobiluryn.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(cereal);
+            disease.setImageName("rdza_brunatna.jpg");
+            disease.setCount(0L);
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            diseaseRepository.save(disease);
 
 
-        disease.setDiseaseId(10L);
-        disease.setName("Plamistość siatkowa jęczmienia");
-        disease.setTemplateName("plamistosc_siatkowa_jeczmienia");
-        disease.setPrecautionDiagnose("Zaprawić preparatem Systiva.");
-        disease.setInterventionDiagnose("Wykonać zabiegi preparatami zawierające triazole substancje z grupy SDHI i strobiluryn.");
-        disease.setFactors(riskFactors);
-        disease.setSymptoms(symptoms);
-        disease.setPlantType(cereal);
-        disease.setImageName("plamistosc_siatkowa_jeczmienia.jpg");
-        disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
-        disease.setCount(0L);
-        diseaseRepository.save(disease);
+            disease.setDiseaseId(9L);
+            disease.setName("Rdza źdźbłowa pszenicy");
+            disease.setTemplateName("rdza_zdzblowa");
+            disease.setPrecautionDiagnose("Wycinamy krzewy berberysu.");
+            disease.setInterventionDiagnose("Wykonujemy zabiegi tebukonazolem, protokonazolem, strobiluryną lub SDHI.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(cereal);
+            disease.setImageName("rdza_zdzblowa.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
 
 
-        disease.setDiseaseId(11L);
-        disease.setName("Zgnilizna twardzikowa rzepaku");
-        disease.setTemplateName("zgnilizna_twardzikowa_rzepaku");
-        disease.setPrecautionDiagnose("");
-        disease.setInterventionDiagnose("Na początku kwitnienia wykonujemy zabiegi preparatami zawierającymi azoksystrobinę i triazol. W pełni kwitnienia wykonujemy zabieg preparatem Propulse.");
-        disease.setFactors(riskFactors);
-        disease.setSymptoms(symptoms);
-        disease.setPlantType(colza);
-        disease.setImageName("zgnilizna_twardzikowa_rzepaku.jpg");
-        disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
-        disease.setCount(0L);
-        diseaseRepository.save(disease);
+            disease.setDiseaseId(10L);
+            disease.setName("Plamistość siatkowa jęczmienia");
+            disease.setTemplateName("plamistosc_siatkowa_jeczmienia");
+            disease.setPrecautionDiagnose("Zaprawić preparatem Systiva.");
+            disease.setInterventionDiagnose("Wykonać zabiegi preparatami zawierające triazole substancje z grupy SDHI i strobiluryn.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(cereal);
+            disease.setImageName("plamistosc_siatkowa_jeczmienia.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
 
 
-        disease.setDiseaseId(12L);
-        disease.setName("Sucha zgnilizna kapustnych");
-        disease.setTemplateName("sucha_zgnilizna_kapustnych");
-        disease.setPrecautionDiagnose("");
-        disease.setInterventionDiagnose("Przy 4-6 liściach rzepaku wykonujemy zabieg preparatami Tilmor, Caryx i Toprex bądź innym preparatem zawierającym trebukonazol, difenokonazol bądź azoksystrobinę.");
-        disease.setFactors(riskFactors);
-        disease.setSymptoms(symptoms);
-        disease.setPlantType(colza);
-        disease.setImageName("sucha_zgnilizna_kapustnych.jpg");
-        disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
-        disease.setCount(0L);
-        diseaseRepository.save(disease);
+            disease.setDiseaseId(11L);
+            disease.setName("Zgnilizna twardzikowa rzepaku");
+            disease.setTemplateName("zgnilizna_twardzikowa_rzepaku");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("Na początku kwitnienia wykonujemy zabiegi preparatami zawierającymi azoksystrobinę i triazol. W pełni kwitnienia wykonujemy zabieg preparatem Propulse.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(colza);
+            disease.setImageName("zgnilizna_twardzikowa_rzepaku.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
 
 
-        disease.setDiseaseId(13L);
-        disease.setName("Alternarioza ziemniaka");
-        disease.setTemplateName("alternarioza_ziemniaka");
-        disease.setPrecautionDiagnose("");
-        disease.setInterventionDiagnose("Gdy rośliny osiągną 10 cm nad ziemią wykonujemy zabiegi zapobiegawcze co 7 dni.");
-        disease.setFactors(riskFactors);
-        disease.setSymptoms(symptoms);
-        disease.setPlantType(potatoe);
-        disease.setImageName("alternarioza_ziemniaka.jpg");
-        disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
-        disease.setCount(0L);
-        diseaseRepository.save(disease);
+            disease.setDiseaseId(12L);
+            disease.setName("Sucha zgnilizna kapustnych");
+            disease.setTemplateName("sucha_zgnilizna_kapustnych");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("Przy 4-6 liściach rzepaku wykonujemy zabieg preparatami Tilmor, Caryx i Toprex bądź innym preparatem zawierającym trebukonazol, difenokonazol bądź azoksystrobinę.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(colza);
+            disease.setImageName("sucha_zgnilizna_kapustnych.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
 
 
-        disease.setDiseaseId(14L);
-        disease.setName("Zaraza ziemniaka");
-        disease.setTemplateName("zaraza_ziemniaka");
-        disease.setPrecautionDiagnose("");
-        disease.setInterventionDiagnose("W okresie takiej pogody przed kwitnieniem wykonujemy zabiegi preparatami Infinito, Ridomil co 10-14 dni zależnie od pogody. W czasie kwitnienia i po kwitnieniu możemy wykonać zabieg preparatami Acrobat Cabrio Duo, Curzate, Tanos. Wtedy zabiegi wykonujemy co 5-7 dni.");
-        disease.setFactors(riskFactors);
-        disease.setSymptoms(symptoms);
-        disease.setPlantType(potatoe);
-        disease.setImageName("zaraza_ziemniaka.jpg");
-        disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
-        disease.setCount(0L);
-        diseaseRepository.save(disease);
+            disease.setDiseaseId(13L);
+            disease.setName("Alternarioza ziemniaka");
+            disease.setTemplateName("alternarioza_ziemniaka");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("Gdy rośliny osiągną 10 cm nad ziemią wykonujemy zabiegi zapobiegawcze co 7 dni.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(potatoe);
+            disease.setImageName("alternarioza_ziemniaka.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
+
+
+            disease.setDiseaseId(14L);
+            disease.setName("Zaraza ziemniaka");
+            disease.setTemplateName("zaraza_ziemniaka");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("W okresie takiej pogody przed kwitnieniem wykonujemy zabiegi preparatami Infinito, Ridomil co 10-14 dni zależnie od pogody. W czasie kwitnienia i po kwitnieniu możemy wykonać zabieg preparatami Acrobat Cabrio Duo, Curzate, Tanos. Wtedy zabiegi wykonujemy co 5-7 dni.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(potatoe);
+            disease.setImageName("zaraza_ziemniaka.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
+
+            disease.setDiseaseId(15L);
+            disease.setName("Chwościk buraka");
+            disease.setTemplateName("chwoscik_buraka");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("W momencie pojawienia się symptomów na rosnącym w pobliżu buraku  zabieg strobiluryną z triazolem lub samym triazolem. Po miesiącu wykonujemy zabieg tiofanatem metylu lub triazolem.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(burak);
+            disease.setImageName("chwoscik_buraka.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
+
+            disease.setDiseaseId(16L);
+            disease.setName("Czekoladowa plamistość liści na bobiku ");
+            disease.setTemplateName("czekoladowa_plamistosc_lisci");
+            disease.setPrecautionDiagnose("Zabiegi z użyciem azksystrobiny lub inne strobiluryny.");
+            disease.setInterventionDiagnose("Zabieg ze strobiluryn w mieszance z triazolami.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(bob);
+            disease.setImageName("czekoladowa_plamistosc_lisci.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
+
+            disease.setDiseaseId(17L);
+            disease.setName("Rizoktonioza ziemniaka");
+            disease.setTemplateName("rizoktonioza_ziemniaka");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("Zaprawianie zaprawami ograniczającymi rizoktonie, utrzymywanie co najmniej 4-letniego płodozmianu z ziemniakiem, wysadzanie tylko kwalifikowanych sadzeniaków");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(potatoe);
+            disease.setImageName("rizoktonioza_ziemniaka.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
+
+            disease.setDiseaseId(18L);
+            disease.setName("Czerń krzyżowych rzepaku.");
+            disease.setTemplateName("czern_krzyzowych_rzepaku");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("Zabieg preparatami opartymi o azoksystrobiny bądź strobiluryny, preparaty oparte o mieszanki substancji SDHI w mieszaninie z triazolami.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(colza);
+            disease.setImageName("czern_krzyzowych_rzepaku.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
+
+            disease.setDiseaseId(19L);
+            disease.setName("Szara pleśń rzepaku.");
+            disease.setTemplateName("szara_plesn_rzepaku");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("Przy 4-6 liściach rzepaku wykonujemy zabieg preparatami Tilmor, Caryx i Toprex bądź innym preparatem zawierającym trebukonazol, difenokonazol bądź azoksystrobinę.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(colza);
+            disease.setImageName("szara_plesn_rzepaku.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
+
+            disease.setDiseaseId(20L);
+            disease.setName("Zgnilizna twardzikowa soi.");
+            disease.setTemplateName("zgnilizna_twardzikowa_soi");
+            disease.setPrecautionDiagnose("");
+            disease.setInterventionDiagnose("Na początku kwitnienia wykonujemy zabiegi preparatami zawierającymi azoksystrobinę i triazol. W pełni kwitnienia wykonujemy zabieg preparatem Propulse.");
+            disease.setFactors(riskFactors);
+            disease.setSymptoms(symptoms);
+            disease.setPlantType(soja);
+            disease.setImageName("zgnilizna_twardzikowa_soi.jpg");
+            disease.setDiseaseDescription(fileStorageService.getDescriptionTxtFile(disease.getTemplateName()+".txt"));
+            disease.setCount(0L);
+            diseaseRepository.save(disease);
+
+        }
 
 
     }
