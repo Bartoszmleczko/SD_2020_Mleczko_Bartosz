@@ -262,7 +262,7 @@
  )
 
 (defrule zarazaZiemniaka01
-      (risk_factors  (czesta_uprawa_ziemniaka 1) (wysoka_wilgotnosc_ziemniak 1) (temp_12_18) )
+      (risk_factors  (czesta_uprawa_ziemniaka 1) (wysoka_wilgotnosc_ziemniak 1) (temp_12_18 1) )
      => (assert (zaraza_ziemniaka (istnieje 1) ))
  )
 
@@ -284,7 +284,7 @@
 )
 
 (defrule chwoscikBuraka02
-    (risk_factors {czesta_uprawa_burakow == 1 || duze_rosy == 1 || mgla == 1  || opady_mzawka == 1 || temp_15_20} )
+    (risk_factors {czesta_uprawa_burakow == 1 || duze_rosy == 1 || mgla == 1  || opady_mzawka == 1 || temp_15_20 == 1} )
     => (assert (chwoscik_buraka (istnieje 1)))
 )
 
@@ -330,7 +330,7 @@
  )
 
  (defrule rizoktoniozaZiemniakaInterw
-               (rizoktionioza_ziemniaka (istnieje 1))
+               (rizoktonioza_ziemniaka (istnieje 1))
            =>
            ( bind ?*str20* "rizoktonioza_ziemniaka:interw")
            (return ?*str20*)
